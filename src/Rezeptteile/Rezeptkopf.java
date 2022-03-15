@@ -40,19 +40,6 @@ public class Rezeptkopf {
         }
     }
 
-    public void qrGenerieren(){
-        try {
-            QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
-            QrCode qr = QrCode.encodeText(this.zutatenToString(), errCorLvl);
-
-            BufferedImage img = QrBufferedImage.toImage(qr, 20, 8, 0xffffff, 0x000000);
-            File imgFile = new File("QR_Test_generiert.png");
-            ImageIO.write(img, "png", imgFile);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     public Rezeptkopf(String rKoRezeptname, String rKoID) {
         this.rKoRezeptname = rKoRezeptname; //TODO update Datenbank
         this.rKoID = rKoID; //TODO Wie berechnen wir unsere IDs?

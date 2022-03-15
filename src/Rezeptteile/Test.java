@@ -1,9 +1,12 @@
 package Rezeptteile;
 
+import qrcodegen.QrBufferedImage;
+
 public class Test {
 
     public static void main(String[] args) {
         Rezeptkopf rez = new Rezeptkopf("Test", "ID");
-        //rez.zutatHinzufügen(new Rezeptzutat());
+        rez.zutatHinzufügen(new Rezeptzutat(200, new Zutat("Zwiebel"), rez));
+        QrBufferedImage.qrGenerieren(rez);
     }
 }
