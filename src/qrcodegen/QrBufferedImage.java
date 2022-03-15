@@ -10,7 +10,7 @@ import java.util.Objects;
 public class QrBufferedImage {
 
     public static java.awt.image.BufferedImage toImage(QrCode qr, int scale, int border, int lightColor, int darkColor) {
-        Objects.requireNonNull(qr);
+        //Objects.requireNonNull(qr);
         if (scale <= 0 || border < 0)
             throw new IllegalArgumentException("Value out of range");
         if (border > Integer.MAX_VALUE / 2 || qr.size + border * 2L > Integer.MAX_VALUE / scale)
@@ -31,7 +31,7 @@ public class QrBufferedImage {
             QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
             QrCode qr = QrCode.encodeText(rezeptkopf.zutatenToString(), errCorLvl);
 
-            BufferedImage img = QrBufferedImage.toImage(qr, 20, 8, 0xffffff, 0x000000);
+            BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
             File imgFile = new File("QR_Test_generiert.png");
             ImageIO.write(img, "png", imgFile);
         }catch (Exception e){

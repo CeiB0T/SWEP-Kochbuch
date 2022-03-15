@@ -68,7 +68,9 @@ public class Rezeptkopf {
             if(rKoRezeptzutat.size() > 0) {
                 String ret = "";
                 for (Rezeptzutat rezeptzutat : rKoRezeptzutat) {
-                    ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + " " + rezeptzutat.getrZuEinheit() + "\n";
+                    if(rezeptzutat.getrZuEinheit() == null){
+                        ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + "\n";
+                    }else ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + " " + rezeptzutat.getrZuEinheit() + "\n";
                 }
                 return ret;
             }
