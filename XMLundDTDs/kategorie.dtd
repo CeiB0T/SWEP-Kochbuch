@@ -1,0 +1,5 @@
+<!ELEMENT kategorien (kategorie*)>
+<!ELEMENT kategorie (katitel,zugehrid)>
+<!ATTLIST kategorie kaid ID #REQUIRED>
+<!ELEMENT katitel (#CDATA)>
+<!ELEMENT zugehrid (#PCDATA)>
