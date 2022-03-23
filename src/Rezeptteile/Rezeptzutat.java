@@ -3,13 +3,14 @@ package Rezeptteile;
 public class Rezeptzutat {
 
     private double rZuMenge;
-    private String rZuEinheit; //TODO Einheit als Enum?
+    private String rZuEinheit;
     private Zutat rZuZutat;
     private transient Rezeptkopf rZuRezeptkopf;
 
-    public Rezeptzutat(double rZuMenge, Zutat rZuZutat, Rezeptkopf rZuRezeptkopf) {
+    public Rezeptzutat(double rZuMenge, String rZuEinheit, Zutat rZuZutat, Rezeptkopf rZuRezeptkopf) {
         this.rZuMenge = rZuMenge; //TODO update Datenbank
         this.rZuZutat = rZuZutat;
+        this.rZuEinheit = rZuEinheit;
         this.rZuRezeptkopf = rZuRezeptkopf;
     }
 
