@@ -14,6 +14,7 @@ public class Rezeptkopf {
     private String rKoRezeptname;
     private final String rKoID;
     private int rKoPersonenzahl;
+    private String rKoRezeptinhalt;
     private ArrayList<Rezeptzutat> rKoRezeptzutat;
 
     public void zutatHinzufügen(Rezeptzutat rezeptzutat){
@@ -32,7 +33,6 @@ public class Rezeptkopf {
                 for (Rezeptzutat rezeptzutat: rKoRezeptzutat) {
                     if (rezeptzutat.getrZuZutat().getZutName() == zutatName){
                         rezeptzutat.setrZuZutat(null); //TODO update Datenbank
-                        rezeptzutat.setrZuRezeptkopf(null); //TODO update Datenbank
                     }
                 }
             }
@@ -89,15 +89,20 @@ public class Rezeptkopf {
         this.rKoRezeptzutat = rKoRezeptzutat;
     }
 
+    public String getrKoRezeptinhalt() {
+        return rKoRezeptinhalt;
+    }
+
+    public void setrKoRezeptinhalt(String rKoRezeptinhalt) {
+        this.rKoRezeptinhalt = rKoRezeptinhalt;
+    }
+
     public String toJSON(){
         return new Gson().toJson(this);
     }
 
     public static Rezeptkopf fromJSON(String json){
         Rezeptkopf result = new Gson().fromJson(json, Rezeptkopf.class); //String json wird zu einem Rezeptkopf Objekt konvertiert
-        for (Rezeptzutat zutat: result.rKoRezeptzutat) { //Alle Zutaten werden dem Rezeptkopf result zugeordnet
-            zutat.setrZuRezeptkopf(result);
-        }
         return result;
     }
 

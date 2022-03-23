@@ -1,6 +1,9 @@
 package Persistenz;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileUtil {
 
@@ -14,6 +17,9 @@ public class FileUtil {
     }
 
     public static String readFromFile(String filename) throws IOException{
+        File datei = new File(filename);
+        if (!datei.exists()) return "";
+
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         StringBuilder stringBuilder = new StringBuilder();
         String line;

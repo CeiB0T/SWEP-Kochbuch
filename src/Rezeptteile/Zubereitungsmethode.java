@@ -33,15 +33,6 @@ public class Zubereitungsmethode {
         this.zMeDefinition = zMeDefinition; //TODO update Datenbank
     }
 
-    public String toJSON(){
-        return new Gson().toJson(this);
-    }
-
-    public static Zubereitungsmethode fromJSON(String json){
-        Zubereitungsmethode result = new Gson().fromJson(json, Zubereitungsmethode.class); //String json wird zu einem Zubereitungsmethode Objekt konvertiert
-        return result;
-    }
-
     @Override
     public String toString() {
         return "Zubereitungsmethode{" +

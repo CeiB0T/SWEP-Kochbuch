@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Kategorie {
 
     private String katName;
-    private ArrayList<Rezeptkopf> katRezeptkopf;
+    private ArrayList<Rezeptkopf> katRezeptkopf; //TODO anstatt Liste Rezeptköpfe eine Liste von IDs -> mit IDs Liste zu RezeptkopfController und dort getRezeptkopf aufrufen
 
     public void rezeptHinzufügen(Rezeptkopf rezeptkopf){
         try {
@@ -48,11 +48,6 @@ public class Kategorie {
 
     public static Kategorie fromJSON(String json){
         Kategorie result = new Gson().fromJson(json, Kategorie.class); //String json wird zu einem kategorie Objekt konvertiert
-        for (Rezeptkopf kopf: result.katRezeptkopf) {
-            for (Rezeptzutat zutat : kopf.getrKoRezeptzutat()) { //Alle Zutaten werden dem Rezeptkopf result zugeordnet
-                zutat.setrZuRezeptkopf(kopf);
-            }
-        }
         return result;
     }
 

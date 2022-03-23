@@ -5,13 +5,11 @@ public class Rezeptzutat {
     private double rZuMenge;
     private String rZuEinheit;
     private Zutat rZuZutat;
-    private transient Rezeptkopf rZuRezeptkopf;
 
-    public Rezeptzutat(double rZuMenge, String rZuEinheit, Zutat rZuZutat, Rezeptkopf rZuRezeptkopf) {
+    public Rezeptzutat(double rZuMenge, String rZuEinheit, Zutat rZuZutat) {
         this.rZuMenge = rZuMenge; //TODO update Datenbank
         this.rZuZutat = rZuZutat;
         this.rZuEinheit = rZuEinheit;
-        this.rZuRezeptkopf = rZuRezeptkopf;
     }
 
     public double getrZuMenge() {
@@ -28,14 +26,6 @@ public class Rezeptzutat {
 
     public void setrZuZutat(Zutat rZuZutat) {
         this.rZuZutat = rZuZutat; //TODO update Datenbank
-    }
-
-    public Rezeptkopf getrZuRezeptkopf() {
-        return rZuRezeptkopf;
-    }
-
-    public void setrZuRezeptkopf(Rezeptkopf rZuRezeptkopf) {
-        this.rZuRezeptkopf = rZuRezeptkopf; //TODO update Datenbank
     }
 
     public String getrZuEinheit() {
