@@ -1,5 +1,6 @@
 package Rezeptteile;
 
+import com.google.gson.Gson;
 import qrcodegen.QrBufferedImage;
 import qrcodegen.QrCode;
 
@@ -78,5 +79,35 @@ public class Rezeptkopf {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Rezeptzutat> getrKoRezeptzutat() {
+        return rKoRezeptzutat;
+    }
+
+    public void setrKoRezeptzutat(ArrayList<Rezeptzutat> rKoRezeptzutat) {
+        this.rKoRezeptzutat = rKoRezeptzutat;
+    }
+
+    public String toJSON(){
+        return new Gson().toJson(this);
+    }
+
+    public static Rezeptkopf fromJSON(String json){
+        Rezeptkopf result = new Gson().fromJson(json, Rezeptkopf.class); //String json wird zu einem Rezeptkopf Objekt konvertiert
+        for (Rezeptzutat zutat: result.rKoRezeptzutat) { //Alle Zutaten werden dem Rezeptkopf result zugeordnet
+            zutat.setrZuRezeptkopf(result);
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Rezeptkopf{" +
+                "rKoRezeptname='" + rKoRezeptname + '\'' +
+                ", rKoID='" + rKoID + '\'' +
+                ", rKoPersonenzahl=" + rKoPersonenzahl +
+                ", rKoRezeptzutat=" + rKoRezeptzutat +
+                '}';
     }
 }

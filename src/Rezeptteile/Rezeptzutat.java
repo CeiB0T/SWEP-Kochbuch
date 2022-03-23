@@ -5,7 +5,7 @@ public class Rezeptzutat {
     private double rZuMenge;
     private String rZuEinheit; //TODO Einheit als Enum?
     private Zutat rZuZutat;
-    private Rezeptkopf rZuRezeptkopf;
+    private transient Rezeptkopf rZuRezeptkopf;
 
     public Rezeptzutat(double rZuMenge, Zutat rZuZutat, Rezeptkopf rZuRezeptkopf) {
         this.rZuMenge = rZuMenge; //TODO update Datenbank
@@ -43,5 +43,14 @@ public class Rezeptzutat {
 
     public void setrZuEinheit(String rZuEinheit) {
         this.rZuEinheit = rZuEinheit; //TODO update Datenbank
+    }
+
+    @Override
+    public String toString() {
+        return "Rezeptzutat{" +
+                "rZuMenge=" + rZuMenge +
+                ", rZuEinheit='" + rZuEinheit + '\'' +
+                ", rZuZutat=" + rZuZutat +
+                '}';
     }
 }
