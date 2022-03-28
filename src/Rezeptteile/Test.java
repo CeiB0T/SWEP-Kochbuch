@@ -5,7 +5,7 @@ import controller.ZutatenController;
 
 import java.io.IOException;
 
-public class Test {
+public class Test{
 
     public static void main(String[] args) throws IOException {
         ZutatenController zutatenController = ZutatenController.getInstance();
