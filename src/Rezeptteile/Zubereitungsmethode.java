@@ -1,5 +1,7 @@
 package Rezeptteile;
 
+import com.google.gson.Gson;
+
 public class Zubereitungsmethode {
 
     private String zMeName;
@@ -29,5 +31,14 @@ public class Zubereitungsmethode {
 
     public void setzMeDefinition(String zMeDefinition) {
         this.zMeDefinition = zMeDefinition; //TODO update Datenbank
+    }
+
+    @Override
+    public String toString() {
+        return "Zubereitungsmethode{" +
+                "zMeName='" + zMeName + '\'' +
+                ", zMeDefinition='" + zMeDefinition + '\'' +
+                ", zMeID='" + zMeID + '\'' +
+                '}';
     }
 }

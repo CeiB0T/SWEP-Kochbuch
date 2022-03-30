@@ -1,0 +1,3 @@
+<!ELEMENT zutaten (zutat*)>
+<!ELEMENT zutat (#CDATA)>
+<!ATTLIST zutat zid ID #REQUIERD>

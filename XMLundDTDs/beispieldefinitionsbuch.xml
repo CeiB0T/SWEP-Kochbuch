@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE definitionsbuch SYSTEM "definitionen.dtd">
+<definitionsbuch>
+	<definition did=1>
+		<detitel>Würfeln</detitel>
+		<deinhalt>In (kleine) anhähernd Quaderförmige Objekte Zerteilen</deinhalt>
+	</definition>
+	<definition did=2>
+		<detitel>Dünsten</detitel>
+		<deinhalt>In heißem Dampf garen</deinhalt>
+	</definition>
+</definitionsbuch>

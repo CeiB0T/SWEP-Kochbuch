@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE definitionsbuch SYSTEM "definitionen.dtd">
+<kategorien>
+	<kategorie kaid=1>
+		<katitel>Vegan</katitel>
+		<zugehrid>1;2;15</zugehrid>
+	</kategorie>
+</kategorien>

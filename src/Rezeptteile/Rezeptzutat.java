@@ -3,14 +3,13 @@ package Rezeptteile;
 public class Rezeptzutat {
 
     private double rZuMenge;
-    private String rZuEinheit; //TODO Einheit als Enum?
+    private String rZuEinheit;
     private Zutat rZuZutat;
-    private Rezeptkopf rZuRezeptkopf;
 
-    public Rezeptzutat(double rZuMenge, Zutat rZuZutat, Rezeptkopf rZuRezeptkopf) {
+    public Rezeptzutat(double rZuMenge, String rZuEinheit, Zutat rZuZutat) {
         this.rZuMenge = rZuMenge; //TODO update Datenbank
         this.rZuZutat = rZuZutat;
-        this.rZuRezeptkopf = rZuRezeptkopf;
+        this.rZuEinheit = rZuEinheit;
     }
 
     public double getrZuMenge() {
@@ -29,19 +28,20 @@ public class Rezeptzutat {
         this.rZuZutat = rZuZutat; //TODO update Datenbank
     }
 
-    public Rezeptkopf getrZuRezeptkopf() {
-        return rZuRezeptkopf;
-    }
-
-    public void setrZuRezeptkopf(Rezeptkopf rZuRezeptkopf) {
-        this.rZuRezeptkopf = rZuRezeptkopf; //TODO update Datenbank
-    }
-
     public String getrZuEinheit() {
         return rZuEinheit;
     }
 
     public void setrZuEinheit(String rZuEinheit) {
         this.rZuEinheit = rZuEinheit; //TODO update Datenbank
+    }
+
+    @Override
+    public String toString() {
+        return "Rezeptzutat{" +
+                "rZuMenge=" + rZuMenge +
+                ", rZuEinheit='" + rZuEinheit + '\'' +
+                ", rZuZutat=" + rZuZutat +
+                '}';
     }
 }
