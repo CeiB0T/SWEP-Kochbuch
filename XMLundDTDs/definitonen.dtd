@@ -1,5 +1,0 @@
-<!ELEMENT definitionsbuch (definition*)>
-<!ELEMENT definition (detitel, deinhalt)>
-<!ATTLIST definition did ID #REQUIRED>
-<!ELEMENT detitel (#CDATA)>
-<!ELEMENT deinhalt (#CDATA)>

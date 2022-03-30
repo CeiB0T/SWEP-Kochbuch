@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<!DOCTYPE zutaten SYSTEM "zutaten.dtd">
-
-<zutaten>
-	<zutat zid=1>Mais</zutat>
-	<zutat zid=12>Apfel</zutat>
-</zutaten>
