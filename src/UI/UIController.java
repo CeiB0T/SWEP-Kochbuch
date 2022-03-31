@@ -1,6 +1,8 @@
 package UI;
 
+import Rezeptteile.Rezeptkopf;
 import controller.RezeptkopfController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -21,7 +23,8 @@ public class UIController {
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void rezeptListeUpdate(){
-        //listStartRezepte.add
+        ObservableList<Rezeptkopf> rezepte = (ObservableList<Rezeptkopf>) rezeptkopfController.getAlleRezeptkopf();
+        listStartRezepte.setItems(rezepte);
     }
 
     public void neuesRezeptFenster(ActionEvent actionEvent) {
