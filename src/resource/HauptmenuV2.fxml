@@ -30,6 +30,12 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
+            <Region prefHeight="200.0" prefWidth="200.0" />
+            <Button fx:id="btnStartUpdate" mnemonicParsing="false" onAction="#updateListe" prefHeight="64.0" prefWidth="274.0" text="Update Liste">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
             <Region VBox.vgrow="ALWAYS" />
             <Button fx:id="btnStartProgrammBeenden" alignment="CENTER" mnemonicParsing="false" onAction="#programmBeenden" prefHeight="67.0" prefWidth="275.0" text="Verlassen">
                <font>

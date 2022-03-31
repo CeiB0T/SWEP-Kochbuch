@@ -115,4 +115,12 @@ public class Rezeptkopf {
                 ", rKoRezeptzutat=" + rKoRezeptzutat +
                 '}';
     }
+
+    public String listViewString(){
+        String rezeptInhaltAusgabe = "nein";
+        if (getrKoRezeptinhalt() != null){
+            if (!getrKoRezeptinhalt().isEmpty()) rezeptInhaltAusgabe = "ja";
+        }
+        return rKoRezeptname +", anzahl Zutaten: "+ rKoRezeptzutat.size() + ", Anzahl Personen: " + rKoPersonenzahl + ", Inhalt? " + rezeptInhaltAusgabe;
+    }
 }

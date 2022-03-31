@@ -38,6 +38,14 @@ public class Test{
         }
         rez3.zutatHinzufügen(new Rezeptzutat(1, "stück", zutat));
 
+        Rezeptkopf rez4 = RezeptkopfController.getInstance().neuerRezeptkopf("Gurke");
+        if (zutatenController.existiertZutat("Gurke")){
+            zutat = zutatenController.getZutat("Gurke");
+        }else{
+            zutat = zutatenController.neueZutat("Gurke");
+        }
+        rez4.zutatHinzufügen(new Rezeptzutat(1, "stück", zutat));
+
         RezeptkopfController.getInstance().speichenDatei();
 
         RezeptkopfController.getInstance().leseDatei();
