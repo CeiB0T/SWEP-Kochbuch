@@ -69,7 +69,7 @@
                <children>
                   <BorderPane prefHeight="720.0" prefWidth="488.0">
                      <top>
-                        <TextField fx:id="textStartSuche" promptText="Sucher Rezept/ Kategorie/ Zutat" BorderPane.alignment="CENTER" />
+                        <TextField fx:id="textStartSuche" onKeyTyped="#sucheStarten" promptText="Sucher Rezept/ Kategorie/ Zutat" BorderPane.alignment="CENTER" />
                      </top>
                      <right>
                         <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />

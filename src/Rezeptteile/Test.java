@@ -46,7 +46,9 @@ public class Test{
         }
         rez4.zutatHinzufügen(new Rezeptzutat(1, "stück", zutat));
 
-        RezeptkopfController.getInstance().speichenDatei();
+        Rezeptkopf rez5 = RezeptkopfController.getInstance().neuerRezeptkopf("101 Dalmatiner");
+
+        RezeptkopfController.getInstance().speichernDatei();
 
         RezeptkopfController.getInstance().leseDatei();
         for (Rezeptkopf rezeptkopf: RezeptkopfController.getInstance().getAlleRezeptkopf()) {
