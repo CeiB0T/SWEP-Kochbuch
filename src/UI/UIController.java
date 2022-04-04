@@ -16,9 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class UIController{
@@ -39,27 +41,32 @@ public class UIController{
 
     @FXML ListView getListStartRezepte;
     public void initialize() throws IOException {
-        update();
+        updateListe();
     }
 
-    public void updateListe(ActionEvent actionEvent) throws IOException {
+    public void listeGeklickt(MouseEvent mouseEvent) {
+        System.out.println("liste wurde angeklickt");
+    }
+
+    public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
         ObservableList<String> rezepteListe = FXCollections.observableArrayList();
         rezeptkopfController.leseDatei();
         for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
                 rezepteListe.add(rez.listViewString());
         }
+        sortierenListe(rezepteListe);
         listStartRezepte.setItems(rezepteListe);
         listStartRezepte.refresh();
     }
 
-    public void update() throws IOException {
-        ObservableList<String> rezepteListe = FXCollections.observableArrayList();
-        rezeptkopfController.leseDatei();
-        for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
-            rezepteListe.add(rez.listViewString());
-        }
-        listStartRezepte.setItems(rezepteListe);
-        listStartRezepte.refresh();
+    public ObservableList sortierenListe(ObservableList<String> liste){
+           liste.sort(new Comparator<String>() {
+               @Override
+               public int compare(String o1, String o2) {
+                   return o1.compareTo(o2);
+               }
+           });
+           return liste;
     }
 
     public void neuesRezeptFenster(ActionEvent actionEvent) throws IOException {
@@ -134,4 +141,4 @@ public class UIController{
             }
                 listStartSuche.setItems(gefundenListe);
         }
-    }
+}

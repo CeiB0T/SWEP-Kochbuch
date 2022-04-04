@@ -45,6 +45,15 @@ public class RezeptkopfController {
         return köpfe.get(id);
     }
 
+    public Rezeptkopf getRezeptkopfByName(String name){
+        for (Rezeptkopf rez: getAlleRezeptkopf()) {
+            if (rez.getrKoRezeptname().equals(name)){
+                return rez;
+            }
+        }
+        return null;
+    }
+
     public boolean existiertRezeptkopf(String id){
         return köpfe.containsKey(id);
     }
