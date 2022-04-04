@@ -1,6 +1,7 @@
 package Rezeptteile;
 
 import controller.RezeptkopfController;
+import controller.ZubereitungsmethodeController;
 import controller.ZutatenController;
 //import javafx.application.Application;
 
@@ -10,7 +11,10 @@ public class Test{
 
     public static void main(String[] args) throws IOException {
         ZutatenController zutatenController = ZutatenController.getInstance();
+        ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
         Zutat zutat = null;
+
+        //Ab hier werden Rezepte eingefügt
 
         Rezeptkopf rez = RezeptkopfController.getInstance().neuerRezeptkopf("Pustekuchen");
         if (zutatenController.existiertZutat("Gurke")){
@@ -47,6 +51,20 @@ public class Test{
         rez4.zutatHinzufügen(new Rezeptzutat(1, "stück", zutat));
 
         Rezeptkopf rez5 = RezeptkopfController.getInstance().neuerRezeptkopf("101 Dalmatiner");
+
+        //Ab hier werden Zubereitungsmethoden eingefügt
+
+        Zubereitungsmethode  zub = zubController.neueZubereitungsmethode("Braten");
+        zub.setzMeDefinition("In einer Pfanne mit Öl hoch erhitzen");
+
+        zubController.speichenDatei();
+        zubController.leseDatei();
+
+        for (Zubereitungsmethode zubereitung: zubController.getAlleZubereitungsmethoden()) {
+            System.out.println(zubereitung.toString());
+        }
+
+        //Mehr Funktionalität
 
         RezeptkopfController.getInstance().speichernDatei();
 

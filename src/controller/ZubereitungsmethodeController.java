@@ -1,14 +1,18 @@
 package controller;
 
 import Persistenz.FileUtil;
+import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Zubereitungsmethode;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ZubereitungsmethodeController {
 
@@ -68,7 +72,8 @@ public class ZubereitungsmethodeController {
 
     public void leseDatei() throws IOException {
         String json = FileUtil.readFromFile("Zubereitungsmethoden.json");
-        HashMap map = new Gson().fromJson(json, HashMap.class);
+        Type type = new TypeToken<Map<String, Zubereitungsmethode>>(){}.getType();
+        HashMap map = new HashMap(new Gson().fromJson(json, type));
         this.zubereitungsmethoden = map;
     }
 }

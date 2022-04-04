@@ -11,6 +11,8 @@ import java.util.Objects;
 
 public class FxmlStarten extends Application {
 
+    UIController uiController;
+
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));

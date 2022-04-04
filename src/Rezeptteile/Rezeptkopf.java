@@ -1,12 +1,6 @@
 package Rezeptteile;
 
 import com.google.gson.Gson;
-import qrcodegen.QrBufferedImage;
-import qrcodegen.QrCode;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 public class Rezeptkopf {

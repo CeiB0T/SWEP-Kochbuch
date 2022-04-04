@@ -8,12 +8,18 @@ import controller.RezeptkopfController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class UIController{
 
@@ -26,16 +32,32 @@ public class UIController{
     public ListView listStartSuche;
     public ListView listStartRezepte;
 
+    private Stage stage;
+    private Scene scene;
+
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
+
+    @FXML ListView getListStartRezepte;
+    public void initialize() throws IOException {
+        update();
+    }
 
     public void updateListe(ActionEvent actionEvent) throws IOException {
         ObservableList<String> rezepteListe = FXCollections.observableArrayList();
         rezeptkopfController.leseDatei();
         for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
                 rezepteListe.add(rez.listViewString());
-
         }
+        listStartRezepte.setItems(rezepteListe);
+        listStartRezepte.refresh();
+    }
 
+    public void update() throws IOException {
+        ObservableList<String> rezepteListe = FXCollections.observableArrayList();
+        rezeptkopfController.leseDatei();
+        for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
+            rezepteListe.add(rez.listViewString());
+        }
         listStartRezepte.setItems(rezepteListe);
         listStartRezepte.refresh();
     }
@@ -44,8 +66,13 @@ public class UIController{
         //TODO neue FXML für "neues Rezept" einbinden und Starten
     }
 
-    public void definitionsbuchOeffnen(ActionEvent actionEvent) {
+    public void definitionsbuchOeffnen(ActionEvent actionEvent) throws IOException {
         //TODO neue FXML für "Definitionsbuch" einbinden und Starten
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/Definitionsbuch.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void programmBeenden(ActionEvent actionEvent) {
