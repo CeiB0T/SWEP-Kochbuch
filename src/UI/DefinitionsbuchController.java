@@ -38,16 +38,14 @@ public class DefinitionsbuchController {
 
     ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
 
-    public void definitionHinzufügen(ActionEvent actionEvent) { //TODO Definition: Test ob Felder editierbar uns leer sind
-        textTitel.setText("");
+    public void definitionHinzufügen(ActionEvent actionEvent) {
+        textLoeschen();
         textTitel.setStyle("-fx-background-color: rgb(240, 255, 240)");
-        textInhalt.setText("");
         neueDefinition = true;
         textfelderEditierbar();
     }
 
-    //TODO error fixen
-    public void definitionBearbeiten(ActionEvent actionEvent) { //TODO Definition: Test ob Daten der ausgewählten Definition korrekt angezeigt werden
+    public void definitionBearbeiten(ActionEvent actionEvent) {
         neueDefinition = false;
         Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
         if (zubBearbeiten != null) {
@@ -55,8 +53,9 @@ public class DefinitionsbuchController {
         }
     }
 
-    public void definitionSpeichern(ActionEvent actionEvent) throws IOException { //TODO Definition: Test ob Daten korrekt in der Datei gespeichert + in Liste angezeigt werden
-            if (!textTitel.getText().isEmpty() || textTitel.getText().trim() == "" || textTitel.getText().trim() == " ") { //TODO leere strings umgehen
+    public void definitionSpeichern(ActionEvent actionEvent) throws IOException {
+            if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
+                System.out.println("RegEx wurde akzeptiert");
                 if (zubController.existiertName(textTitel.getText())){//Überschreiben von bestehender Zubereitungsmethode
                     if (neueDefinition){
                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -66,16 +65,22 @@ public class DefinitionsbuchController {
                         alert.showAndWait();
                     }else {
                         Zubereitungsmethode zubAktualisieren = zubController.getZubereitungsmethodeByName(textTitel.getText());
-                        zubAktualisieren.setzMeName(textTitel.getText());
-                        zubAktualisieren.setzMeDefinition(textInhalt.getText());
+                        zubAktualisieren.setzMeName(textTitel.getText().trim());
+                        zubAktualisieren.setzMeDefinition(textInhalt.getText().trim());
                         zubController.speichenDatei();
                     }
                 }else { //Speichern neuer Zubereitungsmethode
-                    Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText());
-                    zubNeu.setzMeDefinition(textInhalt.getText());
+                    Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());
+                    zubNeu.setzMeDefinition(textInhalt.getText().trim());
                     zubController.speichenDatei();
                 }
                 updateListe();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ein Fehler ist aufgetreten");
+                alert.setHeaderText("Dieser Definitionsname ist nicht zulässig!");
+                alert.setContentText("Eine Definition darf nicht nur aus Leerzeichen bestehen");
+                alert.showAndWait();
             }
         textfelderNichtEditierbar();
         textFeldreset();
@@ -89,6 +94,7 @@ public class DefinitionsbuchController {
         updateListe();
         textfelderNichtEditierbar();
         textFeldreset();
+        textLoeschen();
     }
 
     public void updateListe() throws IOException {
@@ -131,7 +137,14 @@ public class DefinitionsbuchController {
         textInhalt.setStyle("-fx-background-color: white");
     }
 
-    public void addRezept(ActionEvent actionEvent) {//TODO neues Rezept Maske öffnen
+    public void addRezept(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Rezeptansicht");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void returnHome(ActionEvent actionEvent) throws IOException {
@@ -153,5 +166,10 @@ public class DefinitionsbuchController {
         Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
         textTitel.setText(zub.getzMeName());
         textInhalt.setText(zub.getzMeDefinition());
+    }
+
+    public void textLoeschen(){
+        textTitel.setText("");
+        textInhalt.setText("");
     }
 }

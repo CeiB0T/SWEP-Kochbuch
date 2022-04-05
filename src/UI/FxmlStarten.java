@@ -20,6 +20,7 @@ public class FxmlStarten extends Application {
         scene.setRoot(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

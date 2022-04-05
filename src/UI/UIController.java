@@ -78,11 +78,16 @@ public class UIController{
     }
 
     public void neuesRezeptFenster(ActionEvent actionEvent) throws IOException {
-        //TODO neue FXML für "neues Rezept" einbinden und Starten
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Rezeptansicht");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void definitionsbuchOeffnen(ActionEvent actionEvent) throws IOException {
-        //TODO neue FXML für "Definitionsbuch" einbinden und Starten
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
