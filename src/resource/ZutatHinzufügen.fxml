@@ -102,16 +102,22 @@
                               <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="300.0" prefHeight="573.0" prefWidth="300.0">
                                  <children>
                                     <Label text="Menge" />
-                                    <TextArea fx:id="textMenge" prefHeight="590.0" prefWidth="300.0" wrapText="true" />
+                                    <TextArea fx:id="textMenge" editable="false" prefHeight="590.0" prefWidth="300.0" wrapText="true" />
                                  </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
                               </VBox>
                               <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="300.0" prefHeight="573.0" prefWidth="300.0">
                                  <children>
                                     <Label text="Einheit" />
-                                    <TextArea fx:id="textEinheit" prefHeight="631.0" prefWidth="300.0" wrapText="true" />
+                                    <TextArea fx:id="textEinheit" editable="false" prefHeight="631.0" prefWidth="300.0" wrapText="true" />
                                  </children>
                               </VBox>
                            </children>
+                           <BorderPane.margin>
+                              <Insets top="10.0" />
+                           </BorderPane.margin>
                         </HBox>
                      </center>
                   </BorderPane>
