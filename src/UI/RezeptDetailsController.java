@@ -1,30 +1,71 @@
 package UI;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import qrcodegen.QrBufferedImage;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class RezeptDetailsController {
     
     public Button btnDefinitionsbuch;
     public Button btnReturnHome;
     public Button btnExit;
+    public Button btnBearbeiten;
+    public Button btnSpeichern;
+    public Button btnLoeschen;
+    public Button btnNeuesRezept;
+
     public ImageView imgQR;
     public TextArea textRezeptNamen;
     public TextArea textZutaten;
     public TextArea textZubereitung;
-    public Button btnBearbeiten;
-    public Button btnSpeichern;
-    public Button btnLöschen;
 
-    public void openDefinition(ActionEvent actionEvent) {
+    private Stage stage;
+    private Scene scene;
+
+    public void initialize() throws IOException {
+        if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
+
+            UIController.neuesRezept = false; //Zurücksetzen auf default Status
+        }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
+
+        }
     }
 
-    public void returnHome(ActionEvent actionEvent) {
+    public void openDefinition(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
+        stage.show();
+    }
+
+    public void returnHome(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
+        stage.show();
     }
 
     public void programmSchließen(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
     }
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
@@ -34,5 +75,20 @@ public class RezeptDetailsController {
     }
 
     public void rezeptLöschen(ActionEvent actionEvent) {
+    }
+
+    public void qrAnzeigen() throws IOException {
+        BufferedImage bufferedImage = QrBufferedImage.qrLinkGenerieren("https://www.youtube.com/watch?v=o-YBDTqX_ZU");
+        imgQR.setImage(SwingFXUtils.toFXImage(bufferedImage,null));
+    }
+
+    public void textfelderEditierbar(){
+        textRezeptNamen.setEditable(true);
+        textZubereitung.setEditable(true);
+    }
+
+    public void textfelderNichtEditierbar(){
+        textRezeptNamen.setEditable(false);
+        textZubereitung.setEditable(false);
     }
 }

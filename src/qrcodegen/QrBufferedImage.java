@@ -5,7 +5,6 @@ import Rezeptteile.Rezeptkopf;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Objects;
 
 public class QrBufferedImage {
 
@@ -37,5 +36,17 @@ public class QrBufferedImage {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static BufferedImage qrLinkGenerieren(String string){
+        try {
+            QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
+            QrCode qr = QrCode.encodeText(string, errCorLvl);
+            BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
+            return img;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
