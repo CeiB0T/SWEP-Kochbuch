@@ -1,5 +1,11 @@
 package UI;
 
+import Rezeptteile.Rezeptkopf;
+import Rezeptteile.Rezeptzutat;
+import Rezeptteile.Zutat;
+import controller.RezeptkopfController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -24,22 +31,39 @@ public class RezeptDetailsController {
     public Button btnBearbeiten;
     public Button btnSpeichern;
     public Button btnLoeschen;
-    public Button btnNeuesRezept;
 
     public ImageView imgQR;
-    public TextArea textRezeptNamen;
+    public TextArea textRezeptName;
     public TextArea textZutaten;
     public TextArea textZubereitung;
+    public ListView listZutaten;
 
     private Stage stage;
     private Scene scene;
 
+    RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
+
+    public ObservableList zutatenAuflisten(Rezeptkopf rezeptkopf){
+        ObservableList ret = FXCollections.observableArrayList();
+        if (!rezeptkopf.getrKoRezeptzutat().isEmpty() || rezeptkopf.getrKoRezeptzutat() == null) {
+            for (Rezeptzutat zut : rezeptkopf.getrKoRezeptzutat()) {
+                ret.add(zut.listViewString());
+            }
+            return ret;
+        }
+        return null;
+    }
+
     public void initialize() throws IOException {
         if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
-
-            UIController.neuesRezept = false; //Zurücksetzen auf default Status
+            textfelderEditierbar();
         }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
-
+            try {
+                Rezeptkopf rezeptkopf = UIController.uebertrag;
+                textRezeptName.setText(rezeptkopf.getrKoRezeptname());
+                listZutaten.setItems(zutatenAuflisten(rezeptkopf));
+                textZubereitung.setText(rezeptkopf.getrKoRezeptinhalt());
+            }catch (Exception e){}
         }
     }
 
@@ -69,9 +93,27 @@ public class RezeptDetailsController {
     }
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
+        if(textRezeptName.getText().matches(".*\\S+.*")) {
+            UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
+            //TODO Zutaten bearbeitung einfügen basierend auf ZutatenListe selection Model
+            UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
+        }
+        UIController.uebertrag = null;
     }
 
     public void rezeptSpeichern(ActionEvent actionEvent) {
+        if (UIController.neuesRezept){ //TODO neues Rezept speichern
+
+        }else { //Bestehendes Rezept wird gespeichert
+            Rezeptkopf rez = UIController.uebertrag;
+            if (textRezeptName.getText().matches(".*\\S+.*")){
+                rez.setrKoRezeptname(textRezeptName.getText().trim());
+                rez.setrKoRezeptinhalt(textZubereitung.getText());
+            }else {
+                //TODO Error Msg für falsche Benennung
+            }
+        }
+        UIController.neuesRezept = false; //Neues Rezept Bool zurücksetzen
     }
 
     public void rezeptLöschen(ActionEvent actionEvent) {
@@ -83,12 +125,12 @@ public class RezeptDetailsController {
     }
 
     public void textfelderEditierbar(){
-        textRezeptNamen.setEditable(true);
+        textRezeptName.setEditable(true);
         textZubereitung.setEditable(true);
     }
 
     public void textfelderNichtEditierbar(){
-        textRezeptNamen.setEditable(false);
+        textRezeptName.setEditable(false);
         textZubereitung.setEditable(false);
     }
 }

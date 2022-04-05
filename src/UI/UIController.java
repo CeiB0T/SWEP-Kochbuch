@@ -37,6 +37,7 @@ public class UIController{
     private Scene scene;
 
     public static Boolean neuesRezept = false;
+    public static Rezeptkopf uebertrag = null;
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     @FXML ListView getListStartRezepte;
@@ -51,7 +52,7 @@ public class UIController{
             String[] listenTextSplit = listenText.split(", ");
             String rezeptname = listenTextSplit[0];
 
-            Rezeptkopf geklicktesRezept = rezeptkopfController.getRezeptkopfByName(rezeptname);
+            uebertrag = rezeptkopfController.getRezeptkopfByName(rezeptname);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
@@ -59,11 +60,8 @@ public class UIController{
             stage.setTitle("Kochbuch: Rezeptansicht: " + rezeptname);
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setUserData(geklicktesRezept);//Hier wird das Rezept(Objekt) an die Stage als Userdata übergeben
             stage.show();
             }
-
-
         }
     }
 
