@@ -44,8 +44,24 @@ public class UIController{
         updateListe();
     }
 
-    public void listeRezepteGeklickt(MouseEvent mouseEvent) { //TODO
+    public void listeRezepteGeklickt(MouseEvent mouseEvent) throws IOException { //TODO
         if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
+            if(!Objects.isNull(listStartRezepte.getSelectionModel().getSelectedItem())){
+            String listenText = String.valueOf(listStartRezepte.getSelectionModel().getSelectedItem());
+            String[] listenTextSplit = listenText.split(", ");
+            String rezeptname = listenTextSplit[0];
+
+            Rezeptkopf geklicktesRezept = rezeptkopfController.getRezeptkopfByName(rezeptname);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setTitle("Kochbuch: Rezeptansicht: " + rezeptname);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+            }
+
 
         }
     }
