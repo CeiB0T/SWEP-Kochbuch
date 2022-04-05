@@ -59,6 +59,7 @@ public class UIController{
             stage.setTitle("Kochbuch: Rezeptansicht: " + rezeptname);
             stage.setScene(scene);
             stage.setResizable(false);
+            stage.setUserData(geklicktesRezept);//Hier wird das Rezept(Objekt) an die Stage als Userdata übergeben
             stage.show();
             }
 
