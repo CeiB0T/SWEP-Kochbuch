@@ -5,14 +5,20 @@ import controller.ZubereitungsmethodeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Effect;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class DefinitionsbuchController {
 
@@ -24,6 +30,12 @@ public class DefinitionsbuchController {
     public Button btnBearbeiten;
     public Button btnSpeichern;
     public Button btnLoeschen;
+    public Button btnNeuesRezept;
+    public Button btnReturnHome;
+    public Button btnExit;
+
+    private Stage stage;
+    private Scene scene;
 
     ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
 
@@ -62,8 +74,7 @@ public class DefinitionsbuchController {
         textFeldreset();
     }
 
-    //TODO error fixen - aktuelles Problem: die Selection ist ein String und kein Objekt -> wir müssen das Objekt zu dem String finden
-    public void definitionLoeschen(ActionEvent actionEvent) throws IOException { //TODO Definition: Test ob Daten gelöscht + aus der Liste entfernt werden
+    public void definitionLoeschen(ActionEvent actionEvent) throws IOException {
         Zubereitungsmethode zubLoeschen = (Zubereitungsmethode) listDefinitionen.getSelectionModel().getSelectedItem();
         zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
         zubController.speichenDatei();
@@ -110,5 +121,27 @@ public class DefinitionsbuchController {
     public void textFeldreset(){
         textTitel.setStyle("-fx-background-color: rgb(255,255,255)");
         textInhalt.setStyle("-fx-background-color: white");
+    }
+
+    public void addRezept(ActionEvent actionEvent) {//TODO neues Rezept Maske öffnen
+    }
+
+    public void returnHome(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void programmSchliessen(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
+    }
+
+    public void listDefinitionenKlicked(MouseEvent mouseEvent) {
+        Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
+        textTitel.setText(zub.getzMeName());
+        textInhalt.setText(zub.getzMeDefinition());
     }
 }

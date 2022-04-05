@@ -44,8 +44,14 @@ public class UIController{
         updateListe();
     }
 
-    public void listeGeklickt(MouseEvent mouseEvent) {
+    public void listeRezepteGeklickt(MouseEvent mouseEvent) { //TODO
         System.out.println("liste wurde angeklickt");
+        if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
+            System.out.println("Doppelklick");
+        }
+    }
+
+    public void listeSucheGeklickt(MouseEvent mouseEvent) { //TODO
     }
 
     public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
@@ -75,7 +81,7 @@ public class UIController{
 
     public void definitionsbuchOeffnen(ActionEvent actionEvent) throws IOException {
         //TODO neue FXML für "Definitionsbuch" einbinden und Starten
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/Definitionsbuch.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
