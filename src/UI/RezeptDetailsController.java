@@ -1,5 +1,6 @@
 package UI;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,9 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import qrcodegen.QrBufferedImage;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -36,7 +35,8 @@ public class RezeptDetailsController {
     private Stage stage;
     private Scene scene;
 
-    public void initialize(){
+    public void initialize() throws IOException {
+        qrAnzeigen();
     }
 
     public void openDefinition(ActionEvent actionEvent) throws IOException {
@@ -78,6 +78,6 @@ public class RezeptDetailsController {
 
     public void qrAnzeigen() throws IOException {
         BufferedImage bufferedImage = QrBufferedImage.qrLinkGenerieren("https://www.youtube.com/watch?v=o-YBDTqX_ZU");
-        //imgQR.setImage(bufferedImage.getScaledInstance(0,0,0));
+        imgQR.setImage(SwingFXUtils.toFXImage(bufferedImage,null));
     }
 }
