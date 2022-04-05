@@ -36,6 +36,7 @@ public class UIController{
     private Stage stage;
     private Scene scene;
 
+    public static Boolean neuesRezept = false;
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     @FXML ListView getListStartRezepte;
@@ -77,6 +78,7 @@ public class UIController{
     }
 
     public void neuesRezeptFenster(ActionEvent actionEvent) throws IOException {
+        neuesRezept = true;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

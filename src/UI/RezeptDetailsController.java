@@ -35,7 +35,12 @@ public class RezeptDetailsController {
     private Scene scene;
 
     public void initialize() throws IOException {
-        qrAnzeigen();
+        if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
+
+            UIController.neuesRezept = false; //Zurücksetzen auf default Status
+        }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
+
+        }
     }
 
     public void openDefinition(ActionEvent actionEvent) throws IOException {
@@ -72,11 +77,18 @@ public class RezeptDetailsController {
     public void rezeptLöschen(ActionEvent actionEvent) {
     }
 
-    public void neuesRezept(ActionEvent actionEvent) {
-    }
-
     public void qrAnzeigen() throws IOException {
         BufferedImage bufferedImage = QrBufferedImage.qrLinkGenerieren("https://www.youtube.com/watch?v=o-YBDTqX_ZU");
         imgQR.setImage(SwingFXUtils.toFXImage(bufferedImage,null));
+    }
+
+    public void textfelderEditierbar(){
+        textRezeptNamen.setEditable(true);
+        textZubereitung.setEditable(true);
+    }
+
+    public void textfelderNichtEditierbar(){
+        textRezeptNamen.setEditable(false);
+        textZubereitung.setEditable(false);
     }
 }
