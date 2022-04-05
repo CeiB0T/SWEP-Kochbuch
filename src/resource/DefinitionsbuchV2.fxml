@@ -47,7 +47,7 @@
         <items>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <BorderPane prefHeight="720.0" prefWidth="374.0">
+                  <BorderPane prefHeight="720.0" prefWidth="380.0">
                      <top>
                         <Button fx:id="btnDefinitionHinzufuegen" mnemonicParsing="false" onAction="#definitionHinzufügen" prefHeight="66.0" prefWidth="510.0" text="Definition Hinzufügen" BorderPane.alignment="CENTER">
                            <BorderPane.margin>

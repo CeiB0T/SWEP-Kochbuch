@@ -58,7 +58,7 @@
                                 <ListView fx:id="listStartRezepte" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#listeRezepteGeklickt" prefHeight="673.0" prefWidth="488.0" BorderPane.alignment="CENTER" />
                             </center>
                         </BorderPane>
-                        <BorderPane prefHeight="720.0" prefWidth="488.0">
+                        <BorderPane prefHeight="720.0" prefWidth="500.0">
                             <top>
                                 <TextField fx:id="textStartSuche" onKeyPressed="#sucheBackspace" onKeyTyped="#sucheStarten" promptText="Sucher Rezept/ Kategorie/ Zutat" BorderPane.alignment="CENTER" />
                             </top>
