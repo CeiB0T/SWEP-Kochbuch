@@ -1,12 +1,6 @@
 package Rezeptteile;
 
 import com.google.gson.Gson;
-import qrcodegen.QrBufferedImage;
-import qrcodegen.QrCode;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 public class Rezeptkopf {
@@ -114,5 +108,13 @@ public class Rezeptkopf {
                 ", rKoPersonenzahl=" + rKoPersonenzahl +
                 ", rKoRezeptzutat=" + rKoRezeptzutat +
                 '}';
+    }
+
+    public String listViewString(){
+        String rezeptInhaltAusgabe = "nein";
+        if (getrKoRezeptinhalt() != null){
+            if (!getrKoRezeptinhalt().isEmpty()) rezeptInhaltAusgabe = "ja";
+        }
+        return rKoRezeptname +", anzahl Zutaten: "+ rKoRezeptzutat.size() + ", Anzahl Personen: " + rKoPersonenzahl + ", Inhalt? " + rezeptInhaltAusgabe;
     }
 }

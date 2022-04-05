@@ -2,18 +2,25 @@ package UI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class FxmlStarten extends Application {
+
+    UIController uiController;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(FxmlStarten.class.getResource("HauptmenuV1.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-        stage.setTitle("Hello!");
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
+        Scene scene = new Scene(root, 1280, 720);
+        scene.setRoot(root);
+        stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

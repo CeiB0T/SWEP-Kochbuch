@@ -1,7 +1,6 @@
 package controller;
 
 import Persistenz.FileUtil;
-import Rezeptteile.Kategorie;
 import Rezeptteile.Rezeptkopf;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,12 +8,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class RezeptkopfController {
 
@@ -48,6 +45,15 @@ public class RezeptkopfController {
         return köpfe.get(id);
     }
 
+    public Rezeptkopf getRezeptkopfByName(String name){
+        for (Rezeptkopf rez: getAlleRezeptkopf()) {
+            if (rez.getrKoRezeptname().equals(name)){
+                return rez;
+            }
+        }
+        return null;
+    }
+
     public boolean existiertRezeptkopf(String id){
         return köpfe.containsKey(id);
     }
@@ -66,7 +72,7 @@ public class RezeptkopfController {
         return sb.toString().substring(0, 16);
     }
 
-    public void speichenDatei() throws IOException {
+    public void speichernDatei() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(köpfe);
         FileUtil.writeToFile("Rezeptköpfe.json", json);

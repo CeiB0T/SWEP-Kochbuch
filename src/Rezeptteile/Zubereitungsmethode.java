@@ -41,4 +41,8 @@ public class Zubereitungsmethode {
                 ", zMeID='" + zMeID + '\'' +
                 '}';
     }
+
+    public String listViewString(){
+        return zMeName;
+    }
 }
