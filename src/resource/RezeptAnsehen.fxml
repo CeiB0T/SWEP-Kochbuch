@@ -18,12 +18,12 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Button fx:id="btnDefinitionsbuch" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#openDefinition" prefHeight="66.0" prefWidth="671.0" text="Definitionsbuch">
+            <Button fx:id="btnReturnHome" mnemonicParsing="false" onAction="#returnHome" prefHeight="66.0" prefWidth="485.0" text="Startseite">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="btnReturnHome" mnemonicParsing="false" onAction="#returnHome" prefHeight="66.0" prefWidth="485.0" text="Startseite">
+            <Button fx:id="btnDefinitionsbuch" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#openDefinition" prefHeight="66.0" prefWidth="671.0" text="Definitionsbuch">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
