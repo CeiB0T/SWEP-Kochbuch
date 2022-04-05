@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -101,22 +102,38 @@ public class RezeptDetailsController {
         UIController.uebertrag = null;
     }
 
-    public void rezeptSpeichern(ActionEvent actionEvent) {
+    public void rezeptSpeichern(ActionEvent actionEvent) throws IOException {
         if (UIController.neuesRezept){ //TODO neues Rezept speichern
-
+            if (textRezeptName.getText().matches(".*\\S+.*")){
+                Rezeptkopf rez = rezeptkopfController.neuerRezeptkopf(textRezeptName.getText().trim());
+                rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
+                rezeptkopfController.speichernDatei();
+            }else {
+                alertNameUnzulässig();
+            }
         }else { //Bestehendes Rezept wird gespeichert
             Rezeptkopf rez = UIController.uebertrag;
             if (textRezeptName.getText().matches(".*\\S+.*")){
                 rez.setrKoRezeptname(textRezeptName.getText().trim());
-                rez.setrKoRezeptinhalt(textZubereitung.getText());
+                rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
+                rezeptkopfController.speichernDatei();
             }else {
-                //TODO Error Msg für falsche Benennung
+                alertNameUnzulässig();
             }
         }
         UIController.neuesRezept = false; //Neues Rezept Bool zurücksetzen
     }
 
+    public void alertNameUnzulässig(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Ein Fehler ist aufgetreten");
+        alert.setHeaderText("Dieser Rezeptname ist nicht zulässig!");
+        alert.setContentText("Ein Rezeptname darf nicht nur aus Leerzeichen bestehen");
+        alert.showAndWait();
+    }
+
     public void rezeptLöschen(ActionEvent actionEvent) {
+        //TODO alle Rezeptzutaten löschen und die Rezeptzutaten datei speichern. Dann den Rezeptkopf löschen.
     }
 
     public void qrAnzeigen() throws IOException {

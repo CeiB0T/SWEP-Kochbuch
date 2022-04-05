@@ -76,7 +76,6 @@ public class RezeptkopfController {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(köpfe);
         FileUtil.writeToFile("Rezeptköpfe.json", json);
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(köpfe));
     }
 
     public void leseDatei() throws IOException {
