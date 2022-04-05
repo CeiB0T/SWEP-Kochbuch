@@ -28,7 +28,6 @@ public class UIController{
     public Button btnStartNeuRezept;
     public Button btnStartDefinitionsbuch;
     public Button btnStartProgrammBeenden;
-    public Button btnStartUpdate;
 
     public TextField textStartSuche;
     public ListView listStartSuche;
