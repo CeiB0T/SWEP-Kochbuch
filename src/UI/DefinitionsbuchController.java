@@ -46,55 +46,60 @@ public class DefinitionsbuchController {
     }
 
     public void definitionBearbeiten(ActionEvent actionEvent) {
-        neueDefinition = false;
-        Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
-        if (zubBearbeiten != null) {
-            textfelderEditierbar();
+        if  (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
+            neueDefinition = false;
+            Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
+            if (zubBearbeiten != null) {
+                textfelderEditierbar();
+            }
         }
     }
 
     public void definitionSpeichern(ActionEvent actionEvent) throws IOException {
+        if (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
             if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
-                System.out.println("RegEx wurde akzeptiert");
-                if (zubController.existiertName(textTitel.getText())){//Überschreiben von bestehender Zubereitungsmethode
-                    if (neueDefinition){
+                if (zubController.existiertName(textTitel.getText())) {//Überschreiben von bestehender Zubereitungsmethode
+                    if (neueDefinition) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Ein Problem ist aufgetreten");
                         alert.setHeaderText("Definition bereits vorhanden");
                         alert.setContentText("Diese Definition existiert bereits. Falls Sie den Inhalt ändern wollen wählen Sie Diese bitte aus und klicken Sie Bearbeiten");
                         alert.showAndWait();
-                    }else {
+                    } else {
                         Zubereitungsmethode zubAktualisieren = zubController.getZubereitungsmethodeByName(textTitel.getText());
                         zubAktualisieren.setzMeName(textTitel.getText().trim());
                         zubAktualisieren.setzMeDefinition(textInhalt.getText().trim());
                         zubController.speichenDatei();
                     }
-                }else { //Speichern neuer Zubereitungsmethode
+                } else { //Speichern neuer Zubereitungsmethode
                     Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());
                     zubNeu.setzMeDefinition(textInhalt.getText().trim());
                     zubController.speichenDatei();
                 }
                 updateListe();
-            }else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Ein Fehler ist aufgetreten");
                 alert.setHeaderText("Dieser Definitionsname ist nicht zulässig!");
                 alert.setContentText("Eine Definition darf nicht nur aus Leerzeichen bestehen");
                 alert.showAndWait();
             }
-        textfelderNichtEditierbar();
-        textFeldreset();
-        neueDefinition = false;
+            textfelderNichtEditierbar();
+            textFeldreset();
+            neueDefinition = false;
+        }
     }
 
     public void definitionLoeschen(ActionEvent actionEvent) throws IOException {
-        Zubereitungsmethode zubLoeschen = zubController.getZubereitungsmethodeByName(textTitel.getText());
-        zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
-        zubController.speichenDatei();
-        updateListe();
-        textfelderNichtEditierbar();
-        textFeldreset();
-        textLoeschen();
+        if  (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
+            Zubereitungsmethode zubLoeschen = zubController.getZubereitungsmethodeByName(textTitel.getText());
+            zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
+            zubController.speichenDatei();
+            updateListe();
+            textfelderNichtEditierbar();
+            textFeldreset();
+            textLoeschen();
+        }
     }
 
     public void updateListe() throws IOException {
