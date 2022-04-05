@@ -45,13 +45,15 @@ public class UIController{
     }
 
     public void listeRezepteGeklickt(MouseEvent mouseEvent) { //TODO
-        System.out.println("liste wurde angeklickt");
         if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
-            System.out.println("Doppelklick");
+
         }
     }
 
     public void listeSucheGeklickt(MouseEvent mouseEvent) { //TODO
+        if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
+
+        }
     }
 
     public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
@@ -86,6 +88,7 @@ public class UIController{
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Definitionsbuch");
         stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
         stage.show();
     }
 

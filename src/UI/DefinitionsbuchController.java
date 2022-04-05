@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -37,32 +34,42 @@ public class DefinitionsbuchController {
     private Stage stage;
     private Scene scene;
 
+    private Boolean neueDefinition = false;
+
     ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
 
     public void definitionHinzufügen(ActionEvent actionEvent) { //TODO Definition: Test ob Felder editierbar uns leer sind
         textTitel.setText("");
         textTitel.setStyle("-fx-background-color: rgb(240, 255, 240)");
         textInhalt.setText("");
+        neueDefinition = true;
         textfelderEditierbar();
     }
 
     //TODO error fixen
     public void definitionBearbeiten(ActionEvent actionEvent) { //TODO Definition: Test ob Daten der ausgewählten Definition korrekt angezeigt werden
+        neueDefinition = false;
         Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
         if (zubBearbeiten != null) {
-            textTitel.setText(zubBearbeiten.getzMeName());
-            textInhalt.setText(zubBearbeiten.getzMeDefinition());
             textfelderEditierbar();
         }
     }
 
     public void definitionSpeichern(ActionEvent actionEvent) throws IOException { //TODO Definition: Test ob Daten korrekt in der Datei gespeichert + in Liste angezeigt werden
-            if (!textTitel.getText().isEmpty() || !textTitel.getText().trim().isEmpty()) {
-                if (zubController.existiertName(textTitel.getText())){ //Überschreiben von bestehender Zubereitungsmethode
-                    Zubereitungsmethode zubAktualisieren = zubController.getZubereitungsmethodeByName(textTitel.getText());
-                    zubAktualisieren.setzMeName(textTitel.getText());
-                    zubAktualisieren.setzMeDefinition(textInhalt.getText());
-                    zubController.speichenDatei();
+            if (!textTitel.getText().isEmpty() || textTitel.getText().trim() == "" || textTitel.getText().trim() == " ") { //TODO leere strings umgehen
+                if (zubController.existiertName(textTitel.getText())){//Überschreiben von bestehender Zubereitungsmethode
+                    if (neueDefinition){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Ein Problem ist aufgetreten");
+                        alert.setHeaderText("Definition bereits vorhanden");
+                        alert.setContentText("Diese Definition existiert bereits. Falls Sie den Inhalt ändern wollen wählen Sie Diese bitte aus und klicken Sie Bearbeiten");
+                        alert.showAndWait();
+                    }else {
+                        Zubereitungsmethode zubAktualisieren = zubController.getZubereitungsmethodeByName(textTitel.getText());
+                        zubAktualisieren.setzMeName(textTitel.getText());
+                        zubAktualisieren.setzMeDefinition(textInhalt.getText());
+                        zubController.speichenDatei();
+                    }
                 }else { //Speichern neuer Zubereitungsmethode
                     Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText());
                     zubNeu.setzMeDefinition(textInhalt.getText());
@@ -72,10 +79,11 @@ public class DefinitionsbuchController {
             }
         textfelderNichtEditierbar();
         textFeldreset();
+        neueDefinition = false;
     }
 
     public void definitionLoeschen(ActionEvent actionEvent) throws IOException {
-        Zubereitungsmethode zubLoeschen = (Zubereitungsmethode) listDefinitionen.getSelectionModel().getSelectedItem();
+        Zubereitungsmethode zubLoeschen = zubController.getZubereitungsmethodeByName(textTitel.getText());
         zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
         zubController.speichenDatei();
         updateListe();
@@ -119,7 +127,7 @@ public class DefinitionsbuchController {
     }
 
     public void textFeldreset(){
-        textTitel.setStyle("-fx-background-color: rgb(255,255,255)");
+        textTitel.setStyle("-fx-background-color: white");
         textInhalt.setStyle("-fx-background-color: white");
     }
 
@@ -141,6 +149,7 @@ public class DefinitionsbuchController {
     }
 
     public void listDefinitionenKlicked(MouseEvent mouseEvent) {
+        textfelderNichtEditierbar();
         Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
         textTitel.setText(zub.getzMeName());
         textInhalt.setText(zub.getzMeDefinition());
