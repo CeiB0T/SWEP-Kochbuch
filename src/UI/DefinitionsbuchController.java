@@ -131,6 +131,7 @@ public class DefinitionsbuchController {
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Kochbuch: Startseite");
         stage.show();
     }
 

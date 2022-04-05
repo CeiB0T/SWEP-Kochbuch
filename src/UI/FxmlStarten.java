@@ -18,7 +18,7 @@ public class FxmlStarten extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
         Scene scene = new Scene(root, 1280, 720);
         scene.setRoot(root);
-        stage.setTitle("Kochbuch");
+        stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
         stage.show();
     }

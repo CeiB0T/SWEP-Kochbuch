@@ -84,6 +84,7 @@ public class UIController{
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        stage.setTitle("Kochbuch: Definitionsbuch");
         stage.setScene(scene);
         stage.show();
     }
