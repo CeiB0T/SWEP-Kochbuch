@@ -1,9 +1,17 @@
 package UI;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class RezeptDetailsController {
     
@@ -16,15 +24,34 @@ public class RezeptDetailsController {
     public TextArea textZubereitung;
     public Button btnBearbeiten;
     public Button btnSpeichern;
-    public Button btnLöschen;
+    public Button btnLoeschen;
 
-    public void openDefinition(ActionEvent actionEvent) {
+    private Stage stage;
+    private Scene scene;
+
+    public void openDefinition(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
+        stage.show();
     }
 
-    public void returnHome(ActionEvent actionEvent) {
+    public void returnHome(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
+        stage.show();
     }
 
     public void programmSchließen(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnExit.getScene().getWindow();
+        stage.close();
     }
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
