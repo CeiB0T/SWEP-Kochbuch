@@ -40,9 +40,8 @@ public class DefinitionsbuchController {
 
     public void definitionHinzufügen(ActionEvent actionEvent) {
         textLoeschen();
-        textTitel.setStyle("-fx-background-color: rgb(240, 255, 240)");
         neueDefinition = true;
-        textfelderEditierbar();
+        textfelderEditierbar(true);
     }
 
     public void definitionBearbeiten(ActionEvent actionEvent) {
@@ -50,7 +49,7 @@ public class DefinitionsbuchController {
             neueDefinition = false;
             Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
             if (zubBearbeiten != null) {
-                textfelderEditierbar();
+                textfelderEditierbar(true);
             }
         }
     }
@@ -84,8 +83,7 @@ public class DefinitionsbuchController {
                 alert.setContentText("Eine Definition darf nicht nur aus Leerzeichen bestehen");
                 alert.showAndWait();
             }
-            textfelderNichtEditierbar();
-            textFeldreset();
+            textfelderEditierbar(false);
             neueDefinition = false;
         }
     }
@@ -96,13 +94,12 @@ public class DefinitionsbuchController {
             zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
             zubController.speichenDatei();
             updateListe();
-            textfelderNichtEditierbar();
-            textFeldreset();
+            textfelderEditierbar(false);
             textLoeschen();
         }
     }
 
-    public void updateListe() throws IOException {
+    private void updateListe() throws IOException {
         ObservableList<String> definitionenListe = FXCollections.observableArrayList();
         zubController.leseDatei();
         for (Zubereitungsmethode zub: zubController.getAlleZubereitungsmethoden()) {
@@ -113,7 +110,7 @@ public class DefinitionsbuchController {
         listDefinitionen.refresh();
     }
 
-    public ObservableList sortierenListe(ObservableList<String> liste){
+    private ObservableList sortierenListe(ObservableList<String> liste){
         liste.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -127,19 +124,9 @@ public class DefinitionsbuchController {
         updateListe();
     }
 
-    public void textfelderNichtEditierbar(){
-            textTitel.setEditable(false);
-            textInhalt.setEditable(false);
-    }
-
-    public void textfelderEditierbar(){
-        textTitel.setEditable(true);
-        textInhalt.setEditable(true);
-    }
-
-    public void textFeldreset(){
-        textTitel.setStyle("-fx-background-color: white");
-        textInhalt.setStyle("-fx-background-color: white");
+    private void textfelderEditierbar(Boolean bool){
+        textTitel.setEditable(bool);
+        textInhalt.setEditable(bool);
     }
 
     public void addRezept(ActionEvent actionEvent) throws IOException {
@@ -168,13 +155,13 @@ public class DefinitionsbuchController {
     }
 
     public void listDefinitionenKlicked(MouseEvent mouseEvent) {
-        textfelderNichtEditierbar();
+        textfelderEditierbar(false);
         Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
         textTitel.setText(zub.getzMeName());
         textInhalt.setText(zub.getzMeDefinition());
     }
 
-    public void textLoeschen(){
+    private void textLoeschen(){
         textTitel.setText("");
         textInhalt.setText("");
     }

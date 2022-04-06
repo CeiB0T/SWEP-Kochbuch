@@ -2,19 +2,18 @@ package UI;
 
 import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Rezeptzutat;
+import Rezeptteile.Zutat;
 import controller.RezeptkopfController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -36,7 +35,7 @@ public class RezeptDetailsController {
     public ImageView imgQR;
     public TextArea textRezeptName;
     public TextArea textZubereitung;
-    public  TextArea textPersonenanzahl;
+    public TextField textPersonenanzahl;
     public ListView listZutaten;
     public Button btnNeueZutat;
     public boolean bearbeitung;
@@ -44,6 +43,7 @@ public class RezeptDetailsController {
     private Stage stage;
     private Scene scene;
 
+    public static Rezeptzutat rezeptzutatUebertrag;
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public ObservableList zutatenAuflisten(Rezeptkopf rezeptkopf){
@@ -60,7 +60,6 @@ public class RezeptDetailsController {
     public void initialize() throws IOException {
         if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
             textfelderEditierbar();
-            UIController.neuesRezept = false;
         }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
             try {
                 Rezeptkopf rezeptkopf = UIController.uebertrag;
@@ -75,6 +74,7 @@ public class RezeptDetailsController {
     }
 
     public void openDefinition(ActionEvent actionEvent) throws IOException {
+        UIController.neuesRezept = false;
         bearbeitung = false;
         textfelderEditierbar();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
@@ -89,8 +89,13 @@ public class RezeptDetailsController {
     public void returnHome(ActionEvent actionEvent) throws IOException {
         bearbeitung = false;
         textfelderNichtEditierbar();
+        startseiteAufrufen(actionEvent);
+    }
+
+    public void startseiteAufrufen(Event event) throws IOException {
+        UIController.neuesRezept = false;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
@@ -104,15 +109,17 @@ public class RezeptDetailsController {
     }
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
-        if(textRezeptName.getText().matches(".*\\S+.*")) {
-            bearbeitung = true;
-            textfelderEditierbar();
-            UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
-            UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
+        if (!UIController.neuesRezept) {
+            if (textRezeptName.getText().matches(".*\\S+.*")) {
+                bearbeitung = true;
+                textfelderEditierbar();
+                UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
+                UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
+            }
+            UIController.uebertrag = null;
+            textfelderNichtEditierbar();
+            bearbeitung = false;
         }
-        UIController.uebertrag = null;
-        textfelderNichtEditierbar();
-        bearbeitung = false;
     }
 
     public void rezeptSpeichern(ActionEvent actionEvent) throws IOException {
@@ -123,6 +130,7 @@ public class RezeptDetailsController {
                 if (textPersonenanzahl.getText().matches("\\d+")) {
                     rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
                 }
+                UIController.neuesRezept = false;
                 rezeptkopfController.speichernDatei();
                 textfelderNichtEditierbar();
             }else {
@@ -153,10 +161,20 @@ public class RezeptDetailsController {
         alert.showAndWait();
     }
 
-    public void rezeptLöschen(ActionEvent actionEvent) {
-        //TODO Rezeptkopf löschen.
-        bearbeitung = false;
-        textfelderNichtEditierbar();
+    public void rezeptLöschen(ActionEvent actionEvent) throws IOException { //TODO check ob funktioniert
+        if (UIController.uebertrag != null) {
+            rezeptkopfController.löschenRezeptkopf(UIController.uebertrag.getrKoID());
+            bearbeitung = false;
+            textfelderNichtEditierbar();
+            rezeptkopfController.speichernDatei();
+            startseiteAufrufen(actionEvent);
+        }else if (rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()) != null){
+            rezeptkopfController.löschenRezeptkopf(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()).getrKoID());
+            bearbeitung = false;
+            textfelderNichtEditierbar();
+            rezeptkopfController.speichernDatei();
+            startseiteAufrufen(actionEvent);
+        }
     }
 
     public void qrAnzeigen() throws IOException {
@@ -177,20 +195,34 @@ public class RezeptDetailsController {
     }
 
     public void openNeueZutat(ActionEvent actionEvent) throws IOException {
+        neueZutatFenster(actionEvent, null);
+    }
+
+    public void zutatBearbeiten(MouseEvent mouseEvent) throws IOException { //TODO Zutaten Fenster öffnen
+        if (mouseEvent.getClickCount() == 2){
+            if (listZutaten.getSelectionModel().getSelectedItem() != null) {
+                String[] zutatWerte = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
+                for (Rezeptzutat rezeptzutat: UIController.uebertrag.getrKoRezeptzutat()) {
+                    if (rezeptzutat.getrZuZutat().getZutName() == zutatWerte[0]){
+                        neueZutatFenster(mouseEvent, rezeptzutat); break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void neueZutatFenster(Event event, Rezeptzutat zutat) throws IOException {
+        UIController.neuesRezept = false;
+        textfelderNichtEditierbar();
         bearbeitung = false;
         textfelderNichtEditierbar();
+        rezeptzutatUebertrag = zutat;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/ZutatHinzufuegen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-    }
-
-    public void zutatBearbeiten(MouseEvent mouseEvent) throws IOException { //TODO Zutaten Fenster öffnen
-        if (mouseEvent.getClickCount() == 2){
-
-        }
     }
 }

@@ -101,6 +101,10 @@ public class Rezeptkopf {
         return result;
     }
 
+    public String getrKoID() {
+        return rKoID;
+    }
+
     @Override
     public String toString() {
         return "Rezeptkopf{" +
