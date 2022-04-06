@@ -37,6 +37,7 @@ public class RezeptDetailsController {
     public TextArea textRezeptName;
     public TextArea textZutaten;
     public TextArea textZubereitung;
+    public  TextArea textPersonenanzahl;
     public ListView listZutaten;
 
     private Stage stage;
@@ -64,6 +65,11 @@ public class RezeptDetailsController {
                 textRezeptName.setText(rezeptkopf.getrKoRezeptname());
                 listZutaten.setItems(zutatenAuflisten(rezeptkopf));
                 textZubereitung.setText(rezeptkopf.getrKoRezeptinhalt());
+                if(rezeptkopf.getrKoPersonenzahl() > 0) {
+                    textPersonenanzahl.setText("Für " + Integer.toString(rezeptkopf.getrKoPersonenzahl()) + " Personen");
+                }else{
+                    textPersonenanzahl.setText("Personenanzahl: Keine Angabe");
+                }
             }catch (Exception e){}
         }
     }
@@ -79,7 +85,13 @@ public class RezeptDetailsController {
     }
 
     public void returnHome(ActionEvent actionEvent) throws IOException {
-        startseiteAufrufen(actionEvent);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);//TODO überall machen
+        stage.show();
     }
 
     public void programmSchließen(ActionEvent actionEvent) {
@@ -102,7 +114,6 @@ public class RezeptDetailsController {
                 Rezeptkopf rez = rezeptkopfController.neuerRezeptkopf(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
                 rezeptkopfController.speichernDatei();
-                startseiteAufrufen(actionEvent);
             }else {
                 alertNameUnzulässig();
             }
@@ -112,7 +123,6 @@ public class RezeptDetailsController {
                 rez.setrKoRezeptname(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
                 rezeptkopfController.speichernDatei();
-                startseiteAufrufen(actionEvent);
             }else {
                 alertNameUnzulässig();
             }
@@ -128,9 +138,8 @@ public class RezeptDetailsController {
         alert.showAndWait();
     }
 
-    public void rezeptLöschen(ActionEvent actionEvent) throws IOException {
+    public void rezeptLöschen(ActionEvent actionEvent) {
         //TODO alle Rezeptzutaten löschen und die Rezeptzutaten datei speichern. Dann den Rezeptkopf löschen.
-        startseiteAufrufen(actionEvent);
     }
 
     public void qrAnzeigen() throws IOException {
@@ -146,15 +155,5 @@ public class RezeptDetailsController {
     public void textfelderNichtEditierbar(){
         textRezeptName.setEditable(false);
         textZubereitung.setEditable(false);
-    }
-
-    public void startseiteAufrufen(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setTitle("Kochbuch: Startseite");
-        stage.setScene(scene);
-        stage.setResizable(false);//TODO überall machen
-        stage.show();
     }
 }
