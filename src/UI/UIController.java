@@ -63,13 +63,23 @@ public class UIController{
             stage.show();
             }
         }
+
     }
 
     public void listeSucheGeklickt(MouseEvent mouseEvent) { //TODO
-        if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
-
+        if (mouseEvent.getClickCount() == 2) { //Doppelklick abfrage
+            System.out.println(mouseEvent.getTarget().toString());
+            String geklicktesElement = mouseEvent.getTarget().toString();
+            if(geklicktesElement.matches("/^Text\\[text.*")){
+                if(geklicktesElement.matches("/.*Zutat:.*")){
+                    
+                }
+            }
         }
-    }
+        }
+
+
+
 
     public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
         ObservableList<String> rezepteListe = FXCollections.observableArrayList();
@@ -172,4 +182,5 @@ public class UIController{
             }
                 listStartSuche.setItems(gefundenListe);
         }
+
 }
