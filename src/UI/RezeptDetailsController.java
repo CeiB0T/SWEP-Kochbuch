@@ -35,7 +35,6 @@ public class RezeptDetailsController {
 
     public ImageView imgQR;
     public TextArea textRezeptName;
-    public TextArea textZutaten;
     public TextArea textZubereitung;
     public  TextArea textPersonenanzahl;
     public ListView listZutaten;
@@ -82,7 +81,7 @@ public class RezeptDetailsController {
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
-        stage.setResizable(false);//TODO überall machen
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -92,7 +91,7 @@ public class RezeptDetailsController {
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
-        stage.setResizable(false);//TODO überall machen
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -104,11 +103,13 @@ public class RezeptDetailsController {
     public void rezeptBearbeiten(ActionEvent actionEvent) {
         if(textRezeptName.getText().matches(".*\\S+.*")) {
             bearbeitung = true;
+            textfelderEditierbar();
             UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
             //TODO Zutaten bearbeitung einfügen basierend auf ZutatenListe selection Model
             UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
         }
         UIController.uebertrag = null;
+        textfelderNichtEditierbar();
         bearbeitung = false;
     }
 
@@ -117,6 +118,9 @@ public class RezeptDetailsController {
             if (textRezeptName.getText().matches(".*\\S+.*")){
                 Rezeptkopf rez = rezeptkopfController.neuerRezeptkopf(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
+                if (textPersonenanzahl.getText().matches("\\d+")) {
+                    rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
+                }
                 rezeptkopfController.speichernDatei();
             }else {
                 alertNameUnzulässig();
@@ -126,11 +130,15 @@ public class RezeptDetailsController {
             if (textRezeptName.getText().matches(".*\\S+.*")){
                 rez.setrKoRezeptname(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
+                if (textPersonenanzahl.getText().matches("\\d+")) {
+                    rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
+                }
                 rezeptkopfController.speichernDatei();
             }else {
                 alertNameUnzulässig();
             }
         }
+        textfelderNichtEditierbar();
         UIController.neuesRezept = false; //Neues Rezept Bool zurücksetzen
     }
 
@@ -143,7 +151,7 @@ public class RezeptDetailsController {
     }
 
     public void rezeptLöschen(ActionEvent actionEvent) {
-        //TODO alle Rezeptzutaten löschen und die Rezeptzutaten datei speichern. Dann den Rezeptkopf löschen.
+        //TODO Rezeptkopf löschen.
     }
 
     public void qrAnzeigen() throws IOException {
@@ -154,11 +162,13 @@ public class RezeptDetailsController {
     public void textfelderEditierbar(){
         textRezeptName.setEditable(true);
         textZubereitung.setEditable(true);
+        textPersonenanzahl.setEditable(true);
     }
 
     public void textfelderNichtEditierbar(){
         textRezeptName.setEditable(false);
         textZubereitung.setEditable(false);
+        textPersonenanzahl.setEditable(true);
     }
 
     public void openNeueZutat(ActionEvent actionEvent) {
