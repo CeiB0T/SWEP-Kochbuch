@@ -63,7 +63,7 @@ public class ZubereitungsmethodeController {
         for (Zubereitungsmethode zub: zubereitungsmethoden.values()) {
             if (zub.getzMeName().equals(name)){
                 ret = true;
-                break; //TODO kommt das hier hin?
+                break;
             }
         }
         return ret;

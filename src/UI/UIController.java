@@ -45,7 +45,7 @@ public class UIController{
         updateListe();
     }
 
-    public void listeRezepteGeklickt(MouseEvent mouseEvent) throws IOException { //TODO
+    public void listeRezepteGeklickt(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2){ //Doppelklick abfrage
             if(!Objects.isNull(listStartRezepte.getSelectionModel().getSelectedItem())){
             String listenText = String.valueOf(listStartRezepte.getSelectionModel().getSelectedItem());
@@ -57,7 +57,7 @@ public class UIController{
         }
     }
 
-    public void listeSucheGeklickt(MouseEvent mouseEvent) throws IOException { //TODO
+    public void listeSucheGeklickt(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) { //Doppelklick abfrage
             if (listStartSuche.getSelectionModel().getSelectedItem() != null) {
                 String element = listStartSuche.getSelectionModel().getSelectedItem().toString();
@@ -92,7 +92,7 @@ public class UIController{
     }
 
 
-    private void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
+    private void updateListe() throws IOException {
         ObservableList<String> rezepteListe = FXCollections.observableArrayList();
         rezeptkopfController.leseDatei();
         for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
@@ -130,11 +130,11 @@ public class UIController{
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Definitionsbuch");
         stage.setScene(scene);
-        stage.setResizable(false);//TODO überall machen
+        stage.setResizable(false);
         stage.show();
     }
 
-    private void programmBeenden(ActionEvent actionEvent) {
+    public void programmBeenden(ActionEvent actionEvent) {
         Stage stage = (Stage) btnStartProgrammBeenden.getScene().getWindow();
         stage.close();
     }

@@ -7,12 +7,12 @@ public class Kategorie {
 
     private String katName;
 
-    private ArrayList<Rezeptkopf> katRezeptkopf; //TODO anstatt Liste Rezeptköpfe eine Liste von IDs -> mit IDs Liste zu RezeptkopfController und dort getRezeptkopf aufrufen
+    private ArrayList<Rezeptkopf> katRezeptkopf;
 
     public void rezeptHinzufügen(Rezeptkopf rezeptkopf){
         try {
             if (rezeptkopf != null) {
-                katRezeptkopf.add(rezeptkopf); //TODO update Datenbank
+                katRezeptkopf.add(rezeptkopf);
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -22,7 +22,7 @@ public class Kategorie {
     public void rezeptLöschen(Rezeptkopf rezeptkopf){
         try {
             if (rezeptkopf != null) {
-                katRezeptkopf.remove(rezeptkopf); //TODO update Datenbank
+                katRezeptkopf.remove(rezeptkopf);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -30,7 +30,7 @@ public class Kategorie {
     }
 
     public Kategorie(String katName) {
-        this.katName = katName; //TODO update Datenbank
+        this.katName = katName;
         katRezeptkopf = new ArrayList<>();
     }
 
@@ -39,7 +39,7 @@ public class Kategorie {
     }
 
     public void setKatName(String katName) {
-        this.katName = katName; //TODO update Datenbank
+        this.katName = katName;
     }
 
     public ArrayList<Rezeptkopf> getKatRezeptkopf() {

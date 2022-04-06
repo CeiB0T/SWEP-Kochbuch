@@ -48,7 +48,7 @@ public class ZutatHinzufuegenController {
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Definitionsbuch");
         stage.setScene(scene);
-        stage.setResizable(false);//TODO überall machen
+        stage.setResizable(false);
         stage.show();
     }
 
