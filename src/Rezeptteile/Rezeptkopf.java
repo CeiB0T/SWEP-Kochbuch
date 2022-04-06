@@ -39,6 +39,7 @@ public class Rezeptkopf {
         this.rKoRezeptname = rKoRezeptname; //TODO update Datenbank
         this.rKoID = rKoID; //TODO Wie berechnen wir unsere IDs?
         rKoRezeptzutat = new ArrayList<>();
+        rKoPersonenzahl = 0;
     }
 
     public String getrKoRezeptname() {

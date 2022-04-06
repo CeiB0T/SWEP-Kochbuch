@@ -60,6 +60,7 @@ public class RezeptDetailsController {
     public void initialize() throws IOException {
         if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
             textfelderEditierbar();
+            UIController.neuesRezept = false;
         }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
             try {
                 Rezeptkopf rezeptkopf = UIController.uebertrag;
@@ -67,15 +68,15 @@ public class RezeptDetailsController {
                 listZutaten.setItems(zutatenAuflisten(rezeptkopf));
                 textZubereitung.setText(rezeptkopf.getrKoRezeptinhalt());
                 if(rezeptkopf.getrKoPersonenzahl() > 0) {
-                    textPersonenanzahl.setText("Für " + Integer.toString(rezeptkopf.getrKoPersonenzahl()) + " Personen");
-                }else{
-                    textPersonenanzahl.setText("Personenanzahl: Keine Angabe");
+                    textPersonenanzahl.setText(Integer.toString(rezeptkopf.getrKoPersonenzahl()));
                 }
             }catch (Exception e){}
         }
     }
 
     public void openDefinition(ActionEvent actionEvent) throws IOException {
+        bearbeitung = false;
+        textfelderEditierbar();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -86,6 +87,8 @@ public class RezeptDetailsController {
     }
 
     public void returnHome(ActionEvent actionEvent) throws IOException {
+        bearbeitung = false;
+        textfelderNichtEditierbar();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -105,7 +108,6 @@ public class RezeptDetailsController {
             bearbeitung = true;
             textfelderEditierbar();
             UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
-            //TODO Zutaten bearbeitung einfügen basierend auf ZutatenListe selection Model
             UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
         }
         UIController.uebertrag = null;
@@ -114,7 +116,7 @@ public class RezeptDetailsController {
     }
 
     public void rezeptSpeichern(ActionEvent actionEvent) throws IOException {
-        if (UIController.neuesRezept){ //TODO neues Rezept speichern
+        if (UIController.neuesRezept){
             if (textRezeptName.getText().matches(".*\\S+.*")){
                 Rezeptkopf rez = rezeptkopfController.neuerRezeptkopf(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
@@ -122,6 +124,7 @@ public class RezeptDetailsController {
                     rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
                 }
                 rezeptkopfController.speichernDatei();
+                textfelderNichtEditierbar();
             }else {
                 alertNameUnzulässig();
             }
@@ -134,11 +137,11 @@ public class RezeptDetailsController {
                     rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
                 }
                 rezeptkopfController.speichernDatei();
+                textfelderNichtEditierbar();
             }else {
                 alertNameUnzulässig();
             }
         }
-        textfelderNichtEditierbar();
         UIController.neuesRezept = false; //Neues Rezept Bool zurücksetzen
     }
 
@@ -152,6 +155,8 @@ public class RezeptDetailsController {
 
     public void rezeptLöschen(ActionEvent actionEvent) {
         //TODO Rezeptkopf löschen.
+        bearbeitung = false;
+        textfelderNichtEditierbar();
     }
 
     public void qrAnzeigen() throws IOException {
@@ -168,7 +173,7 @@ public class RezeptDetailsController {
     public void textfelderNichtEditierbar(){
         textRezeptName.setEditable(false);
         textZubereitung.setEditable(false);
-        textPersonenanzahl.setEditable(true);
+        textPersonenanzahl.setEditable(false);
     }
 
     public void openNeueZutat(ActionEvent actionEvent) {
