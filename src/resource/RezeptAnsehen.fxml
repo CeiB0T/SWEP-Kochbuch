@@ -29,6 +29,11 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
+            <Button fx:id="btnNeueZutat" alignment="CENTER" layoutX="10.0" layoutY="86.0" mnemonicParsing="false" onAction="#openNeueZutat" prefHeight="66.0" prefWidth="671.0" text="Neue Zutat">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Button>
             <Region prefHeight="768.0" prefWidth="360.0" />
             <Button fx:id="btnExit" alignment="CENTER" mnemonicParsing="false" onAction="#programmSchließen" prefHeight="66.0" prefWidth="472.0" text="Verlassen">
                <font>
@@ -58,12 +63,15 @@
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextArea fx:id="textRezeptName" editable="false" prefHeight="50.0" prefWidth="486.0" promptText="Rezepttitel" wrapText="true" />
-                                    <TextArea fx:id="textPersonenanzahl" editable="false" prefHeight="50.0" prefWidth="284.0" promptText="Personenanzahl" wrapText="true" />
+                                    <TextArea fx:id="textRezeptName" editable="false" prefHeight="50.0" prefWidth="616.0" promptText="Rezepttitel" wrapText="true" />
+                                    <TextArea fx:id="textPersonenanzahl" editable="false" prefHeight="50.0" prefWidth="184.0" promptText="Personenanzahl" wrapText="true" />
                                  </children>
                               </HBox>
                               <ListView fx:id="listZutaten" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" />
                            </children>
+                           <BorderPane.margin>
+                              <Insets right="1.0" />
+                           </BorderPane.margin>
                         </VBox>
                      </center>
                   </BorderPane>

@@ -26,12 +26,12 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="btnNeuesRezept" alignment="CENTER" mnemonicParsing="false" onAction="#addRezept" prefHeight="66.0" prefWidth="485.0" text="Neues Rezept">
+            <Button fx:id="btnDefinitionsbuch" alignment="CENTER" mnemonicParsing="false" onAction="#opnDefinitionsbuch" prefHeight="66.0" prefWidth="485.0" text="Definitionsbuch">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
-            <Button fx:id="btnDefinitionsbuch" alignment="CENTER" mnemonicParsing="false" onAction="#opnDefinitionsbuch" prefHeight="66.0" prefWidth="485.0" text="Definitionsbuch">
+            <Button fx:id="btnNeuesRezept" alignment="CENTER" mnemonicParsing="false" onAction="#addRezept" prefHeight="66.0" prefWidth="485.0" text="Neues Rezept">
                <font>
                   <Font name="System Bold" size="31.0" />
                </font>
