@@ -102,7 +102,7 @@
                               <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="300.0" prefHeight="573.0" prefWidth="300.0">
                                  <children>
                                     <Label text="Menge" />
-                                    <TextArea fx:id="textMenge" editable="false" prefHeight="590.0" prefWidth="300.0" wrapText="true" />
+                                    <TextArea fx:id="textMenge" editable="false" prefHeight="40.0" prefWidth="300.0" promptText="Menge als Zahl" wrapText="true" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
@@ -111,7 +111,7 @@
                               <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="300.0" prefHeight="573.0" prefWidth="300.0">
                                  <children>
                                     <Label text="Einheit" />
-                                    <TextArea fx:id="textEinheit" editable="false" prefHeight="631.0" prefWidth="300.0" wrapText="true" />
+                                    <TextArea fx:id="textEinheit" editable="false" prefHeight="40.0" prefWidth="300.0" promptText="Einheit" wrapText="true" />
                                  </children>
                               </VBox>
                            </children>
