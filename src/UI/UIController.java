@@ -51,34 +51,45 @@ public class UIController{
             String listenText = String.valueOf(listStartRezepte.getSelectionModel().getSelectedItem());
             String[] listenTextSplit = listenText.split(", ");
             String rezeptname = listenTextSplit[0];
-
-            uebertrag = rezeptkopfController.getRezeptkopfByName(rezeptname);
-
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
-            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setTitle("Kochbuch: Rezeptansicht: " + rezeptname);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
+            Rezeptkopf rezeptkopf = rezeptkopfController.getRezeptkopfByName(rezeptname);
+            rezeptAnzeigen(mouseEvent, rezeptkopf);
             }
         }
-
     }
 
-    public void listeSucheGeklickt(MouseEvent mouseEvent) { //TODO
+    public void listeSucheGeklickt(MouseEvent mouseEvent) throws IOException { //TODO
         if (mouseEvent.getClickCount() == 2) { //Doppelklick abfrage
-            System.out.println(mouseEvent.getTarget().toString());
-            String geklicktesElement = mouseEvent.getTarget().toString();
-            if(geklicktesElement.matches("/^Text\\[text.*")){
-                if(geklicktesElement.matches("/.*Zutat:.*")){
-                    
+            if (listStartSuche.getSelectionModel().getSelectedItem() != null) {
+                String element = listStartSuche.getSelectionModel().getSelectedItem().toString();
+                String rezeptname;
+                if (element.matches("^Zutat: .*")) {//Suche ob start mit Zutat
+                    String[] strings = element.split(", ");
+                    rezeptname = strings[0].substring("Zutat: ".length());
+                    System.out.println(rezeptname);
+                    rezeptAnzeigen(mouseEvent, rezeptkopfController.getRezeptkopfByName(rezeptname));
+                } else if (element.matches("^Kategorie: .*")) {
+                    String[] strings = element.split(", ");
+                    rezeptname = strings[0].substring("Kategorie: ".length());
+                    rezeptAnzeigen(mouseEvent, rezeptkopfController.getRezeptkopfByName(rezeptname));
+                } else {
+                    String[] strings = element.split(", ");
+                    rezeptname = strings[0];
+                    rezeptAnzeigen(mouseEvent, rezeptkopfController.getRezeptkopfByName(rezeptname));
                 }
             }
         }
-        }
+    }
 
-
+    public void rezeptAnzeigen(MouseEvent mouseEvent, Rezeptkopf rezeptkopf) throws IOException {
+        uebertrag = rezeptkopf;
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+        stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Rezeptansicht: " + rezeptkopf.getrKoRezeptname());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
 
 
     public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
@@ -176,7 +187,6 @@ public class UIController{
 
             for (Rezeptkopf rez : rezeptkopfController.getAlleRezeptkopf()) { //Gleiche Iteration wie erste foreach, aber hier wird nur nach Rezeptnamen gesucht
                 if (rez.getrKoRezeptname().toLowerCase().lastIndexOf(suchtext) != -1) { //Prüft ob Rezeptname dem Suchwort entspricht
-                    System.out.println(suchtext);
                     gefundenListe.add(rez.listViewString());
                 }
             }

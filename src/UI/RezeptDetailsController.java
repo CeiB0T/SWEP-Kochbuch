@@ -2,7 +2,6 @@ package UI;
 
 import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Rezeptzutat;
-import Rezeptteile.Zutat;
 import controller.RezeptkopfController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import qrcodegen.QrBufferedImage;
 
@@ -39,6 +39,8 @@ public class RezeptDetailsController {
     public TextArea textZubereitung;
     public  TextArea textPersonenanzahl;
     public ListView listZutaten;
+    public Button btnNeueZutat;
+    public boolean bearbeitung;
 
     private Stage stage;
     private Scene scene;
@@ -101,11 +103,13 @@ public class RezeptDetailsController {
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
         if(textRezeptName.getText().matches(".*\\S+.*")) {
+            bearbeitung = true;
             UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
             //TODO Zutaten bearbeitung einfügen basierend auf ZutatenListe selection Model
             UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
         }
         UIController.uebertrag = null;
+        bearbeitung = false;
     }
 
     public void rezeptSpeichern(ActionEvent actionEvent) throws IOException {
@@ -155,5 +159,14 @@ public class RezeptDetailsController {
     public void textfelderNichtEditierbar(){
         textRezeptName.setEditable(false);
         textZubereitung.setEditable(false);
+    }
+
+    public void openNeueZutat(ActionEvent actionEvent) {
+    }
+
+    public void zutatBearbeiten(MouseEvent mouseEvent) { //TODO Zutaten Fenster öffnen
+        if (mouseEvent.getClickCount() == 2){
+
+        }
     }
 }

@@ -67,7 +67,7 @@
                                     <TextArea fx:id="textPersonenanzahl" editable="false" prefHeight="50.0" prefWidth="184.0" promptText="Personenanzahl" wrapText="true" />
                                  </children>
                               </HBox>
-                              <ListView fx:id="listZutaten" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" />
+                              <ListView fx:id="listZutaten" onMouseClicked="#zutatBearbeiten" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" />
                            </children>
                            <BorderPane.margin>
                               <Insets right="1.0" />
