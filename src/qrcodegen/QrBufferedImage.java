@@ -25,23 +25,10 @@ public class QrBufferedImage {
         return result;
     }
 
-    public static void qrGenerieren(Rezeptkopf rezeptkopf){
+    public static BufferedImage qrGenerieren(Rezeptkopf rezeptkopf){
         try {
             QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
             QrCode qr = QrCode.encodeText(rezeptkopf.zutatenToString(), errCorLvl);
-
-            BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
-            File imgFile = new File("QR_Test_generiert.png");
-            ImageIO.write(img, "png", imgFile);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static BufferedImage qrLinkGenerieren(String string){
-        try {
-            QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
-            QrCode qr = QrCode.encodeText(string, errCorLvl);
             BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
             return img;
         }catch (Exception e){

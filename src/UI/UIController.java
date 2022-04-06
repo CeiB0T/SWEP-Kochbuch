@@ -92,7 +92,7 @@ public class UIController{
     }
 
 
-    public void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
+    private void updateListe() throws IOException { //TODO Button entfernen und das update im Hintergrund machen
         ObservableList<String> rezepteListe = FXCollections.observableArrayList();
         rezeptkopfController.leseDatei();
         for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
@@ -103,7 +103,7 @@ public class UIController{
         listStartRezepte.refresh();
     }
 
-    public ObservableList sortierenListe(ObservableList<String> liste){
+    private ObservableList sortierenListe(ObservableList<String> liste){
            liste.sort(new Comparator<String>() {
                @Override
                public int compare(String o1, String o2) {
@@ -134,16 +134,16 @@ public class UIController{
         stage.show();
     }
 
-    public void programmBeenden(ActionEvent actionEvent) {
+    private void programmBeenden(ActionEvent actionEvent) {
         Stage stage = (Stage) btnStartProgrammBeenden.getScene().getWindow();
         stage.close();
     }
 
-    public String zutatPrefix(Rezeptkopf rez){
+    private String zutatPrefix(Rezeptkopf rez){
         return "Zutat: " + rez.listViewString();
     }
 
-    public String kategoriePrefix(Rezeptkopf rez){
+    private String kategoriePrefix(Rezeptkopf rez){
         return "Kategorie: " + rez.listViewString();
     }
 
@@ -163,7 +163,7 @@ public class UIController{
         }
     }
 
-    public void elementeInSucheAnzeigen(){
+    private void elementeInSucheAnzeigen(){
         listStartSuche.getItems().clear();
 
         ObservableList<String> gefundenListe = FXCollections.observableArrayList();
@@ -192,5 +192,4 @@ public class UIController{
             }
                 listStartSuche.setItems(gefundenListe);
         }
-
 }
