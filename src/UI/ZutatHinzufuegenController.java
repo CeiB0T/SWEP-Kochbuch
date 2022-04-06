@@ -42,7 +42,7 @@ public class ZutatHinzufuegenController {
         stage.show();
     }
 
-    public void opnDefinitionsbuch(ActionEvent actionEvent) throws Exception {
+    public void openDefinitionsbuch(ActionEvent actionEvent) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

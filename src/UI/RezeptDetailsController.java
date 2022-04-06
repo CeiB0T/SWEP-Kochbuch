@@ -176,10 +176,19 @@ public class RezeptDetailsController {
         textPersonenanzahl.setEditable(false);
     }
 
-    public void openNeueZutat(ActionEvent actionEvent) {
+    public void openNeueZutat(ActionEvent actionEvent) throws IOException {
+        bearbeitung = false;
+        textfelderNichtEditierbar();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/ZutatHinzufuegen.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Startseite");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
-    public void zutatBearbeiten(MouseEvent mouseEvent) { //TODO Zutaten Fenster öffnen
+    public void zutatBearbeiten(MouseEvent mouseEvent) throws IOException { //TODO Zutaten Fenster öffnen
         if (mouseEvent.getClickCount() == 2){
 
         }
