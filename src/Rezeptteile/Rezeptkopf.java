@@ -24,9 +24,9 @@ public class Rezeptkopf {
     public void zutatLöschen(String zutatName){
         try {
             if (zutatName != null && zutatName != ""){
-                for (Rezeptzutat rezeptzutat: rKoRezeptzutat) {
-                    if (rezeptzutat.getrZuZutat().getZutName() == zutatName){
-                        rezeptzutat.setrZuZutat(null); //TODO update Datenbank
+                for (int i = 0; i < rKoRezeptzutat.size(); i++) {
+                    if (rKoRezeptzutat.get(i).getrZuZutat().getZutName().equals(zutatName)){
+                        rKoRezeptzutat.remove(i);
                     }
                 }
             }
@@ -36,8 +36,8 @@ public class Rezeptkopf {
     }
 
     public Rezeptkopf(String rKoRezeptname, String rKoID) {
-        this.rKoRezeptname = rKoRezeptname; //TODO update Datenbank
-        this.rKoID = rKoID; //TODO Wie berechnen wir unsere IDs?
+        this.rKoRezeptname = rKoRezeptname;
+        this.rKoID = rKoID;
         rKoRezeptzutat = new ArrayList<>();
         rKoPersonenzahl = 0;
     }

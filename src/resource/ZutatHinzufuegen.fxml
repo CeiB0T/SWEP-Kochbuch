@@ -65,7 +65,7 @@
                         </Button>
                      </top>
                      <center>
-                        <ListView fx:id="listZutaten" onMouseClicked="#listDefinitionenKlicked" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ListView fx:id="listZutaten" onMouseClicked="#listZutatenKlicked" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
                   <BorderPane prefHeight="720.0" prefWidth="606.0">

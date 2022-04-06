@@ -59,6 +59,7 @@ public class Test{
 
         zubController.speichenDatei();
         zubController.leseDatei();
+        zutatenController.speichenDatei();
 
         for (Zubereitungsmethode zubereitung: zubController.getAlleZubereitungsmethoden()) {
             System.out.println(zubereitung.toString());

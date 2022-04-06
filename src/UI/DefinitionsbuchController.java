@@ -130,6 +130,7 @@ public class DefinitionsbuchController {
     }
 
     public void addRezept(ActionEvent actionEvent) throws IOException {
+        UIController.uebertrag = null;
         UIController.neuesRezept = true;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

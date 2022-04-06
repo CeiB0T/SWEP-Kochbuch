@@ -115,6 +115,7 @@ public class UIController{
 
     public void neuesRezeptFenster(ActionEvent actionEvent) throws IOException {
         neuesRezept = true;
+        UIController.uebertrag = null;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);

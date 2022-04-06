@@ -2,9 +2,12 @@ package UI;
 
 import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Rezeptzutat;
+import Rezeptteile.Zubereitungsmethode;
 import Rezeptteile.Zutat;
 import controller.RezeptkopfController;
 import controller.ZutatenController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class ZutatHinzufuegenController {
@@ -40,6 +44,9 @@ public class ZutatHinzufuegenController {
     ZutatenController zutatenController = ZutatenController.getInstance();
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
+    public void initialize() throws IOException {
+        updateList();
+    }
 
     public void returnHome (ActionEvent actionEvent) throws Exception{
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
@@ -80,6 +87,27 @@ public class ZutatHinzufuegenController {
         textLoeschen();
         neueZutat = true;
         textfelderEditierbar(true);
+    }
+
+    private void updateList() throws IOException {
+        zutatenController.leseDatei();
+        ObservableList zutaten = FXCollections.observableArrayList();
+        for (Zutat zutat: zutatenController.getAlleZutaten()) {
+            zutaten.add(zutat.getZutName());
+        }
+        sortierenListe(zutaten);
+        listZutaten.setItems(zutaten);
+        listZutaten.refresh();
+    }
+
+    private ObservableList sortierenListe(ObservableList<String> liste){
+        liste.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        return liste;
     }
 
     public void listZutatenKlicked(MouseEvent mouseEvent) {

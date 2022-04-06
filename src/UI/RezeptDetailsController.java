@@ -132,6 +132,7 @@ public class RezeptDetailsController {
                     rez.setrKoPersonenzahl(Integer.parseInt(textPersonenanzahl.getText()));
                 }
                 UIController.neuesRezept = false;
+                UIController.uebertrag = rez;
                 rezeptkopfController.speichernDatei();
                 textfelderEditierbar(false);
             }else {
@@ -164,18 +165,29 @@ public class RezeptDetailsController {
     }
 
     public void rezeptLöschen(ActionEvent actionEvent) throws IOException {
-        if (UIController.uebertrag != null) {
-            rezeptkopfController.löschenRezeptkopf(UIController.uebertrag.getrKoID());
-            bearbeitung = false;
-            textfelderEditierbar(false);
-            rezeptkopfController.speichernDatei();
-            startseiteAufrufen(actionEvent);
-        }else if (rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()) != null){
-            rezeptkopfController.löschenRezeptkopf(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()).getrKoID());
-            bearbeitung = false;
-            textfelderEditierbar(false);
-            rezeptkopfController.speichernDatei();
-            startseiteAufrufen(actionEvent);
+        if (listZutaten.getSelectionModel().getSelectedItem() == null) {
+            if (UIController.uebertrag != null) {
+                rezeptkopfController.löschenRezeptkopf(UIController.uebertrag.getrKoID());
+                bearbeitung = false;
+                textfelderEditierbar(false);
+                rezeptkopfController.speichernDatei();
+                startseiteAufrufen(actionEvent);
+            } else if (rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()) != null) {
+                rezeptkopfController.löschenRezeptkopf(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()).getrKoID());
+                bearbeitung = false;
+                textfelderEditierbar(false);
+                rezeptkopfController.speichernDatei();
+                startseiteAufrufen(actionEvent);
+            }
+        }else {
+            if (textRezeptName.getText().matches(".*\\S+.*")){
+                Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(textRezeptName.getText().trim());
+                System.out.println(rez.toString());
+                String[] strings = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
+                rez.zutatLöschen(strings[0]);
+                rezeptkopfController.speichernDatei();
+                listZutaten.setItems(zutatenAuflisten(rez));
+            }
         }
     }
 
@@ -183,10 +195,8 @@ public class RezeptDetailsController {
         BufferedImage anzeige = null;
         if (UIController.uebertrag != null){
             anzeige = QrBufferedImage.qrGenerieren(UIController.uebertrag);
-        }else {
-            try {
-                anzeige = QrBufferedImage.qrGenerieren(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()));
-            }catch (Exception e){}
+        }else{
+            anzeige = QrBufferedImage.qrGenerieren(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()));
         }
         if (anzeige != null){
             imgQR.setImage(SwingFXUtils.toFXImage(anzeige, null));
@@ -200,7 +210,15 @@ public class RezeptDetailsController {
     }
 
     public void openNeueZutat(ActionEvent actionEvent) throws IOException {
-        neueZutatFenster(actionEvent, null);
+        if (UIController.uebertrag != null) {
+            neueZutatFenster(actionEvent, null);
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ein Problem ist aufgetreten");
+            alert.setHeaderText("Ein Rezept muss erstellt werden");
+            alert.setContentText("Bevor eine Zutat hinzugefügt werden kann, muss ein neues Rezept über den Speichern Button erstellt werden.");
+            alert.showAndWait();
+        }
     }
 
     public void zutatBearbeiten(MouseEvent mouseEvent) throws IOException {

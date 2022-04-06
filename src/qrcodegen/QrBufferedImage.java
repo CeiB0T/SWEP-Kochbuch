@@ -28,9 +28,11 @@ public class QrBufferedImage {
     public static BufferedImage qrGenerieren(Rezeptkopf rezeptkopf){
         try {
             QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
-            QrCode qr = QrCode.encodeText(rezeptkopf.zutatenToString(), errCorLvl);
-            BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
-            return img;
+            if (rezeptkopf.getrKoRezeptzutat().size() > 0) {
+                QrCode qr = QrCode.encodeText(rezeptkopf.zutatenToString(), errCorLvl);
+                BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
+                return img;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
