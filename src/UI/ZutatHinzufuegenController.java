@@ -36,6 +36,7 @@ public class ZutatHinzufuegenController {
 
     public ListView listZutaten;
     public TextField textTitel;
+    public Button btnZurueck;
 
     private Stage stage;
     private Scene scene;
@@ -124,9 +125,7 @@ public class ZutatHinzufuegenController {
                    textEinheit.setText(rezeptzutat.getrZuEinheit());
                }
             }
-
         }
-
     }
 
     public void zutatBearbeiten(ActionEvent actionEvent) {
@@ -135,33 +134,61 @@ public class ZutatHinzufuegenController {
 
     public void zutatSpeichern(ActionEvent actionEvent) throws IOException {
         if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
-         if(neueZutat){
-            if(zutatenController.existiertZutat(textTitel.getText().trim())){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Ein Problem ist aufgetreten");
-                alert.setHeaderText("Zutat bereits vorhanden");
-                alert.setContentText("Diese Zutat existiert bereits. Falls Sie den Inhalt ändern wollen wählen Sie Diese bitte aus und klicken Sie Bearbeiten");
-                alert.showAndWait();
-            }else{
-                Zutat neueZutat = zutatenController.neueZutat(textTitel.getText().trim());
-                zutatenController.speichenDatei();
+            if (neueZutat) {
+                if (zutatenController.existiertZutat(textTitel.getText().trim())) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Ein Problem ist aufgetreten");
+                    alert.setHeaderText("Zutat bereits vorhanden");
+                    alert.setContentText("Diese Zutat existiert bereits. Falls Sie den Inhalt ändern wollen wählen Sie Diese bitte aus und klicken Sie Bearbeiten");
+                    alert.showAndWait();
+                } else {
+                    Zutat neueZutat = zutatenController.neueZutat(textTitel.getText().trim());
+                    zutatenController.speichenDatei();
+                }
             }
-            }
-         Rezeptkopf zugehoerigerRezeptkopf = UIController.uebertrag;
-         if(textMenge.getText().matches("^\\d+\\.?\\d*$")){ //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
-             double menge = Double.valueOf(textMenge.getText());
-             Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge,textEinheit.getText(),zutatenController.getZutat(textTitel.getText().trim()));
-             zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);
-             rezeptkopfController.speichernDatei();
-             textfelderEditierbar(false);
-         }else {
-             Alert keineZahl = new Alert(Alert.AlertType.ERROR);
-             keineZahl.setTitle("ungültige Eingabe");
-             keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
-             keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5");
-         }
+            Rezeptkopf zugehoerigerRezeptkopf = UIController.uebertrag;
+            if (textMenge.getText().matches("^\\d+\\.?\\d*$")) { //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
+                if (zugehoerigerRezeptkopf.getrKoRezeptzutat().size() > 0) {
+                    for (Rezeptzutat rezZutat: zugehoerigerRezeptkopf.getrKoRezeptzutat()) {
+                        if (rezZutat.getrZuZutat().getZutName().equals(textTitel.getText().trim())){
+                            rezZutat.setrZuEinheit(textEinheit.getText().trim());
+                            rezZutat.setrZuMenge(Double.parseDouble(textMenge.getText().trim()));
+                            textfelderEditierbar(false);
+                            rezeptkopfController.speichernDatei();
+                        }
+                    }
+                } else {
+                    double menge = Double.parseDouble(textMenge.getText().trim());
+                    Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge, textEinheit.getText(), zutatenController.getZutat(textTitel.getText().trim()));
+                    zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);
+                    textfelderEditierbar(false);
+                    rezeptkopfController.speichernDatei();
+                }
+            }else {
+            Alert keineZahl = new Alert(Alert.AlertType.ERROR);
+            keineZahl.setTitle("ungültige Eingabe");
+            keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
+            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. \nDezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. \nBeispiel 2.5");
+            keineZahl.showAndWait();
+        }
+        }
+        updateList();
+    }
 
-
+    private void zulaessigeMenge(Rezeptkopf rezeptkopf, String text) throws IOException {
+        if(textMenge.getText().matches("^\\d+\\.?\\d*$")){ //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
+            System.out.println("ist kommazahl");
+            double menge = Double.parseDouble(text);
+            Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge,textEinheit.getText(),zutatenController.getZutat(textTitel.getText().trim()));
+            rezeptkopf.zutatHinzufügen(neueRezeptzutat);
+            rezeptkopfController.speichernDatei();
+            textfelderEditierbar(false);
+        }else {
+            Alert keineZahl = new Alert(Alert.AlertType.ERROR);
+            keineZahl.setTitle("ungültige Eingabe");
+            keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
+            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. \nDezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. \nBeispiel 2.5");
+            keineZahl.showAndWait();
         }
     }
 
@@ -178,5 +205,8 @@ public class ZutatHinzufuegenController {
         textTitel.setEditable(zustand);
         textMenge.setEditable(zustand);
         textEinheit.setEditable(zustand);
+    }
+
+    public void zurueckZuAktuellesRezept(ActionEvent actionEvent) {
     }
 }

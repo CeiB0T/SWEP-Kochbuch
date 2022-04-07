@@ -1,6 +1,7 @@
 package qrcodegen;
 
 import Rezeptteile.Rezeptkopf;
+import Rezeptteile.Rezeptzutat;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -29,7 +30,11 @@ public class QrBufferedImage {
         try {
             QrCode.Ecc errCorLvl = QrCode.Ecc.LOW;
             if (rezeptkopf.getrKoRezeptzutat().size() > 0) {
-                QrCode qr = QrCode.encodeText(rezeptkopf.zutatenToString(), errCorLvl);
+                String zutatenAusgabe = "";
+                for (Rezeptzutat rezZutat : rezeptkopf.getrKoRezeptzutat()){
+                    zutatenAusgabe += rezZutat.getrZuZutat().getZutName() + ": " + rezZutat.getrZuMenge() + " " + rezZutat.getrZuEinheit() + "\n";
+                }
+                QrCode qr = QrCode.encodeText(zutatenAusgabe, errCorLvl);
                 BufferedImage img = QrBufferedImage.toImage(qr, 14, 2, 0xffffff, 0x000000);
                 return img;
             }
