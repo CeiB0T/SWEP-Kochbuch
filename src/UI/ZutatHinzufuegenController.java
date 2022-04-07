@@ -153,17 +153,20 @@ public class ZutatHinzufuegenController {
                 }
             }
             Rezeptkopf zugehoerigerRezeptkopf = UIController.uebertrag;
+            boolean zutatGefunden = false;
             if (textMenge.getText().matches("^\\d+\\.?\\d*$")) { //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
                 if (zugehoerigerRezeptkopf.getrKoRezeptzutat().size() > 0) {
                     for (Rezeptzutat rezZutat: zugehoerigerRezeptkopf.getrKoRezeptzutat()) {
                         if (rezZutat.getrZuZutat().getZutName().equals(textTitel.getText().trim())){
+                            zutatGefunden = true;
                             rezZutat.setrZuEinheit(textEinheit.getText().trim());
                             rezZutat.setrZuMenge(Double.parseDouble(textMenge.getText().trim()));
                             textfelderEditierbar(false);
                             rezeptkopfController.speichernDatei();
                         }
                     }
-                } else {
+                }
+                if (!zutatGefunden){
                     double menge = Double.parseDouble(textMenge.getText().trim());
                     Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge, textEinheit.getText(), zutatenController.getZutat(textTitel.getText().trim()));
                     zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);

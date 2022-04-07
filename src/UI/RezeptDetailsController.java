@@ -2,7 +2,6 @@ package UI;
 
 import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Rezeptzutat;
-import Rezeptteile.Zutat;
 import controller.RezeptkopfController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +24,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class RezeptDetailsController {
-    
+
     public Button btnDefinitionsbuch;
     public Button btnReturnHome;
     public Button btnExit;
@@ -47,7 +46,7 @@ public class RezeptDetailsController {
     public static Rezeptzutat rezeptzutatUebertrag;
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
-    private ObservableList zutatenAuflisten(Rezeptkopf rezeptkopf){
+    private ObservableList zutatenAuflisten(Rezeptkopf rezeptkopf) {
         ObservableList ret = FXCollections.observableArrayList();
         if (!rezeptkopf.getrKoRezeptzutat().isEmpty() || rezeptkopf.getrKoRezeptzutat() == null) {
             for (Rezeptzutat zut : rezeptkopf.getrKoRezeptzutat()) {
@@ -59,21 +58,22 @@ public class RezeptDetailsController {
     }
 
     public void initialize() throws IOException {
-        if (UIController.neuesRezept){ //Nur ausführen wenn ein neues Rezept erstellt wird
+        if (UIController.neuesRezept) { //Nur ausführen wenn ein neues Rezept erstellt wird
             textfelderEditierbar(true);
-        }else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
+        } else { //Ausführen wenn ein bestehendes Rezept angezeigt wird
             try {
                 Rezeptkopf rezeptkopf = UIController.uebertrag;
                 textRezeptName.setText(rezeptkopf.getrKoRezeptname());
                 listZutaten.setItems(zutatenAuflisten(rezeptkopf));
                 textZubereitung.setText(rezeptkopf.getrKoRezeptinhalt());
-                if(rezeptkopf.getrKoPersonenzahl() > 0) {
+                if (rezeptkopf.getrKoPersonenzahl() > 0) {
                     textPersonenanzahl.setText(Integer.toString(rezeptkopf.getrKoPersonenzahl()));
                 }
                 Tooltip reZutatWeg = new Tooltip("Zutat zum löschen makieren(anklicken), dann löschen drücken");
                 listZutaten.setTooltip(reZutatWeg);
                 qrAnzeigen();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -82,7 +82,7 @@ public class RezeptDetailsController {
         bearbeitung = false;
         textfelderEditierbar(true);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
@@ -99,7 +99,7 @@ public class RezeptDetailsController {
     private void startseiteAufrufen(Event event) throws IOException {
         UIController.neuesRezept = false;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
@@ -112,7 +112,7 @@ public class RezeptDetailsController {
         stage.close();
     }
 
-    private void buttonsDeaktivierenBeiBearbeitung(Boolean bool){
+    private void buttonsDeaktivierenBeiBearbeitung(Boolean bool) {
         btnNeueZutat.setDisable(bool);
         btnBearbeiten.setDisable(bool);
         btnDefinitionsbuch.setDisable(bool);
@@ -131,8 +131,8 @@ public class RezeptDetailsController {
     }
 
     public void rezeptSpeichern(ActionEvent actionEvent) throws IOException {
-        if (UIController.neuesRezept){
-            if (textRezeptName.getText().matches(".*\\S+.*")){
+        if (UIController.neuesRezept) {
+            if (textRezeptName.getText().matches(".*\\S+.*")) {
                 Rezeptkopf rez = rezeptkopfController.neuerRezeptkopf(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
                 if (textPersonenanzahl.getText().matches("\\d+")) {
@@ -143,12 +143,12 @@ public class RezeptDetailsController {
                 rezeptkopfController.speichernDatei();
                 textfelderEditierbar(false);
                 buttonsDeaktivierenBeiBearbeitung(false);
-            }else {
+            } else {
                 alertNameUnzulässig();
             }
-        }else { //Bestehendes Rezept wird gespeichert
+        } else { //Bestehendes Rezept wird gespeichert
             Rezeptkopf rez = UIController.uebertrag;
-            if (textRezeptName.getText().matches(".*\\S+.*")){
+            if (textRezeptName.getText().matches(".*\\S+.*")) {
                 rez.setrKoRezeptname(textRezeptName.getText().trim());
                 rez.setrKoRezeptinhalt(textZubereitung.getText().trim());
                 if (textPersonenanzahl.getText().matches("\\d+")) {
@@ -157,7 +157,7 @@ public class RezeptDetailsController {
                 rezeptkopfController.speichernDatei();
                 textfelderEditierbar(false);
                 buttonsDeaktivierenBeiBearbeitung(false);
-            }else {
+            } else {
                 alertNameUnzulässig();
             }
         }
@@ -165,7 +165,7 @@ public class RezeptDetailsController {
         UIController.neuesRezept = false; //Neues Rezept Bool zurücksetzen
     }
 
-    private void alertNameUnzulässig(){
+    private void alertNameUnzulässig() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Ein Fehler ist aufgetreten");
         alert.setHeaderText("Dieser Rezeptname ist nicht zulässig!");
@@ -197,8 +197,8 @@ public class RezeptDetailsController {
                     startseiteAufrufen(actionEvent);
                 }
             }
-        }else {
-            if (textRezeptName.getText().matches(".*\\S+.*")){
+        } else {
+            if (textRezeptName.getText().matches(".*\\S+.*")) {
                 Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(textRezeptName.getText().trim());
                 String[] strings = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
                 rez.zutatLöschen(strings[0]);
@@ -210,17 +210,17 @@ public class RezeptDetailsController {
 
     private void qrAnzeigen() throws IOException {
         BufferedImage anzeige = null;
-        if (UIController.uebertrag != null){
+        if (UIController.uebertrag != null) {
             anzeige = QrBufferedImage.qrGenerieren(UIController.uebertrag);
-        }else{
+        } else {
             anzeige = QrBufferedImage.qrGenerieren(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()));
         }
-        if (anzeige != null){
+        if (anzeige != null) {
             imgQR.setImage(SwingFXUtils.toFXImage(anzeige, null));
         }
     }
 
-    public void textfelderEditierbar(Boolean bool){
+    public void textfelderEditierbar(Boolean bool) {
         textRezeptName.setEditable(bool);
         textZubereitung.setEditable(bool);
         textPersonenanzahl.setEditable(bool);
@@ -229,7 +229,7 @@ public class RezeptDetailsController {
     public void openNeueZutat(ActionEvent actionEvent) throws IOException {
         if (UIController.uebertrag != null) {
             neueZutatFenster(actionEvent, null);
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ein Problem ist aufgetreten");
             alert.setHeaderText("Ein Rezept muss erstellt werden");
@@ -239,12 +239,13 @@ public class RezeptDetailsController {
     }
 
     public void zutatBearbeiten(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2){
+        if (mouseEvent.getClickCount() == 2) {
             if (listZutaten.getSelectionModel().getSelectedItem() != null) {
                 String[] zutatWerte = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
-                for (Rezeptzutat rezeptzutat: UIController.uebertrag.getrKoRezeptzutat()) {
-                    if (rezeptzutat.getrZuZutat().getZutName().equals(zutatWerte[0])){
-                        neueZutatFenster(mouseEvent, rezeptzutat); break;
+                for (Rezeptzutat rezeptzutat : UIController.uebertrag.getrKoRezeptzutat()) {
+                    if (rezeptzutat.getrZuZutat().getZutName().equals(zutatWerte[0])) {
+                        neueZutatFenster(mouseEvent, rezeptzutat);
+                        break;
                     }
                 }
             }
@@ -258,7 +259,7 @@ public class RezeptDetailsController {
         textfelderEditierbar(false);
         rezeptzutatUebertrag = zutat;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/ZutatHinzufuegen.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Startseite");
         stage.setScene(scene);
@@ -268,7 +269,7 @@ public class RezeptDetailsController {
 
     public void kategorienAnzeigen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/KategorienAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Kategorien");
         stage.setScene(scene);
