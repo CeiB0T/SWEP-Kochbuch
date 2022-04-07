@@ -36,6 +36,7 @@ public class ZutatHinzufuegenController {
 
     public ListView listZutaten;
     public TextField textTitel;
+    public Button btnZurueck;
 
     private Stage stage;
     private Scene scene;
@@ -165,5 +166,8 @@ public class ZutatHinzufuegenController {
         textTitel.setEditable(zustand);
         textMenge.setEditable(zustand);
         textEinheit.setEditable(zustand);
+    }
+
+    public void zurueckZuAktuellesRezept(ActionEvent actionEvent) {
     }
 }
