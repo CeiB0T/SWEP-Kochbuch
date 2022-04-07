@@ -2,7 +2,6 @@ package UI;
 
 import Rezeptteile.Rezeptkopf;
 import Rezeptteile.Rezeptzutat;
-import Rezeptteile.Zubereitungsmethode;
 import Rezeptteile.Zutat;
 import controller.RezeptkopfController;
 import controller.ZutatenController;
@@ -18,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -143,7 +143,7 @@ public class ZutatHinzufuegenController {
                     alert.showAndWait();
                 } else {
                     Zutat neueZutat = zutatenController.neueZutat(textTitel.getText().trim());
-                    zutatenController.speichenDatei();
+                    zutatenController.speichernDatei();
                 }
             }
             Rezeptkopf zugehoerigerRezeptkopf = UIController.uebertrag;
@@ -187,12 +187,38 @@ public class ZutatHinzufuegenController {
             Alert keineZahl = new Alert(Alert.AlertType.ERROR);
             keineZahl.setTitle("ungültige Eingabe");
             keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
-            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. \nDezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. \nBeispiel 2.5");
+            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5\nDie Zutat wurde schon für Sie erstellt, sie kann nun bearbeitet werden");
             keineZahl.showAndWait();
         }
     }
 
-    public void zutatLoeschen(ActionEvent actionEvent) {
+    public void zutatLoeschen(ActionEvent actionEvent) throws IOException {
+        Boolean zutatInNutzung = false;
+        ArrayList<Rezeptkopf> rezepteMitZutat = new ArrayList<>();
+        String rezeptAusgabe = "Rezepte mit der Zutat:\n";
+        if (listZutaten.getSelectionModel().getSelectedItem() != null) {
+            for (Rezeptkopf rez : rezeptkopfController.getAlleRezeptkopf()) {
+                for (Rezeptzutat zutat: rez.getrKoRezeptzutat()) {
+                    if (zutat.getrZuZutat().getZutName().equals(listZutaten.getSelectionModel().getSelectedItem().toString())){
+                        zutatInNutzung = true;
+                        rezepteMitZutat.add(rez);
+                        rezeptAusgabe += rez.getrKoRezeptname() + "\n";
+                    }
+                }
+            }
+            if (zutatInNutzung){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Zutat in Benutzung");
+                alert.setHeaderText("Bevor eine Zutat gelösht werden kann muss sie bitte aus allen Rezepten entfernt werden");
+                alert.setContentText(rezeptAusgabe);
+                alert.showAndWait();
+            }else {
+                zutatenController.löschenZutat(listZutaten.getSelectionModel().getSelectedItem().toString());
+                zutatenController.speichernDatei();
+                textLoeschen();
+                updateList();
+            }
+        }
     }
 
     private void textLoeschen(){
@@ -207,6 +233,13 @@ public class ZutatHinzufuegenController {
         textEinheit.setEditable(zustand);
     }
 
-    public void zurueckZuAktuellesRezept(ActionEvent actionEvent) {
+    public void zurueckZuAktuellesRezept(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Rezeptansicht: " + UIController.uebertrag.getrKoRezeptname());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

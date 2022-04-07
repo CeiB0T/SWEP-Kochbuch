@@ -1,7 +1,6 @@
 package controller;
 
 import Persistenz.FileUtil;
-import Rezeptteile.Zubereitungsmethode;
 import Rezeptteile.Zutat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,7 +47,7 @@ public class ZutatenController {
         return List.copyOf(zutaten.values()); //Kapseln der Dateien indem nur eine Kopie weitergegeben wird
     }
 
-    public void speichenDatei() throws IOException {
+    public void speichernDatei() throws IOException {
         Gson gson = new Gson();
         String json = gson.toJson(zutaten);
         FileUtil.writeToFile("Zutaten.json", json);
