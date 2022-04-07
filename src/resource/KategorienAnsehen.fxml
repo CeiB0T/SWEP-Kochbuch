@@ -121,7 +121,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ListView fx:id="listRezepte" onMouseClicked="#alleRezepteAnzeigen" prefHeight="622.0" prefWidth="225.0" />
+                              <ListView fx:id="listRezepte" onMouseClicked="#rezeptAnzeigen" prefHeight="622.0" prefWidth="225.0" />
                               <Button fx:id="btnAddToKategorie" mnemonicParsing="false" onAction="#listZuKategorie" prefHeight="33.0" prefWidth="225.0" text="Zu Kategorie hinzufügen">
                                  <font>
                                     <Font size="18.0" />

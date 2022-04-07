@@ -42,6 +42,7 @@ public class KategorienController {
     private RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void initialize(){
+        alleRezepteAnzeigen();
     }
 
     public void zurStartseite(ActionEvent actionEvent) throws IOException {
@@ -118,9 +119,16 @@ public class KategorienController {
         }
     }
 
-    public void alleRezepteAnzeigen(MouseEvent mouseEvent) {
+    public void rezeptAnzeigen(MouseEvent mouseEvent) {//Bei klick auf "alleRezepte" liste
+        //TODO doppel geklicktes Rezept anzeigen
+    }
+
+    public void alleRezepteAnzeigen(){
         ObservableList alleRezepte = FXCollections.observableArrayList();
-        //alleRezepte.add(rezeptkopfController.getAlleRezeptkopf())
+        for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
+            alleRezepte.add(rez.listViewString());
+        }
+        listRezepte.setItems(alleRezepte);
     }
 
     public void listZuKategorie(ActionEvent actionEvent) {
