@@ -51,9 +51,8 @@ public class ZutatHinzufuegenController {
             textMenge.setText(""+RezeptDetailsController.rezeptzutatUebertrag.getrZuMenge());
             textEinheit.setText(RezeptDetailsController.rezeptzutatUebertrag.getrZuEinheit());
         }
-        RezeptDetailsController.rezeptzutatUebertrag = null;
+        RezeptDetailsController.rezeptzutatUebertrag = null;//TODO ergibt es Sinnn hier den Übertrag zu nullen?
         updateList();
-       // zutatenController.speichenDatei(); -> Fehler wenn die Zutaten.json noch nicht existiert. Hilft das?
     }
 
     public void returnHome (ActionEvent actionEvent) throws Exception{
@@ -139,7 +138,7 @@ public class ZutatHinzufuegenController {
         textfelderEditierbar(true);
     }
 
-    public void zutatSpeichern(ActionEvent actionEvent) throws IOException {
+    public void zutatSpeichern(ActionEvent actionEvent) throws IOException { //TODO ändern der Dateien reparierren
         if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
             if (neueZutat) {
                 if (zutatenController.existiertZutat(textTitel.getText().trim())) {
@@ -182,6 +181,7 @@ public class ZutatHinzufuegenController {
         }
         }
         updateList();
+        textfelderEditierbar(false);
     }
 
     public void zutatLoeschen(ActionEvent actionEvent) throws IOException {

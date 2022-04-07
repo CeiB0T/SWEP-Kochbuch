@@ -177,8 +177,8 @@ public class RezeptDetailsController {
         if (listZutaten.getSelectionModel().getSelectedItem() == null) {
             Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);
             wirklichLoeschen.setTitle("Löschen bestätigen");
-            wirklichLoeschen.setHeaderText("Willst du das Rezept wirklich löschen");
-            wirklichLoeschen.setContentText("Wenn du nur eine Zutat löschen möchtest:\nMakiere die Zutat in der Liste(anklicken),\ndrücke dann löschen.");
+            wirklichLoeschen.setHeaderText("Wollen Sie das Rezept wirklich löschen");
+            wirklichLoeschen.setContentText("Wenn Sie nur eine Zutat löschen möchten:\nMakieren Sie die Zutat in der Liste(anklicken),\ndrücken Sie dann löschen.");
 
             Optional<ButtonType> result = wirklichLoeschen.showAndWait();
             if (result.get() == ButtonType.OK) {
