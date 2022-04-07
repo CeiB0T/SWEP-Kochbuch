@@ -1,5 +1,6 @@
 package Rezeptteile;
 
+import controller.KategorieController;
 import controller.RezeptkopfController;
 import controller.ZubereitungsmethodeController;
 import controller.ZutatenController;
@@ -12,6 +13,7 @@ public class Test{
     public static void main(String[] args) throws IOException {
         ZutatenController zutatenController = ZutatenController.getInstance();
         ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
+        KategorieController kategorieController = KategorieController.getInstance();
         Zutat zutat = null;
 
         //Ab hier werden Rezepte eingefügt
@@ -56,6 +58,9 @@ public class Test{
 
         Zubereitungsmethode  zub = zubController.neueZubereitungsmethode("Braten");
         zub.setzMeDefinition("In einer Pfanne mit Öl hoch erhitzen");
+
+        kategorieController.neueKategorie("Kuchen");
+        kategorieController.speichenDatei();
 
         zubController.speichenDatei();
         zubController.leseDatei();

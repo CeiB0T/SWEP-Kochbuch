@@ -68,7 +68,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <ListView fx:id="listKategorie" onMouseClicked="#kategorienAnzeigen" prefHeight="592.0" prefWidth="490.0" />
+                        <ListView fx:id="listKategorie" onMouseClicked="#kategorieansichtAufrufen" prefHeight="592.0" prefWidth="490.0" />
                         <HBox alignment="CENTER" prefHeight="71.0" prefWidth="490.0">
                            <children>
                               <Button fx:id="btnBearbeiten" mnemonicParsing="false" onAction="#kategorieBearbeiten" prefHeight="67.0" prefWidth="182.0" text="Bearbeiten">
@@ -108,7 +108,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ListView fx:id="listKategorieRezepte" onMouseClicked="#zugehoerigeRezepteAnzeigen" prefHeight="670.0" prefWidth="245.0" />
+                              <ListView fx:id="listKategorieRezepte" onMouseClicked="#zugehoerigesRezeptAnzeigen" prefHeight="670.0" prefWidth="245.0" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" top="10.0" />

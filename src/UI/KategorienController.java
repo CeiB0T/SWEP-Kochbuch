@@ -41,8 +41,9 @@ public class KategorienController {
     private KategorieController kategorieController = KategorieController.getInstance();
     private RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
-    public void initialize(){
+    public void initialize() throws IOException {
         alleRezepteAnzeigen();
+        updateListe();
     }
 
     public void zurStartseite(ActionEvent actionEvent) throws IOException {
@@ -86,8 +87,12 @@ public class KategorienController {
         textFelderBearbeiten(true);
     }
 
-    public void kategorienAnzeigen(MouseEvent mouseEvent) {
+    public void kategorieansichtAufrufen(MouseEvent mouseEvent) throws IOException {
         updateListe();
+        if (listKategorie.getSelectionModel().getSelectedItem() != null){
+            textKategorieName.setText(listKategorie.getSelectionModel().getSelectedItem().toString());
+            zugehoerigeRezepteListeAnzeigen();
+        }
     }
 
     public void kategorieBearbeiten(ActionEvent actionEvent) {
@@ -97,7 +102,7 @@ public class KategorienController {
         textFelderBearbeiten(true);
     }
 
-    public void kategorieSpeichern(ActionEvent actionEvent) {
+    public void kategorieSpeichern(ActionEvent actionEvent) throws IOException {
         textFelderBearbeiten(false);
         if (tempKategorie != null){
             bestehendeKategorieAktualisieren(tempKategorie);
@@ -111,7 +116,9 @@ public class KategorienController {
     }
 
     public void kategorieLoeschen(ActionEvent actionEvent) throws IOException {
-        if (textKategorieName.getText().matches(".*\\S+.*")) {
+        if (listKategorieRezepte.getSelectionModel().getSelectedItem() != null){
+
+        }else if (textKategorieName.getText().matches(".*\\S+.*")) {
             if (kategorieController.existiertKategorie(textKategorieName.getText().trim())) {
                 Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);
                 wirklichLoeschen.setTitle("Löschen bestätigen");
@@ -128,14 +135,18 @@ public class KategorienController {
         }
     }
 
-    public void zugehoerigeRezepteAnzeigen(MouseEvent mouseEvent) {
-        if (listKategorie.getSelectionModel().getSelectedItem() != null){
-            ObservableList rezepteInKategorie = FXCollections.observableArrayList();
-            for (Rezeptkopf rez: kategorieController.getKategorie(listKategorie.getSelectionModel().getSelectedItem().toString()).getKatRezeptkopf()) {
-                rezepteInKategorie.add(rez);
-            }
-            sortierenListe(rezepteInKategorie);
-            listKategorieRezepte.setItems(rezepteInKategorie);
+    public void zugehoerigesRezeptAnzeigen(MouseEvent mouseEvent) throws IOException {
+        if(mouseEvent.getClickCount() == 2){
+            String[] rezeptname = listKategorieRezepte.getSelectionModel().getSelectedItem().toString().split(",");
+            Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(rezeptname[0]);
+            UIController.uebertrag = rez;
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setTitle("Kochbuch: Rezeptansicht: " + UIController.uebertrag.getrKoRezeptname());
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
         }
     }
 
@@ -163,7 +174,7 @@ public class KategorienController {
         listRezepte.setItems(alleRezepte);
     }
 
-    public void addRezeptZuKategorie(ActionEvent actionEvent) {
+    public void addRezeptZuKategorie(ActionEvent actionEvent) throws IOException {
         String katName = textKategorieName.getText().trim();
         if (katName.matches(".*\\S+.*")){
             if (kategorieController.existiertKategorie(katName)){
@@ -173,6 +184,8 @@ public class KategorienController {
                     if (!kategorieController.getKategorie(katName).getKatRezeptkopf().contains(rezeptkopfController.getRezeptkopfByName(rezeptname))){
                         kategorieController.getKategorie(katName).getKatRezeptkopf().add(rezeptkopfController.getRezeptkopfByName(rezeptname));
                         alleRezepteVonKategorieByName();
+                        kategorieController.speichenDatei();
+                        zugehoerigeRezepteListeAnzeigen();
                     }
                 }
             }
@@ -187,9 +200,12 @@ public class KategorienController {
         textKategorieName.setText("");
     }
 
-    private void updateListe(){
-        ObservableList kategorien = FXCollections.observableArrayList();
-        kategorien.add(kategorieController.getAlleKategorien());
+    private void updateListe() throws IOException {
+        kategorieController.leseDatei();
+        ObservableList<String> kategorien = FXCollections.observableArrayList();
+        for (Kategorie kat: kategorieController.getAlleKategorien()) {
+            kategorien.add(kat.getKatName());
+        }
         sortierenListe(kategorien);
         listKategorie.setItems(kategorien);
     }
@@ -216,5 +232,17 @@ public class KategorienController {
 
     private void bestehendeKategorieAktualisieren(Kategorie kategorie){
         kategorie.setKatName(textKategorieName.getText().trim());
+    }
+
+    public void zugehoerigeRezepteListeAnzeigen() throws IOException {
+        kategorieController.leseDatei();
+        if (listKategorie.getSelectionModel().getSelectedItem() != null){
+            ObservableList<String> rezepteInKategorie = FXCollections.observableArrayList();
+            for (Rezeptkopf rez: kategorieController.getKategorie(listKategorie.getSelectionModel().getSelectedItem().toString()).getKatRezeptkopf()) {
+                rezepteInKategorie.add(rez.listViewString());
+            }
+            sortierenListe(rezepteInKategorie);
+            listKategorieRezepte.setItems(rezepteInKategorie);
+        }
     }
 }

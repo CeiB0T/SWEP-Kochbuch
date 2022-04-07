@@ -2,11 +2,15 @@ package controller;
 
 import Persistenz.FileUtil;
 import Rezeptteile.Kategorie;
+import Rezeptteile.Rezeptkopf;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class KategorieController {
 
@@ -52,7 +56,8 @@ public class KategorieController {
 
     public void leseDatei() throws IOException {
         String json = FileUtil.readFromFile("Kategorien.json");
-        HashMap map = new Gson().fromJson(json, HashMap.class);
+        Type type = new TypeToken<Map<String, Kategorie>>(){}.getType();
+        HashMap map = new HashMap(new Gson().fromJson(json, type));
         this.kategorien = map;
     }
 }
