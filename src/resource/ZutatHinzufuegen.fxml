@@ -31,6 +31,11 @@
                   <Font name="System Bold" size="31.0" />
                </font>
             </Button>
+            <Button fx:id="btnKategorien" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#kategorienAnzeigen" prefHeight="67.0" prefWidth="275.0" text="Kategorien">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Button>
             <Button fx:id="btnZurueck" alignment="CENTER" mnemonicParsing="false" onAction="#zurueckZuAktuellesRezept" prefHeight="66.0" prefWidth="485.0" text="Letztes Rezept">
                <font>
                   <Font name="System Bold" size="31.0" />

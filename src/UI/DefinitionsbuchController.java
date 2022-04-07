@@ -166,4 +166,14 @@ public class DefinitionsbuchController {
         textTitel.setText("");
         textInhalt.setText("");
     }
+
+    public void kategorienAnzeigen(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/KategorienAnsehen.fxml")));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Kochbuch: Kategorien");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
 }
