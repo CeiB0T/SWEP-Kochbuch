@@ -38,6 +38,7 @@ public class KategorienController {
 
     private Stage stage;
     private Scene scene;
+    private Kategorie tempKategorie;
     private KategorieController kategorieController = KategorieController.getInstance();
     private RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
@@ -91,12 +92,23 @@ public class KategorienController {
     }
 
     public void kategorieBearbeiten(ActionEvent actionEvent) {
+        if (kategorieController.existiertKategorie(textKategorieName.getText().trim())){
+            tempKategorie = kategorieController.getKategorie(textKategorieName.getText().trim());
+        }
         textFelderBearbeiten(true);
     }
 
     public void kategorieSpeichern(ActionEvent actionEvent) {
-        //TODO
         textFelderBearbeiten(false);
+        if (tempKategorie != null){
+            bestehendeKategorieAktualisieren(tempKategorie);
+        }else {
+            String katName = textKategorieName.getText().trim();
+            if (katName.matches(".*\\S+.*")){
+                kategorieController.neueKategorie(katName);
+            }
+        }
+        updateListe();
     }
 
     public void kategorieLoeschen(ActionEvent actionEvent) throws IOException { //TODO Confirm Dialog
@@ -115,12 +127,24 @@ public class KategorienController {
             for (Rezeptkopf rez: kategorieController.getKategorie(listKategorie.getSelectionModel().getSelectedItem().toString()).getKatRezeptkopf()) {
                 rezepteInKategorie.add(rez);
             }
+            sortierenListe(rezepteInKategorie);
             listKategorieRezepte.setItems(rezepteInKategorie);
         }
     }
 
-    public void rezeptAnzeigen(MouseEvent mouseEvent) {//Bei klick auf "alleRezepte" liste
-        //TODO doppel geklicktes Rezept anzeigen
+    public void rezeptAnzeigen(MouseEvent mouseEvent) throws IOException {//Bei klick auf "alleRezepte" liste
+        if(mouseEvent.getClickCount() == 2){
+            String[] rezeptname = listRezepte.getSelectionModel().getSelectedItem().toString().split(",");
+            Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(rezeptname[0]);
+            UIController.uebertrag = rez;
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setTitle("Kochbuch: Rezeptansicht: " + UIController.uebertrag.getrKoRezeptname());
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
     }
 
     public void alleRezepteAnzeigen(){
@@ -128,10 +152,24 @@ public class KategorienController {
         for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
             alleRezepte.add(rez.listViewString());
         }
+        sortierenListe(alleRezepte);
         listRezepte.setItems(alleRezepte);
     }
 
-    public void listZuKategorie(ActionEvent actionEvent) {
+    public void addRezeptZuKategorie(ActionEvent actionEvent) {
+        String katName = textKategorieName.getText().trim();
+        if (katName.matches(".*\\S+.*")){
+            if (kategorieController.existiertKategorie(katName)){
+                if (listRezepte.getSelectionModel().getSelectedItem() != null){
+                    String[] werte = listRezepte.getSelectionModel().getSelectedItem().toString().split(",");
+                    String rezeptname = werte[0];
+                    if (!kategorieController.getKategorie(katName).getKatRezeptkopf().contains(rezeptkopfController.getRezeptkopfByName(rezeptname))){
+                        kategorieController.getKategorie(katName).getKatRezeptkopf().add(rezeptkopfController.getRezeptkopfByName(rezeptname));
+                        alleRezepteVonKategorieByName();
+                    }
+                }
+            }
+        }
     }
 
     private void textFelderBearbeiten(Boolean bool){
@@ -157,5 +195,19 @@ public class KategorienController {
             }
         });
         return liste;
+    }
+
+    private void alleRezepteVonKategorieByName() {
+        if (textKategorieName.getText().matches(".*\\S+.*")) {
+            ObservableList rezepteInKategorie = FXCollections.observableArrayList();
+            for (Rezeptkopf rez : kategorieController.getKategorie(textKategorieName.getText()).getKatRezeptkopf()) {
+                rezepteInKategorie.add(rez);
+            }
+            listKategorieRezepte.setItems(rezepteInKategorie);
+        }
+    }
+
+    private void bestehendeKategorieAktualisieren(Kategorie kategorie){
+        kategorie.setKatName(textKategorieName.getText().trim());
     }
 }
