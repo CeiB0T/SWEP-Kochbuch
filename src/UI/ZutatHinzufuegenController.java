@@ -46,6 +46,12 @@ public class ZutatHinzufuegenController {
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void initialize() throws IOException {
+        if (RezeptDetailsController.rezeptzutatUebertrag != null){
+            textTitel.setText(RezeptDetailsController.rezeptzutatUebertrag.getrZuZutat().getZutName());
+            textMenge.setText(""+RezeptDetailsController.rezeptzutatUebertrag.getrZuMenge());
+            textEinheit.setText(RezeptDetailsController.rezeptzutatUebertrag.getrZuEinheit());
+        }
+        RezeptDetailsController.rezeptzutatUebertrag = null;
         updateList();
        // zutatenController.speichenDatei(); -> Fehler wenn die Zutaten.json noch nicht existiert. Hilft das?
     }
@@ -113,6 +119,7 @@ public class ZutatHinzufuegenController {
     }
 
     public void listZutatenKlicked(MouseEvent mouseEvent) {
+        textLoeschen();
         if (!Objects.isNull(listZutaten.getSelectionModel().getSelectedItem())) {
             Rezeptkopf zugehoerigRezeptkopf = UIController.uebertrag;
             String zutat = listZutaten.getSelectionModel().getSelectedItem().toString();
@@ -168,28 +175,13 @@ public class ZutatHinzufuegenController {
             Alert keineZahl = new Alert(Alert.AlertType.ERROR);
             keineZahl.setTitle("ungültige Eingabe");
             keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
-            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. \nDezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. \nBeispiel 2.5");
+            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein.\n" +
+                    "Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5\n" +
+                    "Die Zutat wurde schon für Sie erstellt");
             keineZahl.showAndWait();
         }
         }
         updateList();
-    }
-
-    private void zulaessigeMenge(Rezeptkopf rezeptkopf, String text) throws IOException {
-        if(textMenge.getText().matches("^\\d+\\.?\\d*$")){ //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
-            System.out.println("ist kommazahl");
-            double menge = Double.parseDouble(text);
-            Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge,textEinheit.getText(),zutatenController.getZutat(textTitel.getText().trim()));
-            rezeptkopf.zutatHinzufügen(neueRezeptzutat);
-            rezeptkopfController.speichernDatei();
-            textfelderEditierbar(false);
-        }else {
-            Alert keineZahl = new Alert(Alert.AlertType.ERROR);
-            keineZahl.setTitle("ungültige Eingabe");
-            keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
-            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein. Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5\nDie Zutat wurde schon für Sie erstellt, sie kann nun bearbeitet werden");
-            keineZahl.showAndWait();
-        }
     }
 
     public void zutatLoeschen(ActionEvent actionEvent) throws IOException {

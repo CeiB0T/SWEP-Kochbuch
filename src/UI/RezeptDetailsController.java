@@ -109,17 +109,21 @@ public class RezeptDetailsController {
         stage.close();
     }
 
+    private void buttonsDeaktivierenBeiBearbeitung(Boolean bool){
+        btnNeueZutat.setDisable(bool);
+        btnBearbeiten.setDisable(bool);
+        btnDefinitionsbuch.setDisable(bool);
+        btnLoeschen.setDisable(bool);
+        btnReturnHome.setDisable(bool);
+    }
+
     public void rezeptBearbeiten(ActionEvent actionEvent) {
         if (!UIController.neuesRezept) {
             if (textRezeptName.getText().matches(".*\\S+.*")) {
                 bearbeitung = true;
                 textfelderEditierbar(true);
-                UIController.uebertrag.setrKoRezeptname(textRezeptName.getText().trim());
-                UIController.uebertrag.setrKoRezeptinhalt(textZubereitung.getText().trim());
+                buttonsDeaktivierenBeiBearbeitung(true);
             }
-            UIController.uebertrag = null;
-            textfelderEditierbar(false);
-            bearbeitung = false;
         }
     }
 
@@ -135,6 +139,7 @@ public class RezeptDetailsController {
                 UIController.uebertrag = rez;
                 rezeptkopfController.speichernDatei();
                 textfelderEditierbar(false);
+                buttonsDeaktivierenBeiBearbeitung(false);
             }else {
                 alertNameUnzulässig();
             }
@@ -148,6 +153,7 @@ public class RezeptDetailsController {
                 }
                 rezeptkopfController.speichernDatei();
                 textfelderEditierbar(false);
+                buttonsDeaktivierenBeiBearbeitung(false);
             }else {
                 alertNameUnzulässig();
             }
@@ -226,7 +232,7 @@ public class RezeptDetailsController {
             if (listZutaten.getSelectionModel().getSelectedItem() != null) {
                 String[] zutatWerte = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
                 for (Rezeptzutat rezeptzutat: UIController.uebertrag.getrKoRezeptzutat()) {
-                    if (rezeptzutat.getrZuZutat().getZutName() == zutatWerte[0]){
+                    if (rezeptzutat.getrZuZutat().getZutName().equals(zutatWerte[0])){
                         neueZutatFenster(mouseEvent, rezeptzutat); break;
                     }
                 }
