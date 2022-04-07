@@ -11,15 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 
 public class KategorienController {
     public Button btnStartseite;
@@ -42,7 +41,6 @@ public class KategorienController {
     private RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void initialize(){
-        alleRezepteAnzeigen();
     }
 
     public void zurStartseite(ActionEvent actionEvent) throws IOException {
@@ -99,12 +97,20 @@ public class KategorienController {
         textFelderBearbeiten(false);
     }
 
-    public void kategorieLoeschen(ActionEvent actionEvent) throws IOException { //TODO Confirm Dialog
+    public void kategorieLoeschen(ActionEvent actionEvent) throws IOException {
         if (textKategorieName.getText().matches(".*\\S+.*")) {
-            if (kategorieController.existiertKategorie(textKategorieName.getText().trim())){
+            if (kategorieController.existiertKategorie(textKategorieName.getText().trim())) {
+                Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);
+                wirklichLoeschen.setTitle("Löschen bestätigen");
+                wirklichLoeschen.setHeaderText("Wollen Sie die Kategorie wirklich löschen?");
+                wirklichLoeschen.setContentText("Es wird nur die Kategorie gelöscht, die Rezepe bleiben erhalten.");
+
+                Optional<ButtonType> result = wirklichLoeschen.showAndWait();
+                if (result.get() == ButtonType.OK) {
                 kategorieController.löschenKategorie(textKategorieName.getText().trim());
                 kategorieController.speichenDatei();
                 updateListe();
+            }
             }
         }
     }
@@ -119,16 +125,9 @@ public class KategorienController {
         }
     }
 
-    public void rezeptAnzeigen(MouseEvent mouseEvent) {//Bei klick auf "alleRezepte" liste
-        //TODO doppel geklicktes Rezept anzeigen
-    }
-
-    public void alleRezepteAnzeigen(){
+    public void alleRezepteAnzeigen(MouseEvent mouseEvent) {
         ObservableList alleRezepte = FXCollections.observableArrayList();
-        for (Rezeptkopf rez: rezeptkopfController.getAlleRezeptkopf()) {
-            alleRezepte.add(rez.listViewString());
-        }
-        listRezepte.setItems(alleRezepte);
+        //alleRezepte.add(rezeptkopfController.getAlleRezeptkopf())
     }
 
     public void listZuKategorie(ActionEvent actionEvent) {
