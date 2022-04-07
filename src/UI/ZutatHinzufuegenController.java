@@ -36,7 +36,6 @@ public class ZutatHinzufuegenController {
 
     public ListView listZutaten;
     public TextField textTitel;
-    public Button btnZurueck;
 
     private Stage stage;
     private Scene scene;
@@ -47,6 +46,7 @@ public class ZutatHinzufuegenController {
 
     public void initialize() throws IOException {
         updateList();
+       // zutatenController.speichenDatei(); -> Fehler wenn die Zutaten.json noch nicht existiert. Hilft das?
     }
 
     public void returnHome (ActionEvent actionEvent) throws Exception{
@@ -113,19 +113,30 @@ public class ZutatHinzufuegenController {
 
     public void listZutatenKlicked(MouseEvent mouseEvent) {
         if (!Objects.isNull(listZutaten.getSelectionModel().getSelectedItem())) {
-            
+            Rezeptkopf zugehoerigRezeptkopf = UIController.uebertrag;
+            String zutat = listZutaten.getSelectionModel().getSelectedItem().toString();
+            textTitel.setText(zutat.trim());
+            for( int i = 0; i < zugehoerigRezeptkopf.getrKoRezeptzutat().size(); i++){
+                Rezeptzutat rezeptzutat = zugehoerigRezeptkopf.getrKoRezeptzutat().get(i);
+               String zutatname = rezeptzutat.getrZuZutat().getZutName();
+               if(zutat.equals(zutatname)){
+                   textMenge.setText(""+rezeptzutat.getrZuMenge());
+                   textEinheit.setText(rezeptzutat.getrZuEinheit());
+               }
+            }
 
         }
 
     }
 
     public void zutatBearbeiten(ActionEvent actionEvent) {
+        textfelderEditierbar(true);
     }
 
     public void zutatSpeichern(ActionEvent actionEvent) throws IOException {
         if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
          if(neueZutat){
-            if(zutatenController.existiertZutat(textTitel.getText())){
+            if(zutatenController.existiertZutat(textTitel.getText().trim())){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Ein Problem ist aufgetreten");
                 alert.setHeaderText("Zutat bereits vorhanden");
@@ -137,11 +148,12 @@ public class ZutatHinzufuegenController {
             }
             }
          Rezeptkopf zugehoerigerRezeptkopf = UIController.uebertrag;
-         if(textMenge.getText().matches("\\d+\\.?\\d*$")){ //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
+         if(textMenge.getText().matches("^\\d+\\.?\\d*$")){ //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
              double menge = Double.valueOf(textMenge.getText());
              Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge,textEinheit.getText(),zutatenController.getZutat(textTitel.getText().trim()));
              zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);
              rezeptkopfController.speichernDatei();
+             textfelderEditierbar(false);
          }else {
              Alert keineZahl = new Alert(Alert.AlertType.ERROR);
              keineZahl.setTitle("ungültige Eingabe");
@@ -166,8 +178,5 @@ public class ZutatHinzufuegenController {
         textTitel.setEditable(zustand);
         textMenge.setEditable(zustand);
         textEinheit.setEditable(zustand);
-    }
-
-    public void zurueckZuAktuellesRezept(ActionEvent actionEvent) {
     }
 }
