@@ -107,7 +107,6 @@ public class DefinitionsbuchController {
         }
         sortierenListe(definitionenListe);
         listDefinitionen.setItems(definitionenListe);
-        listDefinitionen.refresh();
     }
 
     private ObservableList sortierenListe(ObservableList<String> liste){

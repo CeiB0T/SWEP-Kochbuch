@@ -60,7 +60,7 @@
                      <children>
                         <HBox prefHeight="51.0" prefWidth="490.0">
                            <children>
-                              <TextField fx:id="txtKategorieName" editable="false" prefHeight="100.0" prefWidth="301.0" promptText="Kategoriename" />
+                              <TextField fx:id="textKategorieName" editable="false" prefHeight="100.0" prefWidth="301.0" promptText="Kategoriename" />
                               <Button fx:id="btnNeueKategorie" mnemonicParsing="false" onAction="#addKategorie" prefHeight="116.0" prefWidth="194.0" text="Neue Kategorie">
                                  <font>
                                     <Font size="21.0" />
@@ -71,7 +71,7 @@
                         <ListView fx:id="listKategorie" onMouseClicked="#kategorienAnzeigen" prefHeight="592.0" prefWidth="490.0" />
                         <HBox alignment="CENTER" prefHeight="71.0" prefWidth="490.0">
                            <children>
-                              <Button fx:id="btnBearbeiten" mnemonicParsing="false" onAction="#kategorieBearbeiten" prefHeight="67.0" prefWidth="182.0" text="Berabeiten">
+                              <Button fx:id="btnBearbeiten" mnemonicParsing="false" onAction="#kategorieBearbeiten" prefHeight="67.0" prefWidth="182.0" text="Bearbeiten">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
@@ -83,7 +83,7 @@
                                  </font>
                               </Button>
                               <Region prefHeight="67.0" prefWidth="10.0" />
-                              <Button fx:id="btndelete" layoutX="146.0" layoutY="10.0" mnemonicParsing="false" onAction="#kategorieLoeschen" prefHeight="76.0" prefWidth="136.0" text="Löschen">
+                              <Button fx:id="btnDelete" layoutX="146.0" layoutY="10.0" mnemonicParsing="false" onAction="#kategorieLoeschen" prefHeight="76.0" prefWidth="136.0" text="Löschen">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
@@ -108,7 +108,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <ListView fx:id="ListKategorieRezepte" onMouseClicked="#zugehoerigeRezepteAnzeigen" prefHeight="670.0" prefWidth="245.0" />
+                              <ListView fx:id="listKategorieRezepte" onMouseClicked="#zugehoerigeRezepteAnzeigen" prefHeight="670.0" prefWidth="245.0" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" top="10.0" />

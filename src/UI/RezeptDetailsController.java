@@ -22,6 +22,7 @@ import qrcodegen.QrBufferedImage;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 public class RezeptDetailsController {
     
@@ -69,6 +70,8 @@ public class RezeptDetailsController {
                 if(rezeptkopf.getrKoPersonenzahl() > 0) {
                     textPersonenanzahl.setText(Integer.toString(rezeptkopf.getrKoPersonenzahl()));
                 }
+                Tooltip reZutatWeg = new Tooltip("Zutat zum löschen makieren(anklicken), dann löschen drücken");
+                listZutaten.setTooltip(reZutatWeg);
                 qrAnzeigen();
             }catch (Exception e){}
         }
@@ -172,23 +175,31 @@ public class RezeptDetailsController {
 
     public void rezeptLöschen(ActionEvent actionEvent) throws IOException {
         if (listZutaten.getSelectionModel().getSelectedItem() == null) {
-            if (UIController.uebertrag != null) {
-                rezeptkopfController.löschenRezeptkopf(UIController.uebertrag.getrKoID());
-                bearbeitung = false;
-                textfelderEditierbar(false);
-                rezeptkopfController.speichernDatei();
-                startseiteAufrufen(actionEvent);
-            } else if (rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()) != null) {
-                rezeptkopfController.löschenRezeptkopf(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()).getrKoID());
-                bearbeitung = false;
-                textfelderEditierbar(false);
-                rezeptkopfController.speichernDatei();
-                startseiteAufrufen(actionEvent);
+            Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);
+            wirklichLoeschen.setTitle("Löschen bestätigen");
+            wirklichLoeschen.setHeaderText("Willst du das Rezept wirklich löschen");
+            wirklichLoeschen.setContentText("Wenn du nur eine Zutat löschen möchtest:\nMakiere die Zutat in der Liste(anklicken),\ndrücke dann löschen.");
+
+            Optional<ButtonType> result = wirklichLoeschen.showAndWait();
+            if (result.get() == ButtonType.OK) {
+
+                if (UIController.uebertrag != null) {
+                    rezeptkopfController.löschenRezeptkopf(UIController.uebertrag.getrKoID());
+                    bearbeitung = false;
+                    textfelderEditierbar(false);
+                    rezeptkopfController.speichernDatei();
+                    startseiteAufrufen(actionEvent);
+                } else if (rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()) != null) {
+                    rezeptkopfController.löschenRezeptkopf(rezeptkopfController.getRezeptkopfByName(textRezeptName.getText()).getrKoID());
+                    bearbeitung = false;
+                    textfelderEditierbar(false);
+                    rezeptkopfController.speichernDatei();
+                    startseiteAufrufen(actionEvent);
+                }
             }
         }else {
             if (textRezeptName.getText().matches(".*\\S+.*")){
                 Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(textRezeptName.getText().trim());
-                System.out.println(rez.toString());
                 String[] strings = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
                 rez.zutatLöschen(strings[0]);
                 rezeptkopfController.speichernDatei();
