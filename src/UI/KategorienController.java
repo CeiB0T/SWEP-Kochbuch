@@ -120,7 +120,7 @@ public class KategorienController {
             String[] daten = listKategorieRezepte.getSelectionModel().getSelectedItem().toString().split(",");
             Rezeptkopf rezept = rezeptkopfController.getRezeptkopfByName(daten[0]);
             kategorieController.getKategorie(textKategorieName.getText().trim()).rezeptLöschen(rezept);
-            kategorieController.speichenDatei();
+            //kategorieController.speichenDatei();
         }else if (textKategorieName.getText().matches(".*\\S+.*")) {
             if (kategorieController.existiertKategorie(textKategorieName.getText().trim())) {
                 Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);
