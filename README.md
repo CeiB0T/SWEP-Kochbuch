@@ -1,6 +1,6 @@
 # SWEP-Kochbuch
 ## Beschreibung
-Das SWEP-Kochbuch ist im Rahmen eines Universitätsprojektes entstanden. Wir alle haben Interesse am Kochen, können es aber nicht alle gleichgut,
+Das SWEP-Kochbuch ist im Rahmen eines Universitätsprojektes entstanden. Wir alle haben Interesse am Kochen, können es aber nicht alle gleich gut,
 wir wollten also ein digitales Kochbuch erstellen, bei dem man als Autor auch die weniger erfahrenen Köche der WG oder Familie erreichen kann.
 Es handelt sich um ein Kochbuch als Java-Desktopanwendung in welchem Rezepte angelgt und Kategoriesiert werden können.
 
