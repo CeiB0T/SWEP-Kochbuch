@@ -54,7 +54,7 @@ public class DefinitionsbuchController {
         }
     }
 
-    public void definitionSpeichern(ActionEvent actionEvent) throws IOException {
+    public void definitionSpeichern(ActionEvent actionEvent) throws IOException { //TODO machen
         if (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
             if (textTitel.getText().matches(".*\\S+.*")) {//Regex: Enthält mindestens ein nicht Leerzeichen
                 if (zubController.existiertName(textTitel.getText())) {//Überschreiben von bestehender Zubereitungsmethode
@@ -70,11 +70,10 @@ public class DefinitionsbuchController {
                         zubAktualisieren.setzMeDefinition(textInhalt.getText().trim());
                         zubController.speichenDatei();
                     }
-                } else { //Speichern neuer Zubereitungsmethode
-                    Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());
-                    zubNeu.setzMeDefinition(textInhalt.getText().trim());
-                    zubController.speichenDatei();
                 }
+            }
+            } else if (textTitel.getText().matches(".*\\S+.*")){ //Speichern neuer Zubereitungsmethode
+                Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());zubNeu.setzMeDefinition(textInhalt.getText().trim());zubController.speichenDatei();
                 updateListe();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -85,7 +84,6 @@ public class DefinitionsbuchController {
             }
             textfelderEditierbar(false);
             neueDefinition = false;
-        }
     }
 
     public void definitionLoeschen(ActionEvent actionEvent) throws IOException {
@@ -155,10 +153,12 @@ public class DefinitionsbuchController {
     }
 
     public void listDefinitionenKlicked(MouseEvent mouseEvent) {
-        textfelderEditierbar(false);
-        Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
-        textTitel.setText(zub.getzMeName());
-        textInhalt.setText(zub.getzMeDefinition());
+        if (listDefinitionen.getSelectionModel().getSelectedItem() != null) {
+            textfelderEditierbar(false);
+            Zubereitungsmethode zub = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
+            textTitel.setText(zub.getzMeName());
+            textInhalt.setText(zub.getzMeDefinition());
+        }
     }
 
     private void textLoeschen(){

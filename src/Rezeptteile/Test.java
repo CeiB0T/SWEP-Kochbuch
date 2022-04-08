@@ -14,10 +14,14 @@ public class Test{
         ZutatenController zutatenController = ZutatenController.getInstance();
         ZubereitungsmethodeController zubController = ZubereitungsmethodeController.getInstance();
         KategorieController kategorieController = KategorieController.getInstance();
+        RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
         Zutat zutat = null;
 
-        //Ab hier werden Rezepte eingefügt
+        Rezeptkopf rezTiramisu =  rezeptkopfController.neuerRezeptkopf("Tiramisu");
+        rezeptkopfController.speichernDatei();
 
+        //Ab hier werden Rezepte eingefügt
+        /*
         Rezeptkopf rez = RezeptkopfController.getInstance().neuerRezeptkopf("Pustekuchen");
         if (zutatenController.existiertZutat("Gurke")){
             zutat = zutatenController.getZutat("Gurke");
@@ -80,5 +84,6 @@ public class Test{
         }
 
         //QrBufferedImage.qrGenerieren(rez);
+        */
     }
 }

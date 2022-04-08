@@ -106,20 +106,21 @@ public class KategorienController {
         textFelderBearbeiten(false);
         if (tempKategorie != null){
             bestehendeKategorieAktualisieren(tempKategorie);
+            kategorieController.speichenDatei();
         }else {
             String katName = textKategorieName.getText().trim();
             if (katName.matches(".*\\S+.*")){
                 kategorieController.neueKategorie(katName);
+                kategorieController.speichenDatei();
             }
         }
         updateListe();
     }
 
     public void kategorieLoeschen(ActionEvent actionEvent) throws IOException {
-        if (listKategorieRezepte.getSelectionModel().getSelectedItem() != null){ //TODO löschen von Rezept in Kategorie
+        if (listKategorieRezepte.getSelectionModel().getSelectedItem() != null){
             String[] daten = listKategorieRezepte.getSelectionModel().getSelectedItem().toString().split(",");
             Rezeptkopf rezept = rezeptkopfController.getRezeptkopfByName(daten[0]);
-            System.out.println(rezept);
             kategorieController.getKategorie(textKategorieName.getText()).rezeptLöschen(rezept);
             kategorieController.speichenDatei();
             zugehoerigeRezepteListeAnzeigen();
@@ -187,7 +188,6 @@ public class KategorienController {
                     String[] werte = listRezepte.getSelectionModel().getSelectedItem().toString().split(",");
                     String rezeptname = werte[0];
                     Boolean vorhanden = false;
-                    if (kategorieController.getKategorie(katName).getKatRezeptkopf().size() > 0) {
                         for (Rezeptkopf rez : kategorieController.getKategorie(katName).getKatRezeptkopf()) {
                             if (rez.getrKoRezeptname().equals(rezeptname)) {
                                 vorhanden = true;
@@ -199,7 +199,6 @@ public class KategorienController {
                             kategorieController.speichenDatei();
                             zugehoerigeRezepteListeAnzeigen();
                         }
-                    }
                 }
             }
         }
