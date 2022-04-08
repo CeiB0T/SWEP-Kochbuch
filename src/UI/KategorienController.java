@@ -16,9 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class KategorienController {
     public Button btnStartseite;
@@ -184,12 +182,20 @@ public class KategorienController {
                 if (listRezepte.getSelectionModel().getSelectedItem() != null){
                     String[] werte = listRezepte.getSelectionModel().getSelectedItem().toString().split(",");
                     String rezeptname = werte[0];
-                    if (!kategorieController.getKategorie(katName).getKatRezeptkopf().contains(rezeptkopfController.getRezeptkopfByName(rezeptname))){
+                    Set<Rezeptkopf> inhaltSet = new HashSet<>(kategorieController.getKategorie(katName).getKatRezeptkopf());
+                    System.out.println(Arrays.toString(inhaltSet.toArray()));
+                    inhaltSet.add(rezeptkopfController.getRezeptkopfByName(rezeptname));
+                    kategorieController.getKategorie(katName).getKatRezeptkopf().clear();
+                    kategorieController.getKategorie(katName).getKatRezeptkopf().addAll(inhaltSet);
+                    alleRezepteVonKategorieByName();
+                    kategorieController.speichenDatei();
+                    zugehoerigeRezepteListeAnzeigen();
+                    /*if (!kategorieController.getKategorie(katName).getKatRezeptkopf().contains(rezeptkopfController.getRezeptkopfByName(rezeptname))){
                         kategorieController.getKategorie(katName).getKatRezeptkopf().add(rezeptkopfController.getRezeptkopfByName(rezeptname));
                         alleRezepteVonKategorieByName();
                         kategorieController.speichenDatei();
                         zugehoerigeRezepteListeAnzeigen();
-                    }
+                    }*/
                 }
             }
         }
