@@ -30,3 +30,24 @@ Es handelt sich um ein Kochbuch als Java-Desktopanwendung in welchem Rezepte ang
 
 ---
 ## Benutzung
+
+### Startseite
+Von der Startseite können folgende Aktionen ausgeführt werden:
+1. Definitionsbuch-Menü öffnen -> ==Klick auf Button *Definitionsbuch*==
+2. Kategorien-Menü öffnen -> ==Klick auf Button *Kategorie*==
+3. Menü "Neues Rezept erstellen" öffnen ==Klick auf Button *neues Rezept*==
+4. Anwendung schließen -> ==Klick auf Button *Verlassen* oder wie gewohnt über das "Kreutzchen"==
+5. Bestehendes Rezept öffnen
+6. Rezepte Suchen
+
+#### Bestehendes Rezept öffnen
+Möglichkeit 1
+1. Gesuchtes Rezept in Liste *Rezepte* auswählen
+2. Mit Doppelklick Detailansicht öffnen
+Möglickkeit 2
+- Mit Doppelklick aus der Suche öffnen
+
+
+
+
+
