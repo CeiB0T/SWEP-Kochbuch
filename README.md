@@ -2,7 +2,7 @@
 ## Beschreibung
 Das SWEP-Kochbuch ist im Rahmen eines Universitätsprojektes entstanden. Wir alle haben Interesse am Kochen, können es aber nicht alle gleich gut,
 wir wollten also ein digitales Kochbuch erstellen, bei dem man als Autor auch die weniger erfahrenen Köche der WG oder Familie erreichen kann.
-Es handelt sich um ein Kochbuch als Java-Desktopanwendung in welchem Rezepte angelgt und kategorisiert werden können.
+Unser Kochbuch ist eine Java-Desktopanwendung in welcher Rezepte gelesen, angelgt und kategorisiert werden können.
 
 - [x] Zutaten werden seperat gespeichert und können für verschiedene Rezepte verwendet werden.
 - [x] Zu den Rezepten werden QR-Codes mit den benötigten Zutaten in der angegebenen Menge erstellt um sie für die Einkaufsliste auf das Handy zu übernehen.
@@ -57,7 +57,17 @@ Rezepte können über drei Arten der Suche gefunden werden
 3. Suche über Kategorie -> Wird der Name einer Kategorie eingegeben, werden mit dem Präfix *Kategorie:* alle Rezepte angezeigt, die in dieser enthalten sind.
 
 ### Definitionsbuch
-Im Definitionsbuch können Definitionen angesehen, geändert oder gelöscht werden
+Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder gelöscht werden
+
+#### Definition anzeigen
+1. Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
+
+#### Definition bearbeiten
+0. Um eine Definition zu ändern, muss diese zunägst angezeigt werden.
+1. Klick auf *Bearbeiten* > Name und Inhalt der Definition können nun in den Feldern editiert werden.
+2. Um die Definition speichern zu können, muss ihre Name mindestens 1 Zeichen enthalten, das kein Leerzeichen ist.
+3. Mit Klick auf *Speichern* wird die Änderung übernommen.
+
 
 
 
