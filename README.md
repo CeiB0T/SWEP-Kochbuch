@@ -4,9 +4,9 @@ Das SWEP-Kochbuch ist im Rahmen eines Universitätsprojektes entstanden. Wir all
 wir wollten also ein digitales Kochbuch erstellen, bei dem man als Autor auch die weniger erfahrenen Köche der WG oder Familie erreichen kann.
 Es handelt sich um ein Kochbuch als Java-Desktopanwendung in welchem Rezepte angelgt und kategorisiert werden können.
 
-[x] Zutaten werden seperat gespeichert und können für verschiedene Rezepte verwendet werden.
-[x] Zu den Rezepten werden QR-Codes mit den benötigten Zutaten in der angegebenen Menge erstellt um sie für die Einkaufsliste auf das Handy zu übernehen.
-[x] Ein weiteres Detail unseres Kochbuchs ist die Möglichkeit ein Definitionsbuch für Zubereitungsmethoden anzulegen (falls man sich notieren möchte, was eigentlich *unterheben* bedeutet😀)
+- [x] Zutaten werden seperat gespeichert und können für verschiedene Rezepte verwendet werden.
+- [x] Zu den Rezepten werden QR-Codes mit den benötigten Zutaten in der angegebenen Menge erstellt um sie für die Einkaufsliste auf das Handy zu übernehen.
+- [x] Ein weiteres Detail unseres Kochbuchs ist die Möglichkeit ein Definitionsbuch für Zubereitungsmethoden anzulegen (falls man sich notieren möchte, was eigentlich *unterheben* bedeutet😀)
 
 ## Genutze Technologien
 - Java
