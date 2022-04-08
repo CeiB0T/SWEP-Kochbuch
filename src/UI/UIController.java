@@ -65,7 +65,6 @@ public class UIController{
                 if (element.matches("^Zutat: .*")) {//Suche ob start mit Zutat
                     String[] strings = element.split(", ");
                     rezeptname = strings[0].substring("Zutat: ".length());
-                    System.out.println(rezeptname);
                     rezeptAnzeigen(mouseEvent, rezeptkopfController.getRezeptkopfByName(rezeptname));
                 } else if (element.matches("^Kategorie: .*")) {
                     String[] strings = element.split(", ");
