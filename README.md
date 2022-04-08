@@ -60,7 +60,7 @@ Rezepte können über drei Arten der Suche gefunden werden
 Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder gelöscht werden
 
 #### Definition anzeigen
-1. Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
+- Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
 
 #### Definition bearbeiten
 0. Um eine Definition zu ändern, muss diese zunägst angezeigt werden.
