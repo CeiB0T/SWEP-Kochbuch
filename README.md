@@ -27,6 +27,7 @@ Es handelt sich um ein Kochbuch als Java-Desktopanwendung in welchem Rezepte ang
 ## Installieren und Starten
 
 ### Systemvoraussetzungen
+- Java >= 11
 
 ---
 ## Benutzung
