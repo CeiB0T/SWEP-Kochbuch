@@ -186,29 +186,20 @@ public class KategorienController {
                 if (listRezepte.getSelectionModel().getSelectedItem() != null){
                     String[] werte = listRezepte.getSelectionModel().getSelectedItem().toString().split(",");
                     String rezeptname = werte[0];
-                    /*Set<Rezeptkopf> inhaltSet = new HashSet<>(kategorieController.getKategorie(katName).getKatRezeptkopf());
-                    System.out.println(Arrays.toString(inhaltSet.toArray()));
-                    inhaltSet.add(rezeptkopfController.getRezeptkopfByName(rezeptname));
-                    kategorieController.getKategorie(katName).getKatRezeptkopf().clear();
-                    kategorieController.getKategorie(katName).getKatRezeptkopf().addAll(inhaltSet);
-                    alleRezepteVonKategorieByName();
-                    kategorieController.speichenDatei();
-                    zugehoerigeRezepteListeAnzeigen();*/
-                    for(Rezeptkopf rezeptkopf: kategorieController.getKategorie(katName).getKatRezeptkopf()){
-                        if(!rezeptkopf.getrKoRezeptname().equals(rezeptname)){
+                    Boolean vorhanden = false;
+                    if (kategorieController.getKategorie(katName).getKatRezeptkopf().size() > 0) {
+                        for (Rezeptkopf rez : kategorieController.getKategorie(katName).getKatRezeptkopf()) {
+                            if (rez.getrKoRezeptname().equals(rezeptname)) {
+                                vorhanden = true;
+                            }
+                        }
+                        if (!vorhanden){
                             kategorieController.getKategorie(katName).getKatRezeptkopf().add(rezeptkopfController.getRezeptkopfByName(rezeptname));
                             alleRezepteVonKategorieByName();
                             kategorieController.speichenDatei();
                             zugehoerigeRezepteListeAnzeigen();
                         }
                     }
-
-                    /*if (!kategorieController.getKategorie(katName).getKatRezeptkopf().contains(rezeptkopfController.getRezeptkopfByName(rezeptname))){
-                        kategorieController.getKategorie(katName).getKatRezeptkopf().add(rezeptkopfController.getRezeptkopfByName(rezeptname));
-                        alleRezepteVonKategorieByName();
-                        kategorieController.speichenDatei();
-                        zugehoerigeRezepteListeAnzeigen();
-                    }*/
                 }
             }
         }
