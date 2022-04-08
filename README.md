@@ -44,8 +44,20 @@ Von der Startseite können folgende Aktionen ausgeführt werden:
 Möglichkeit 1
 1. Gesuchtes Rezept in Liste *Rezepte* auswählen
 2. Mit Doppelklick Detailansicht öffnen
+
 Möglickkeit 2
 - Mit Doppelklick aus der Suche öffnen
+
+#### Rezept suchen
+Rezepte können über drei Arten der Suche gefunden werden
+
+1. Suche über Titel -> Eingaben des Rezepttitels (oder Teilen davon) Zeigen den Rezepttitel in der Suche an
+2. Suche über Zutat -> Wird der Name einer Zutat eingegeben, werden mit dem Präfix *Zutat:* alle Rezepte angezeigt, die diese enthalten
+3. Suche über Kategorie -> Wird der Name einer Kategorie eingegeben, werden mit dem Präfix *Kategorie:* alle Rezepte angezeigt, die in dieser enthalten sind.
+
+### Definitionsbuch
+Im Definitionsbuch können Definitionen angesehen, geändert oder gelöscht werden
+
 
 
 
