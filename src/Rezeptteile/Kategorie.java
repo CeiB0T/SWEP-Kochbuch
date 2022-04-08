@@ -22,7 +22,11 @@ public class Kategorie {
     public void rezeptLöschen(Rezeptkopf rezeptkopf){
         try {
             if (rezeptkopf != null) {
-                katRezeptkopf.remove(rezeptkopf);
+                for (Rezeptkopf rez: getKatRezeptkopf()) {
+                    if (rez.getrKoRezeptname().equals(rezeptkopf.getrKoRezeptname())){
+                        katRezeptkopf.remove(rez); break;
+                    }
+                }
             }
         }catch (Exception e){
             e.printStackTrace();

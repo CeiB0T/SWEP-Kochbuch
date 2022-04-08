@@ -40,6 +40,8 @@ public class KategorienController {
     private RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void initialize() throws IOException {
+        Tooltip rezeptWeg = new Tooltip("Zum löschen eines Rezepts in einer Kategorie bitte eine Kategorie auswählen, dann ein zugehöriges Rezept anklicken und auf den Löschen Button drücken.");
+        listKategorieRezepte.setTooltip(rezeptWeg);
         alleRezepteAnzeigen();
         updateListe();
     }
@@ -117,8 +119,10 @@ public class KategorienController {
         if (listKategorieRezepte.getSelectionModel().getSelectedItem() != null){ //TODO löschen von Rezept in Kategorie
             String[] daten = listKategorieRezepte.getSelectionModel().getSelectedItem().toString().split(",");
             Rezeptkopf rezept = rezeptkopfController.getRezeptkopfByName(daten[0]);
-            kategorieController.getKategorie(textKategorieName.getText().trim()).rezeptLöschen(rezept);
-            //kategorieController.speichenDatei();
+            System.out.println(rezept);
+            kategorieController.getKategorie(textKategorieName.getText()).rezeptLöschen(rezept);
+            kategorieController.speichenDatei();
+            zugehoerigeRezepteListeAnzeigen();
         }else if (textKategorieName.getText().matches(".*\\S+.*")) {
             if (kategorieController.existiertKategorie(textKategorieName.getText().trim())) {
                 Alert wirklichLoeschen = new Alert(Alert.AlertType.CONFIRMATION);

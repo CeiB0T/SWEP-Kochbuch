@@ -32,11 +32,6 @@ public class KategorieController {
         return kategorie;
     }
 
-    public void loeschenRezeptkopf(Kategorie kategorie, Rezeptkopf rezeptkopf) throws IOException {
-        kategorie.rezeptLöschen(rezeptkopf);
-        speichenDatei();
-    }
-
     public Kategorie löschenKategorie(String name){
         return kategorien.remove(name);
     }
