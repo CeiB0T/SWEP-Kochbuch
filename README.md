@@ -148,7 +148,7 @@ Achtung: Eine Zutat kann nur gelöscht werden, wenn sie zuvor aus allen Rezepten
 0. Zutaten-Menü über Klick auf *Neue Zutat* bei einem vorhandenen Rezept öffnen
 1. Zutat in der Liste auswählen (anklicken)
 2. Klick auf *Löschen*
-3. Wenn die Zutat in Verwendung ist, aus allen Rezepten entfernen und das Löschen anschließend nochmal versuchen.
+3. Wenn die Zutat in Verwendung ist, aus allen Rezepten entfernen und *Löschen* anschließend nochmal versuchen.
 
 
 
