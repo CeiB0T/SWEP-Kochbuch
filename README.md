@@ -62,7 +62,7 @@ Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder 
 #### Definition hinzufügen
 1. Klick auf *Definition Hinzufügen*
 2. Die Felder Definitionstitel und das Feld für den Inhalt darunter sind nun editierar und können gefüllt werden.
-3. *Speichern* klicken nicht vergessen. (Um eine Defintion abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und ende werden entfernt
+3. *Speichern* klicken nicht vergessen. (Um eine Defintion abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und Ende werden entfernt)
 
 #### Definition anzeigen
 - Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
@@ -70,7 +70,7 @@ Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder 
 #### Definition bearbeiten
 0. Um eine Definition zu ändern, muss diese zunägst angezeigt werden.
 1. Klick auf *Bearbeiten* > Name und Inhalt der Definition können nun in den Feldern editiert werden.
-2. Um die Definition speichern zu können, muss ihre Name mindestens 1 Zeichen enthalten, das kein Leerzeichen ist. Leerzeichen an Anfang und ende werden entfernt
+2. Um die Definition speichern zu können, muss ihre Name mindestens 1 Zeichen enthalten, das kein Leerzeichen ist. Leerzeichen an Anfang und Ende werden entfernt
 3. Mit Klick auf *Speichern* wird die Änderung übernommen.
 
 #### Definition löschen
