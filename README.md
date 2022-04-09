@@ -59,15 +59,97 @@ Rezepte können über drei Arten der Suche gefunden werden
 ### Definitionsbuch
 Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder gelöscht werden
 
+#### Definition hinzufügen
+1. Klick auf *Definition Hinzufügen*
+2. Die Felder Definitionstitel und das Feld für den Inhalt darunter sind nun editierar und können gefüllt werden.
+3. *Speichern* klicken nicht vergessen. (Um eine Defintion abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und ende werden entfernt
+3. Mit Klick auf *Speichern* wird die Änderung übernommen.)
+
 #### Definition anzeigen
 - Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
 
 #### Definition bearbeiten
 0. Um eine Definition zu ändern, muss diese zunägst angezeigt werden.
 1. Klick auf *Bearbeiten* > Name und Inhalt der Definition können nun in den Feldern editiert werden.
-2. Um die Definition speichern zu können, muss ihre Name mindestens 1 Zeichen enthalten, das kein Leerzeichen ist.
+2. Um die Definition speichern zu können, muss ihre Name mindestens 1 Zeichen enthalten, das kein Leerzeichen ist. Leerzeichen an Anfang und ende werden entfernt
 3. Mit Klick auf *Speichern* wird die Änderung übernommen.
 
+#### Definition löschen
+1. zu löschende Definition in der Liste auswählen (anklicken)
+2. Klick auf *löschen*
+
+### Kategorien
+In Kategorien können neue Kategorien angelegt und gelöscht, Rezepte zu diesen hinzugefügt und aus ihnen entfernt und aud den Kategorien heraus geöffnet werden.
+
+#### Kategorie anlegen
+1. Klick auf *Neue Kategorie*
+2. Gewünschten Namen in Feld *Kategoriename* eintragen
+3. *Speichern* klicken nicht vergessen. (Um eine Kategorei abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und Ende werden entfernt)
+
+#### Kategorie löschen
+1. Kategorie in Liste auswählen (anklicken)
+2. Button *Löschen* anklicken
+3. Löschen im Dialog mit *Ok* bestätigen
+
+#### Kategorie bearbeiten (umbennen)
+1. Kategorie in Liste auswählen (anklicken)
+2. Klick auf *Bearbieten*
+3. Name in Textfeld wie gewünscht anpassen
+4. Klick auf *Speichern* (Um eine Kategorei abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und Ende werden entfernt)
+
+#### Rezept in Kategorie einfügen
+1. Gewünschte Kategorie in der Liste anklicken
+2. Gewünschtes Rezept in *Alle Rezepte* Liste anklicken
+3. Klick auf *Zu kategorie hinzufügen*
+
+#### Rezept aus Kategorie entfernen
+1. Klick auf Das Rezept in der *Zugehörige Rezepte*-Liste
+2. Klick auf *Löschen* (Das Rezept bleibt gespeichert, es wird nur aus der Kategorie entfernt)
+- Der *Löschen* Button ist der selbe, der auch zum Löschen der ganzen Kategorie verwendet wird.
+
+#### Rezept aus Kategorie heraus öffnen
+1. Klick auf die gewünschte Kategorie in der Kategorienliste
+2. Alle Rezepte diser Kategorie erscheinen in der *zugehörige Rezepte*-Liste
+3. Das Rezept kann von hier aus mit Doppelklick geöffnet werden.
+
+### Neues Rezept anlegen
+Nach dem Klick auf *Neues Rezept* können Titel, die Empfehlung zur Personenanzahl und die Zubereitung angegeben werden.
+- Zutaten können erst nach dem *speichern* hinzugefügt werden. (Wie das genau funktioniert wird weiter unten erklärt.
+- Um ein Rezept abspeichern muss sein Titel aus mindestens einem nicht-Leerzeichen bestehen. Leerzeichen an anfang und Ende werden entfernt.
+
+### vorhandenes Rezept bearbeiten
+0. Um ein Rezept zu bearbeiten muss es zunächst geöffnet werden, dies ist über verscheidene, bereits beschriebene Wege möglich.
+1. Klick auf bearbeiten
+2. Alle Textfelder können nun nach Wunsch verändert werden.
+3. Klick *Speichern* nicht vergessen um die Änderung zu übernehmen. (Die Obengenannten Regelungen für den Titel gelten auch hier)
+4. Das Hinzufügen oder entfernen von Zutaten wird weiter unten erklärt.
+
+### vorhandenes Rezept löschen
+0. Rezept öffnen
+1. Klick auf den Button *löschen*
+2. Löschen bestätigen
+
+### Zutat hinzufügen
+0. Zutaten können nur bereits abgespeicherten Rezepten hinzugefügt werden. Das Rezept muss hierzu geöffnet sein.
+1. Auf der Rezeptseite den Button *Neue Zutat* anklicken
+2. Zutat entweder aus der Liste der Bereits vorhandenen Zutaten mit einem Klick auswählen oder über *Zutat Hinzufügen* neu erstellen (Titel mind. 1 nicht-Leerzeichen, Leerzeichen an Anfang und Ende werden entfernt)
+-  Wird eine Zutat aus der Liste ausgewält muss nun *Bearbeiten* gedrückt werden
+3. Die Felder Menge und Einheit passend füllen (Achtung: Eine Menge muss eine Dezimalzahl (im Alltag üblicherweise verwendete Zahlen) sein. Anstatt einen Kommas muss ein Punkt geschrieben werden)
+4. Auf *Speichern* Drücken. Die Zutat ist mit der entsprechenden Menge und Einheit dem Rezept hinzugefügt und erscheint in dessen Zutatenliste. Wurde die Zutat neu erstellt, ist sie nun auch in der Liste aller Zutaten zu finden. Es können nun weitere Zutaten auf die selbe Art hinzugefügt werden. 
+5. Über *Letztes Rezept* kann zu dem Rezept das man gerade bearbeitet zurückgekehrt werden.
+
+### Zutat aus Rezept entfernen
+0. Das entsprechende Rezept muss hierzu geöffnet sein.
+1. Zu löschende Zutat in Zutatenliste makieren (anklicken)
+2. Klick auf *Löschen* (selber Button der auch zum Löschen des ganzen Rezeptes verwendet wird)
+
+### Zutat löschen
+Achtung: Eine Zutat kann nur gelöscht werden, wenn sie zuvor aus allen Rezepten entfernt wird in denen sie verwendet wird.
+(Welche Rezepte das sind, wird beim Versuch sie zu löschen in der Fehlermeldung angezeigt)
+0. Zutaten-Menü über Klick auf *Neue Zutat* bei einem vorhandenen Rezept öffnen
+1. Zutat in der Liste auswählen (anklicken)
+2. Klick auf *Löschen*
+3. Wenn die Zutat in Verwendung ist, aus allen Rezepten entfernen und das Löschen anschließend nochmal versuchen.
 
 
 
