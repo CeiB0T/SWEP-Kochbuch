@@ -63,7 +63,6 @@ Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder 
 1. Klick auf *Definition Hinzufügen*
 2. Die Felder Definitionstitel und das Feld für den Inhalt darunter sind nun editierar und können gefüllt werden.
 3. *Speichern* klicken nicht vergessen. (Um eine Defintion abspeichern zu können, muss der Titel mindestens ein nicht-Leerzeichen enthalten. Leerzeichen an Anfang und ende werden entfernt
-3. Mit Klick auf *Speichern* wird die Änderung übernommen.)
 
 #### Definition anzeigen
 - Um eine Definition anzuzeigen, wird in der Liste auf das enstprechene Wort geklickt.
@@ -79,7 +78,7 @@ Im Definitionsbuch können Definitionen hinzugefügt, angesehen, geändert oder 
 2. Klick auf *löschen*
 
 ### Kategorien
-In Kategorien können neue Kategorien angelegt und gelöscht, Rezepte zu diesen hinzugefügt und aus ihnen entfernt und aud den Kategorien heraus geöffnet werden.
+In *Kategorien* können neue Kategorien angelegt und gelöscht, Rezepte zu diesen hinzugefügt und aus ihnen entfernt und aud den Kategorien heraus geöffnet werden.
 
 #### Kategorie anlegen
 1. Klick auf *Neue Kategorie*
