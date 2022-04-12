@@ -139,7 +139,7 @@ Nach dem Klick auf *Neues Rezept* können Titel, die empfohlene Personenanzahl u
 
 ### Zutat aus Rezept entfernen
 0. Das entsprechende Rezept muss hierzu geöffnet sein.
-1. Klick auf das zu entfernende Rezept in der *Rezeptzutaten*-Liste
+1. Klick auf die zu entfernende Zutat in der *Rezeptzutaten*-Liste
 2. Klick auf *Löschen* (selber Button der auch zum Löschen des ganzen Rezeptes verwendet wird)
 
 ### Zutat löschen
