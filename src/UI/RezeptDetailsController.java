@@ -39,6 +39,7 @@ public class RezeptDetailsController {
     public ListView listZutaten;
     public Button btnNeueZutat;
     public boolean bearbeitung;
+    public Button btnKategorien;
 
     private Stage stage;
     private Scene scene;
@@ -118,6 +119,7 @@ public class RezeptDetailsController {
         btnDefinitionsbuch.setDisable(bool);
         btnLoeschen.setDisable(bool);
         btnReturnHome.setDisable(bool);
+        btnKategorien.setDisable(bool);
     }
 
     public void rezeptBearbeiten(ActionEvent actionEvent) {
