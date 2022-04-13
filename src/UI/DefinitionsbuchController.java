@@ -30,6 +30,7 @@ public class DefinitionsbuchController {
     public Button btnNeuesRezept;
     public Button btnReturnHome;
     public Button btnExit;
+    public Button btnKategorien;
 
     private Stage stage;
     private Scene scene;
