@@ -45,7 +45,7 @@ public class Rezeptzutat {
                 '}';
     }
 
-    public String listViewString(){
+    public String listViewString() {
         return rZuZutat.getZutName() + ": " + rZuMenge + " " + rZuEinheit;
     }
 }

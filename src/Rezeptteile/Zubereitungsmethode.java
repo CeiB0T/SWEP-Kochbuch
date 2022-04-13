@@ -1,7 +1,5 @@
 package Rezeptteile;
 
-import com.google.gson.Gson;
-
 public class Zubereitungsmethode {
 
     private String zMeName;
@@ -42,7 +40,7 @@ public class Zubereitungsmethode {
                 '}';
     }
 
-    public String listViewString(){
+    public String listViewString() {
         return zMeName;
     }
 }

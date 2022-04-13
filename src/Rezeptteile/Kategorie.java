@@ -1,6 +1,7 @@
 package Rezeptteile;
 
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class Kategorie {
@@ -9,26 +10,27 @@ public class Kategorie {
 
     private ArrayList<Rezeptkopf> katRezeptkopf;
 
-    public void rezeptHinzufügen(Rezeptkopf rezeptkopf){
+    public void rezeptHinzufügen(Rezeptkopf rezeptkopf) {
         try {
             if (rezeptkopf != null) {
                 katRezeptkopf.add(rezeptkopf);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void rezeptLöschen(Rezeptkopf rezeptkopf){
+    public void rezeptLöschen(Rezeptkopf rezeptkopf) {
         try {
             if (rezeptkopf != null) {
-                for (Rezeptkopf rez: getKatRezeptkopf()) {
-                    if (rez.getrKoRezeptname().equals(rezeptkopf.getrKoRezeptname())){
-                        katRezeptkopf.remove(rez); break;
+                for (Rezeptkopf rez : getKatRezeptkopf()) {
+                    if (rez.getrKoRezeptname().equals(rezeptkopf.getrKoRezeptname())) {
+                        katRezeptkopf.remove(rez);
+                        break;
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -50,11 +52,11 @@ public class Kategorie {
         return katRezeptkopf;
     }
 
-    public String toJSON(){
+    public String toJSON() {
         return new Gson().toJson(this);
     }
 
-    public static Kategorie fromJSON(String json){
+    public static Kategorie fromJSON(String json) {
         Kategorie result = new Gson().fromJson(json, Kategorie.class); //String json wird zu einem kategorie Objekt konvertiert
         return result;
     }

@@ -13,9 +13,10 @@ import java.util.Map;
 
 public class ZutatenController {
 
-    private HashMap<String , Zutat> zutaten = new HashMap<>();
+    private HashMap<String, Zutat> zutaten = new HashMap<>();
 
-    private ZutatenController(){}
+    private ZutatenController() {
+    }
 
     private static ZutatenController instance = new ZutatenController();
 
@@ -23,7 +24,7 @@ public class ZutatenController {
         return instance;
     }
 
-    public Zutat neueZutat(String name){
+    public Zutat neueZutat(String name) {
         if (existiertZutat(name)) return null;
 
         Zutat Zutat = new Zutat(name);
@@ -31,19 +32,19 @@ public class ZutatenController {
         return Zutat;
     }
 
-    public Zutat löschenZutat(String name){
+    public Zutat löschenZutat(String name) {
         return zutaten.remove(name);
     }
 
-    public Zutat getZutat(String name){
+    public Zutat getZutat(String name) {
         return zutaten.get(name);
     }
 
-    public boolean existiertZutat(String name){
+    public boolean existiertZutat(String name) {
         return zutaten.containsKey(name);
     }
 
-    public List<Zutat> getAlleZutaten(){
+    public List<Zutat> getAlleZutaten() {
         return List.copyOf(zutaten.values()); //Kapseln der Dateien indem nur eine Kopie weitergegeben wird
     }
 
@@ -55,7 +56,8 @@ public class ZutatenController {
 
     public void leseDatei() throws IOException {
         String json = FileUtil.readFromFile("Zutaten.json");
-        Type type = new TypeToken<Map<String, Zutat>>(){}.getType();
+        Type type = new TypeToken<Map<String, Zutat>>() {
+        }.getType();
         HashMap map = new HashMap(new Gson().fromJson(json, type));
         this.zutaten = map;
     }

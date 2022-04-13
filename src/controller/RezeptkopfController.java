@@ -15,9 +15,10 @@ import java.util.Map;
 
 public class RezeptkopfController {
 
-    private HashMap<String , Rezeptkopf> köpfe = new HashMap<>();
+    private HashMap<String, Rezeptkopf> köpfe = new HashMap<>();
 
-    private RezeptkopfController(){}
+    private RezeptkopfController() {
+    }
 
     private static RezeptkopfController instance = new RezeptkopfController();
 
@@ -25,9 +26,9 @@ public class RezeptkopfController {
         return instance;
     }
 
-    public Rezeptkopf neuerRezeptkopf(String name){
+    public Rezeptkopf neuerRezeptkopf(String name) {
         String id = null;
-        while (true){
+        while (true) {
             id = generierenID();
             if (!existiertRezeptkopf(id)) break;
         }
@@ -37,35 +38,35 @@ public class RezeptkopfController {
         return rezeptkopf;
     }
 
-    public Rezeptkopf löschenRezeptkopf(String id){
+    public Rezeptkopf löschenRezeptkopf(String id) {
         return köpfe.remove(id);
     }
 
-    public Rezeptkopf getRezeptkopf(String id){
+    public Rezeptkopf getRezeptkopf(String id) {
         return köpfe.get(id);
     }
 
-    public Rezeptkopf getRezeptkopfByName(String name){
-        for (Rezeptkopf rez: getAlleRezeptkopf()) {
-            if (rez.getrKoRezeptname().equals(name)){
+    public Rezeptkopf getRezeptkopfByName(String name) {
+        for (Rezeptkopf rez : getAlleRezeptkopf()) {
+            if (rez.getrKoRezeptname().equals(name)) {
                 return rez;
             }
         }
         return null;
     }
 
-    public boolean existiertRezeptkopf(String id){
+    public boolean existiertRezeptkopf(String id) {
         return köpfe.containsKey(id);
     }
 
-    public List<Rezeptkopf> getAlleRezeptkopf(){
+    public List<Rezeptkopf> getAlleRezeptkopf() {
         return List.copyOf(köpfe.values()); //Kapseln der Dateien indem nur eine Kopie weitergegeben wird
     }
 
-    private String generierenID(){
-        SecureRandom r = new SecureRandom ();
+    private String generierenID() {
+        SecureRandom r = new SecureRandom();
         StringBuffer sb = new StringBuffer();
-        while(sb.length() < 16){
+        while (sb.length() < 16) {
             sb.append(Integer.toHexString(r.nextInt()));
         }
 
@@ -80,7 +81,8 @@ public class RezeptkopfController {
 
     public void leseDatei() throws IOException {
         String json = FileUtil.readFromFile("Rezeptköpfe.json");
-        Type type = new TypeToken<Map<String, Rezeptkopf>>(){}.getType();
+        Type type = new TypeToken<Map<String, Rezeptkopf>>() {
+        }.getType();
         HashMap map = new HashMap(new Gson().fromJson(json, type));
         this.köpfe = map;
     }

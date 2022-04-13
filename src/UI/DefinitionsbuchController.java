@@ -45,7 +45,7 @@ public class DefinitionsbuchController {
     }
 
     public void definitionBearbeiten(ActionEvent actionEvent) {
-        if  (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
+        if (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
             neueDefinition = false;
             Zubereitungsmethode zubBearbeiten = zubController.getZubereitungsmethodeByName(listDefinitionen.getSelectionModel().getSelectedItem().toString());
             if (zubBearbeiten != null) {
@@ -72,22 +72,24 @@ public class DefinitionsbuchController {
                     }
                 }
             }
-            } else if (textTitel.getText().matches(".*\\S+.*")){ //Speichern neuer Zubereitungsmethode
-                Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());zubNeu.setzMeDefinition(textInhalt.getText().trim());zubController.speichenDatei();
-                updateListe();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Ein Fehler ist aufgetreten");
-                alert.setHeaderText("Dieser Definitionsname ist nicht zulässig!");
-                alert.setContentText("Eine Definition darf nicht nur aus Leerzeichen bestehen");
-                alert.showAndWait();
-            }
-            textfelderEditierbar(false);
-            neueDefinition = false;
+        } else if (textTitel.getText().matches(".*\\S+.*")) { //Speichern neuer Zubereitungsmethode
+            Zubereitungsmethode zubNeu = zubController.neueZubereitungsmethode(textTitel.getText().trim());
+            zubNeu.setzMeDefinition(textInhalt.getText().trim());
+            zubController.speichenDatei();
+            updateListe();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ein Fehler ist aufgetreten");
+            alert.setHeaderText("Dieser Definitionsname ist nicht zulässig!");
+            alert.setContentText("Eine Definition darf nicht nur aus Leerzeichen bestehen");
+            alert.showAndWait();
+        }
+        textfelderEditierbar(false);
+        neueDefinition = false;
     }
 
     public void definitionLoeschen(ActionEvent actionEvent) throws IOException {
-        if  (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
+        if (!Objects.isNull(listDefinitionen.getSelectionModel().getSelectedItem())) {
             Zubereitungsmethode zubLoeschen = zubController.getZubereitungsmethodeByName(textTitel.getText());
             zubController.löschenZubereitungsmethode(zubLoeschen.getzMeID());
             zubController.speichenDatei();
@@ -100,14 +102,14 @@ public class DefinitionsbuchController {
     private void updateListe() throws IOException {
         ObservableList<String> definitionenListe = FXCollections.observableArrayList();
         zubController.leseDatei();
-        for (Zubereitungsmethode zub: zubController.getAlleZubereitungsmethoden()) {
+        for (Zubereitungsmethode zub : zubController.getAlleZubereitungsmethoden()) {
             definitionenListe.add(zub.getzMeName());
         }
         sortierenListe(definitionenListe);
         listDefinitionen.setItems(definitionenListe);
     }
 
-    private ObservableList sortierenListe(ObservableList<String> liste){
+    private ObservableList sortierenListe(ObservableList<String> liste) {
         liste.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -121,7 +123,7 @@ public class DefinitionsbuchController {
         updateListe();
     }
 
-    private void textfelderEditierbar(Boolean bool){
+    private void textfelderEditierbar(Boolean bool) {
         textTitel.setEditable(bool);
         textInhalt.setEditable(bool);
     }
@@ -130,7 +132,7 @@ public class DefinitionsbuchController {
         UIController.uebertrag = null;
         UIController.neuesRezept = true;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Rezeptansicht");
         stage.setScene(scene);
@@ -140,7 +142,7 @@ public class DefinitionsbuchController {
 
     public void returnHome(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Kochbuch: Startseite");
@@ -161,14 +163,14 @@ public class DefinitionsbuchController {
         }
     }
 
-    private void textLoeschen(){
+    private void textLoeschen() {
         textTitel.setText("");
         textInhalt.setText("");
     }
 
     public void kategorienAnzeigen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/KategorienAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Kategorien");
         stage.setScene(scene);

@@ -46,18 +46,18 @@ public class ZutatHinzufuegenController {
     RezeptkopfController rezeptkopfController = RezeptkopfController.getInstance();
 
     public void initialize() throws IOException {
-        if (RezeptDetailsController.rezeptzutatUebertrag != null){
+        if (RezeptDetailsController.rezeptzutatUebertrag != null) {
             textTitel.setText(RezeptDetailsController.rezeptzutatUebertrag.getrZuZutat().getZutName());
-            textMenge.setText(""+RezeptDetailsController.rezeptzutatUebertrag.getrZuMenge());
+            textMenge.setText("" + RezeptDetailsController.rezeptzutatUebertrag.getrZuMenge());
             textEinheit.setText(RezeptDetailsController.rezeptzutatUebertrag.getrZuEinheit());
         }
         RezeptDetailsController.rezeptzutatUebertrag = null;//TODO ergibt es Sinnn hier den Übertrag zu nullen?
         updateList();
     }
 
-    public void returnHome (ActionEvent actionEvent) throws Exception{
+    public void returnHome(ActionEvent actionEvent) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/HauptmenuV3.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Kochbuch: Startseite");
@@ -66,7 +66,7 @@ public class ZutatHinzufuegenController {
 
     public void openDefinitionsbuch(ActionEvent actionEvent) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/DefinitionsbuchV2.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Definitionsbuch");
         stage.setScene(scene);
@@ -77,7 +77,7 @@ public class ZutatHinzufuegenController {
     public void addRezept(ActionEvent actionEvent) throws Exception {
         UIController.neuesRezept = true;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Rezeptansicht");
         stage.setScene(scene);
@@ -99,7 +99,7 @@ public class ZutatHinzufuegenController {
     private void updateList() throws IOException {
         zutatenController.leseDatei();
         ObservableList zutaten = FXCollections.observableArrayList();
-        for (Zutat zutat: zutatenController.getAlleZutaten()) {
+        for (Zutat zutat : zutatenController.getAlleZutaten()) {
             zutaten.add(zutat.getZutName());
         }
         sortierenListe(zutaten);
@@ -107,7 +107,7 @@ public class ZutatHinzufuegenController {
         listZutaten.refresh();
     }
 
-    private ObservableList sortierenListe(ObservableList<String> liste){
+    private ObservableList sortierenListe(ObservableList<String> liste) {
         liste.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -123,13 +123,13 @@ public class ZutatHinzufuegenController {
             Rezeptkopf zugehoerigRezeptkopf = UIController.uebertrag;
             String zutat = listZutaten.getSelectionModel().getSelectedItem().toString();
             textTitel.setText(zutat.trim());
-            for( int i = 0; i < zugehoerigRezeptkopf.getrKoRezeptzutat().size(); i++){
+            for (int i = 0; i < zugehoerigRezeptkopf.getrKoRezeptzutat().size(); i++) {
                 Rezeptzutat rezeptzutat = zugehoerigRezeptkopf.getrKoRezeptzutat().get(i);
-               String zutatname = rezeptzutat.getrZuZutat().getZutName();
-               if(zutat.equals(zutatname)){
-                   textMenge.setText(""+rezeptzutat.getrZuMenge());
-                   textEinheit.setText(rezeptzutat.getrZuEinheit());
-               }
+                String zutatname = rezeptzutat.getrZuZutat().getZutName();
+                if (zutat.equals(zutatname)) {
+                    textMenge.setText("" + rezeptzutat.getrZuMenge());
+                    textEinheit.setText(rezeptzutat.getrZuEinheit());
+                }
             }
         }
     }
@@ -156,8 +156,8 @@ public class ZutatHinzufuegenController {
             boolean zutatGefunden = false;
             if (textMenge.getText().matches("^\\d+\\.?\\d*$")) { //regex: ein oder mehr Zahlen, ein Punkt, null bis beliebig viele Zahlen, Ende
                 if (zugehoerigerRezeptkopf.getrKoRezeptzutat().size() > 0) {
-                    for (Rezeptzutat rezZutat: zugehoerigerRezeptkopf.getrKoRezeptzutat()) {
-                        if (rezZutat.getrZuZutat().getZutName().equals(textTitel.getText().trim())){
+                    for (Rezeptzutat rezZutat : zugehoerigerRezeptkopf.getrKoRezeptzutat()) {
+                        if (rezZutat.getrZuZutat().getZutName().equals(textTitel.getText().trim())) {
                             zutatGefunden = true;
                             rezZutat.setrZuEinheit(textEinheit.getText().trim());
                             rezZutat.setrZuMenge(Double.parseDouble(textMenge.getText().trim()));
@@ -166,22 +166,22 @@ public class ZutatHinzufuegenController {
                         }
                     }
                 }
-                if (!zutatGefunden){
+                if (!zutatGefunden) {
                     double menge = Double.parseDouble(textMenge.getText().trim());
                     Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge, textEinheit.getText(), zutatenController.getZutat(textTitel.getText().trim()));
                     zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);
                     textfelderEditierbar(false);
                     rezeptkopfController.speichernDatei();
                 }
-            }else {
-            Alert keineZahl = new Alert(Alert.AlertType.ERROR);
-            keineZahl.setTitle("ungültige Eingabe");
-            keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
-            keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein.\n" +
-                    "Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5\n" +
-                    "Die Zutat wurde schon für Sie erstellt");
-            keineZahl.showAndWait();
-        }
+            } else {
+                Alert keineZahl = new Alert(Alert.AlertType.ERROR);
+                keineZahl.setTitle("ungültige Eingabe");
+                keineZahl.setHeaderText("Eine Menge muss eine Zahl sein");
+                keineZahl.setContentText("Bitte Tragen Sie eine gültige Zahl ein.\n" +
+                        "Dezimalbrüche(Kommazahlen) werden mit Punkt(.) angegeben. Beispiel 2.5\n" +
+                        "Die Zutat wurde schon für Sie erstellt");
+                keineZahl.showAndWait();
+            }
         }
         updateList();
         textfelderEditierbar(false);
@@ -193,21 +193,21 @@ public class ZutatHinzufuegenController {
         String rezeptAusgabe = "Rezepte mit der Zutat:\n";
         if (listZutaten.getSelectionModel().getSelectedItem() != null) {
             for (Rezeptkopf rez : rezeptkopfController.getAlleRezeptkopf()) {
-                for (Rezeptzutat zutat: rez.getrKoRezeptzutat()) {
-                    if (zutat.getrZuZutat().getZutName().equals(listZutaten.getSelectionModel().getSelectedItem().toString())){
+                for (Rezeptzutat zutat : rez.getrKoRezeptzutat()) {
+                    if (zutat.getrZuZutat().getZutName().equals(listZutaten.getSelectionModel().getSelectedItem().toString())) {
                         zutatInNutzung = true;
                         rezepteMitZutat.add(rez);
                         rezeptAusgabe += rez.getrKoRezeptname() + "\n";
                     }
                 }
             }
-            if (zutatInNutzung){
+            if (zutatInNutzung) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Zutat in Benutzung");
                 alert.setHeaderText("Bevor eine Zutat gelösht werden kann muss sie bitte aus allen Rezepten entfernt werden");
                 alert.setContentText(rezeptAusgabe);
                 alert.showAndWait();
-            }else {
+            } else {
                 zutatenController.löschenZutat(listZutaten.getSelectionModel().getSelectedItem().toString());
                 zutatenController.speichernDatei();
                 textLoeschen();
@@ -216,13 +216,13 @@ public class ZutatHinzufuegenController {
         }
     }
 
-    private void textLoeschen(){
+    private void textLoeschen() {
         textTitel.setText("");
         textMenge.setText("");
         textEinheit.setText("");
     }
 
-    private void textfelderEditierbar(boolean zustand){
+    private void textfelderEditierbar(boolean zustand) {
         textTitel.setEditable(zustand);
         textMenge.setEditable(zustand);
         textEinheit.setEditable(zustand);
@@ -230,7 +230,7 @@ public class ZutatHinzufuegenController {
 
     public void zurueckZuAktuellesRezept(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/RezeptAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Rezeptansicht: " + UIController.uebertrag.getrKoRezeptname());
         stage.setScene(scene);
@@ -240,7 +240,7 @@ public class ZutatHinzufuegenController {
 
     public void kategorienAnzeigen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/resource/KategorienAnsehen.fxml")));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Kochbuch: Kategorien");
         stage.setScene(scene);

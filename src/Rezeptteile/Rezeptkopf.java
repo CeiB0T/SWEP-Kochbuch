@@ -1,6 +1,7 @@
 package Rezeptteile;
 
 import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class Rezeptkopf {
@@ -11,26 +12,26 @@ public class Rezeptkopf {
     private String rKoRezeptinhalt;
     private ArrayList<Rezeptzutat> rKoRezeptzutat;
 
-    public void zutatHinzufügen(Rezeptzutat rezeptzutat){
+    public void zutatHinzufügen(Rezeptzutat rezeptzutat) {
         try {
-            if(rezeptzutat != null){
-            rKoRezeptzutat.add(rezeptzutat); //TODO update Datenbank
+            if (rezeptzutat != null) {
+                rKoRezeptzutat.add(rezeptzutat);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void zutatLöschen(String zutatName){
+    public void zutatLöschen(String zutatName) {
         try {
-            if (zutatName != null && zutatName != ""){
+            if (zutatName != null && zutatName != "") {
                 for (int i = 0; i < rKoRezeptzutat.size(); i++) {
-                    if (rKoRezeptzutat.get(i).getrZuZutat().getZutName().equals(zutatName)){
+                    if (rKoRezeptzutat.get(i).getrZuZutat().getZutName().equals(zutatName)) {
                         rKoRezeptzutat.remove(i);
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -61,16 +62,17 @@ public class Rezeptkopf {
 
     public String zutatenToString() {
         try {
-            if(rKoRezeptzutat.size() > 0) {
+            if (rKoRezeptzutat.size() > 0) {
                 String ret = "";
                 for (Rezeptzutat rezeptzutat : rKoRezeptzutat) {
-                    if(rezeptzutat.getrZuEinheit() == null){
+                    if (rezeptzutat.getrZuEinheit() == null) {
                         ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + "\n";
-                    }else ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + " " + rezeptzutat.getrZuEinheit() + "\n";
+                    } else
+                        ret = rezeptzutat.getrZuZutat().getZutName() + ": " + rezeptzutat.getrZuMenge() + " " + rezeptzutat.getrZuEinheit() + "\n";
                 }
                 return ret;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -92,11 +94,11 @@ public class Rezeptkopf {
         this.rKoRezeptinhalt = rKoRezeptinhalt;
     }
 
-    public String toJSON(){
+    public String toJSON() {
         return new Gson().toJson(this);
     }
 
-    public static Rezeptkopf fromJSON(String json){
+    public static Rezeptkopf fromJSON(String json) {
         Rezeptkopf result = new Gson().fromJson(json, Rezeptkopf.class); //String json wird zu einem Rezeptkopf Objekt konvertiert
         return result;
     }
@@ -115,11 +117,11 @@ public class Rezeptkopf {
                 '}';
     }
 
-    public String listViewString(){
+    public String listViewString() {
         String rezeptInhaltAusgabe = "nein";
-        if (getrKoRezeptinhalt() != null){
+        if (getrKoRezeptinhalt() != null) {
             if (!getrKoRezeptinhalt().isEmpty()) rezeptInhaltAusgabe = "ja";
         }
-        return rKoRezeptname +", anzahl Zutaten: "+ rKoRezeptzutat.size() + ", Anzahl Personen: " + rKoPersonenzahl + ", Inhalt? " + rezeptInhaltAusgabe;
+        return rKoRezeptname + ", anzahl Zutaten: " + rKoRezeptzutat.size() + ", Anzahl Personen: " + rKoPersonenzahl + ", Inhalt? " + rezeptInhaltAusgabe;
     }
 }

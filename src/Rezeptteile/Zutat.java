@@ -18,11 +18,11 @@ public class Zutat {
         this.zutName = zutName; //TODO update Datenbank
     }
 
-    public String toJSON(){
+    public String toJSON() {
         return new Gson().toJson(this);
     }
 
-    public static Zutat fromJSON(String json){
+    public static Zutat fromJSON(String json) {
         Zutat result = new Gson().fromJson(json, Zutat.class); //String json wird zu einem Zutat Objekt konvertiert
         return result;
     }
