@@ -169,7 +169,7 @@ public class ZutatHinzufuegenController {
                 if (!zutatGefunden) {
                     double menge = Double.parseDouble(textMenge.getText().trim());
                     Rezeptzutat neueRezeptzutat = new Rezeptzutat(menge, textEinheit.getText(), zutatenController.getZutat(textTitel.getText().trim()));
-                    zugehoerigerRezeptkopf.zutatHinzufügen(neueRezeptzutat);
+                    zugehoerigerRezeptkopf.zutatHinzufuegen(neueRezeptzutat);
                     textfelderEditierbar(false);
                     rezeptkopfController.speichernDatei();
                 }

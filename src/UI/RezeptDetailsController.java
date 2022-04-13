@@ -201,7 +201,7 @@ public class RezeptDetailsController {
             if (textRezeptName.getText().matches(".*\\S+.*")) {
                 Rezeptkopf rez = rezeptkopfController.getRezeptkopfByName(textRezeptName.getText().trim());
                 String[] strings = listZutaten.getSelectionModel().getSelectedItem().toString().split(":");
-                rez.zutatLöschen(strings[0]);
+                rez.zutatLoeschen(strings[0]);
                 rezeptkopfController.speichernDatei();
                 listZutaten.setItems(zutatenAuflisten(rez));
             }

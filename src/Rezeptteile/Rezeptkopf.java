@@ -12,7 +12,7 @@ public class Rezeptkopf {
     private String rKoRezeptinhalt;
     private ArrayList<Rezeptzutat> rKoRezeptzutat;
 
-    public void zutatHinzufügen(Rezeptzutat rezeptzutat) {
+    public void zutatHinzufuegen(Rezeptzutat rezeptzutat) {
         try {
             if (rezeptzutat != null) {
                 rKoRezeptzutat.add(rezeptzutat);
@@ -22,7 +22,7 @@ public class Rezeptkopf {
         }
     }
 
-    public void zutatLöschen(String zutatName) {
+    public void zutatLoeschen(String zutatName) {
         try {
             if (zutatName != null && zutatName != "") {
                 for (int i = 0; i < rKoRezeptzutat.size(); i++) {
