@@ -25,9 +25,23 @@ Unser Kochbuch ist eine Java-Desktopanwendung in welcher Rezepte gelesen, angele
 
 --- 
 ## Installieren und Starten
+1. Download der Release-Version "Kochbuch Version 1.0" aus diesem Github Projekt
+2. Entpacken der Zip-Datei an einen gewünschten Speicherort
+3. Ausführen des Programms mittels Doppelklick auf die "Kochbuch.bat" Datei 
+4. (Falls die Dateiendung nicht angezeigt wird nach der "Kochbuch" Datei suchen mit zwei grauen Zahnrädern in einem Fenster als Icon)
 
 ### Systemvoraussetzungen
-- Java >= 11
+- Betriebssystem: Windows
+
+### Lieferumfang
+- javafx-sdk-18 (Ordner für die JavaFx Library)
+- jdk (Java Version)
+- SWEP-Kochbuch.jar (Java Programm als jar)
+- Kategorien.json (Daten der Kategorien)
+- Rezeptköpfe.json (Daten der Rezeptköpfe)
+- Zubereitungsmethoden.json (Daten der Zubereitungsmethoden)
+- Zutaten.json (Daten der Zutaten)
+- Kochbuch.bat (Start des Programms)
 
 ---
 ## Benutzung
@@ -150,9 +164,3 @@ Achtung: Eine Zutat kann nur gelöscht werden, wenn sie zuvor aus allen Rezepten
 1. Zutat in der Liste auswählen (anklicken)
 2. Klick auf *Löschen*
 3. Wenn die Zutat in Verwendung ist, aus allen Rezepten entfernen und *Löschen* anschließend nochmal versuchen.
-
-
-
-
-
-
