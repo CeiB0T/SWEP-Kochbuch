@@ -36,7 +36,7 @@ Unser Kochbuch ist eine Java-Desktopanwendung in welcher Rezepte gelesen, angele
 Von der Startseite können folgende Aktionen ausgeführt werden:
 1. Definitionsbuch-Menü öffnen -> ==Klick auf Button *Definitionsbuch*==
 2. Kategorien-Menü öffnen -> ==Klick auf Button *Kategorie*==
-3. Neues Rezept erstellen ==Klick auf Button *neues Rezept*==
+3. Neues Rezept erstellen -> ==Klick auf Button *neues Rezept*==
 4. Anwendung schließen -> ==Klick auf Button *Verlassen* oder wie gewohnt über das "Kreutzchen"==
 5. Bestehendes Rezept öffnen
 6. Rezepte Suchen
